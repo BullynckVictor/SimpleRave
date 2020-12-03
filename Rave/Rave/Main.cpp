@@ -12,7 +12,7 @@ public:
 private:
 	void Update(const float dt) override
 	{
-		rave_throw_message("hello world");
+		rave_assert_info(1 == 0, L"Now you know that ain't right!");
 	}
 };
 

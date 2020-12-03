@@ -20,7 +20,7 @@ namespace rave
 	{
 		std::locale loc;
 		std::wstring ret;
-		const size_t len = string.size() + 1;
+		const size_t len = string.size();
 		ret.resize(len);
 
 		std::use_facet<std::ctype<wchar_t>>(loc).widen(string.c_str(),
