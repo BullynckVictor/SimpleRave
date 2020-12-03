@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Graphics\Source\SwapChain.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\RenderTarget.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Graphics.cpp" />
     <ClCompile Include="Engine\Source\Application.cpp" />
     <ClCompile Include="Engine\Utilities\Source\Exception.cpp" />
@@ -28,6 +30,8 @@
   <ItemGroup>
     <ClInclude Include="Engine\Graphics\Include\DirectX.h" />
     <ClInclude Include="Engine\Graphics\Include\Graphics.h" />
+    <ClInclude Include="Engine\Graphics\Include\RenderTarget.h" />
+    <ClInclude Include="Engine\Graphics\Include\SwapChain.h" />
     <ClInclude Include="Engine\Include\Application.h" />
     <ClInclude Include="Engine\Include\RaveEngine.h" />
     <ClInclude Include="Engine\Include\Windows.h" />

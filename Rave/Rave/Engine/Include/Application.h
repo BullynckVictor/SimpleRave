@@ -8,6 +8,8 @@ namespace rave
 	{
 	public:
 		Application(const wchar_t* windowName, const int width, const int height);
+		virtual ~Application() {}
+
 		void Go() noexcept;
 
 	protected:

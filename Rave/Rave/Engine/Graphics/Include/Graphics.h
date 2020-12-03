@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/Graphics/Include/DirectX.h"
+#include "Engine/Utilities/Include/Exception.h"
 
 namespace rave
 {
@@ -14,5 +15,16 @@ namespace rave
 	private:
 		ComPtr<ID3D11Device>		pDevice;
 		ComPtr<ID3D11DeviceContext>	pContext;
+		ComPtr<IDXGIFactory>		pFactory;
+
+		friend class GraphicsFriend;
+	};
+
+	class GraphicsFriend
+	{
+	protected:
+		static ComPtr<ID3D11Device>&		GetDevice  (Graphics& gfx) noexcept;
+		static ComPtr<ID3D11DeviceContext>&	GetContext (Graphics& gfx) noexcept;
+		static ComPtr<IDXGIFactory>&		GetFactory (Graphics& gfx) noexcept;
 	};
 }

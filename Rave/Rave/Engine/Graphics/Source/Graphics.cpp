@@ -1,15 +1,16 @@
 #include "Engine/Graphics/Include/Graphics.h"
-#include "Engine/Utilities/Include/Exception.h"
 
 rave::Graphics::Graphics()
 {
+	HRESULT hr;
+
 #ifndef NDEBUG
-	static constexpr unsigned int createFlags = D3D11_CREATE_DEVICE_DEBUG;
+	static constexpr unsigned int createFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT | D3D11_CREATE_DEVICE_DEBUG;
 #else
-	static constexpr unsigned int createFlags = 0u;
+	static constexpr unsigned int createFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 #endif
 	
-	D3D11CreateDevice(
+	rave_check_hr( D3D11CreateDevice(
 		NULL,
 		D3D_DRIVER_TYPE_HARDWARE,
 		NULL,
@@ -20,13 +21,20 @@ rave::Graphics::Graphics()
 		&pDevice,
 		NULL,
 		&pContext
-	);
+	));
 }
 
-void rave::Graphics::BeginDraw()
+rave::ComPtr<ID3D11Device>& rave::GraphicsFriend::GetDevice(Graphics& gfx) noexcept
 {
+	return gfx.pDevice;
 }
 
-void rave::Graphics::EndDraw()
+rave::ComPtr<ID3D11DeviceContext>& rave::GraphicsFriend::GetContext(Graphics& gfx) noexcept
 {
+	return gfx.pContext;
+}
+
+rave::ComPtr<IDXGIFactory>& rave::GraphicsFriend::GetFactory(Graphics& gfx) noexcept
+{
+	return gfx.pFactory;
 }
