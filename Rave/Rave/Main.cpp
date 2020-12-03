@@ -17,6 +17,5 @@ private:
 
 int rave_main()
 {
-	TestApp app;
-	app.Go();
+	rave::Execute<TestApp>();
 }

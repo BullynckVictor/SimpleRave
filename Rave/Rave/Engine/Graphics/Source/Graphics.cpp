@@ -22,6 +22,8 @@ rave::Graphics::Graphics()
 		NULL,
 		&pContext
 	));
+
+	rave_check_hr(CreateDXGIFactory(__uuidof(IDXGIFactory), &pFactory));
 }
 
 rave::ComPtr<ID3D11Device>& rave::GraphicsFriend::GetDevice(Graphics& gfx) noexcept

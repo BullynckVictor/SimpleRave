@@ -66,6 +66,7 @@ namespace rave
 #define rave_throw_hr(hr) throw rave::HrException(hr, __FILE__, __LINE__)
 #define rave_throw_file(file) throw rave::FileException(file, __FILE__, __LINE__)
 #define rave_throw_message(info) throw rave::InfoException(info, __FILE__, __LINE__)
+#define rave_throw_last() throw rave::HrException((HRESULT)GetLastError(), __FILE__, __LINE__)
 
 #define rave_check_hr(hrCall) if(FAILED(hr = (hrCall))) throw rave::HrException(hr, __FILE__, __LINE__)
 #define rave_check_file(file) if(!rave::FileExists(file)) throw rave::FileException(file, __FILE__, __LINE__)

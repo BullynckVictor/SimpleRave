@@ -1,27 +1,14 @@
 #include "Engine/Include/Application.h"
 #include "Engine/Utilities/Include/Exception.h"
 
-rave::Application::Application(const wchar_t* windowName, const int width, const int height)
+rave::Application::Application(const wchar_t* windowName, const int width, const int height, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
+	:
+	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className)
 {
 }
 
-void rave::Application::Go() noexcept
+void rave::Application::Go()
 {
-	try
-	{
-		while(true)
-			Update(ft.Mark());
-	}
-	catch (rave::Exception& e)
-	{
-		MessageBox(NULL, e.whide_what(), L"rave::Exception", MB_OK | MB_ICONEXCLAMATION);
-	}
-	catch (std::exception& e)
-	{
-		MessageBox(NULL, Widen(e.what()).c_str(), L"std::exception", MB_OK | MB_ICONEXCLAMATION);
-	}
-	catch (...)
-	{
-		MessageBox(NULL, L"Unknown type caught", L"Unknown exception", MB_OK | MB_ICONEXCLAMATION);
-	}
+	while(wnd.HandleMessages())
+		Update(ft.Mark());
 }

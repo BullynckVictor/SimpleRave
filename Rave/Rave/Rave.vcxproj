@@ -23,6 +23,9 @@
     <ClCompile Include="Engine\Graphics\Source\RenderTarget.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Graphics.cpp" />
     <ClCompile Include="Engine\Source\Application.cpp" />
+    <ClCompile Include="Engine\Source\Keyboard.cpp" />
+    <ClCompile Include="Engine\Source\Mouse.cpp" />
+    <ClCompile Include="Engine\Source\Window.cpp" />
     <ClCompile Include="Engine\Utilities\Source\Exception.cpp" />
     <ClCompile Include="Engine\Utilities\Source\Timer.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -33,7 +36,10 @@
     <ClInclude Include="Engine\Graphics\Include\RenderTarget.h" />
     <ClInclude Include="Engine\Graphics\Include\SwapChain.h" />
     <ClInclude Include="Engine\Include\Application.h" />
+    <ClInclude Include="Engine\Include\Keyboard.h" />
+    <ClInclude Include="Engine\Include\Mouse.h" />
     <ClInclude Include="Engine\Include\RaveEngine.h" />
+    <ClInclude Include="Engine\Include\Window.h" />
     <ClInclude Include="Engine\Include\Windows.h" />
     <ClInclude Include="Engine\Utilities\Include\Color.h" />
     <ClInclude Include="Engine\Utilities\Include\Exception.h" />
