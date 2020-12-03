@@ -1,8 +1,23 @@
 #pragma once
-#include <iostream>
+#include "Engine/Header/Application.h"
 
-int main()
+class TestApp : public rave::Application
 {
-	std::cout << "Hello World!\n";
-	std::cin.ignore();
+public:
+	TestApp()
+		:
+		Application(L"yes", 900, 600)
+	{}
+
+private:
+	void Update(const float dt) override
+	{
+		rave_throw_message("hello world");
+	}
+};
+
+int rave_main()
+{
+	TestApp app;
+	app.Go();
 }
