@@ -19,15 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Graphics\Source\Graphics.cpp" />
     <ClCompile Include="Engine\Source\Application.cpp" />
     <ClCompile Include="Engine\Utilities\Source\Exception.cpp" />
+    <ClCompile Include="Engine\Utilities\Source\Timer.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Header\Application.h" />
-    <ClInclude Include="Engine\Header\Windows.h" />
-    <ClInclude Include="Engine\Utilities\Header\Exception.h" />
-    <ClInclude Include="Engine\Utilities\Header\String.h" />
+    <ClInclude Include="Engine\Graphics\Include\DirectX.h" />
+    <ClInclude Include="Engine\Graphics\Include\Graphics.h" />
+    <ClInclude Include="Engine\Include\Application.h" />
+    <ClInclude Include="Engine\Include\RaveEngine.h" />
+    <ClInclude Include="Engine\Include\Windows.h" />
+    <ClInclude Include="Engine\Utilities\Include\Color.h" />
+    <ClInclude Include="Engine\Utilities\Include\Exception.h" />
+    <ClInclude Include="Engine\Utilities\Include\String.h" />
+    <ClInclude Include="Engine\Utilities\Include\Timer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

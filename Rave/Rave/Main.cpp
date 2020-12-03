@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/Header/Application.h"
+#include "Engine/Include/RaveEngine.h"
 
 class TestApp : public rave::Application
 {
@@ -12,7 +12,6 @@ public:
 private:
 	void Update(const float dt) override
 	{
-		rave_assert_info(1 == 0, L"Now you know that ain't right!");
 	}
 };
 

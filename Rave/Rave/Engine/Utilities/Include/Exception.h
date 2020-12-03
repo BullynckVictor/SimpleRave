@@ -1,8 +1,8 @@
 #pragma once
 #include <exception>
 #include <sstream>
-#include "Engine/Utilities/Header/String.h"
-#include "Engine/Header/Windows.h"
+#include "Engine/Utilities/Include/String.h"
+#include "Engine/Include/Windows.h"
 
 namespace rave
 {

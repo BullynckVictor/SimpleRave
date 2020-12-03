@@ -1,4 +1,5 @@
-#include "Engine/Header/Application.h"
+#include "Engine/Include/Application.h"
+#include "Engine/Utilities/Include/Exception.h"
 
 rave::Application::Application(const wchar_t* windowName, const int width, const int height)
 {
@@ -8,7 +9,8 @@ void rave::Application::Go() noexcept
 {
 	try
 	{
-		Update(0);
+		while(true)
+			Update(ft.Mark());
 	}
 	catch (rave::Exception& e)
 	{

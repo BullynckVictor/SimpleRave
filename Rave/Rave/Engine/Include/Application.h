@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/Header/Windows.h"
-#include "Engine/Utilities/Header/Exception.h"
+#include "Engine/Utilities/Include/Timer.h"
+#include "Engine/Graphics/Include/Graphics.h"
 
 namespace rave
 {
@@ -13,6 +13,10 @@ namespace rave
 	protected:
 		virtual void Update(const float dt) = 0;
 
+	protected:
+		Graphics gfx;
+
 	private:
+		Timer ft;
 	};
 }
