@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/Utilities/Include/Timer.h"
+#include "Engine/Utilities/Include/PerformanceProfiler.h"
 #include "Engine/Graphics/Include/Graphics.h"
 #include "Engine/Include/Window.h"
 
@@ -19,6 +20,7 @@ namespace rave
 	private:
 		Graphics gfx;
 		Timer ft;
+		PerformanceProfiler profiler;
 
 	protected:
 		Window wnd;

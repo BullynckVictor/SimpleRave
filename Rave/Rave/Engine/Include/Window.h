@@ -12,8 +12,15 @@ namespace rave
 		Window(Graphics& gfx, const wchar_t* windowName, const int width, const int height, const bool useMouseEvents = false, const bool useMouseRawDeltas = false, const wchar_t* className = L"RaveEngine Direct3D Class");
 		~Window() noexcept;
 
+		void Clear() noexcept;
+		void Present();
+		void Bind();
+
 		int GetWidth() const noexcept;
 		int GetHeight() const noexcept;
+
+		void SetVSync(const bool vsync) noexcept;
+		bool GetVSync() const noexcept;
 
 		bool HandleMessages() noexcept;
 

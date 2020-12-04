@@ -19,22 +19,36 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Graphics\Source\Buffer.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\IndexBuffer.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\InputLayout.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\PixelShader.cpp" />
     <ClCompile Include="Engine\Graphics\Source\SwapChain.cpp" />
     <ClCompile Include="Engine\Graphics\Source\RenderTarget.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Graphics.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\VertexShader.cpp" />
     <ClCompile Include="Engine\Source\Application.cpp" />
     <ClCompile Include="Engine\Source\Keyboard.cpp" />
     <ClCompile Include="Engine\Source\Mouse.cpp" />
     <ClCompile Include="Engine\Source\Window.cpp" />
     <ClCompile Include="Engine\Utilities\Source\Exception.cpp" />
+    <ClCompile Include="Engine\Utilities\Source\PerformanceProfiler.cpp" />
     <ClCompile Include="Engine\Utilities\Source\Timer.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\TestApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Graphics\Include\Buffer.h" />
+    <ClInclude Include="Engine\Graphics\Include\ConstantBuffer.h" />
     <ClInclude Include="Engine\Graphics\Include\DirectX.h" />
     <ClInclude Include="Engine\Graphics\Include\Graphics.h" />
+    <ClInclude Include="Engine\Graphics\Include\IndexBuffer.h" />
+    <ClInclude Include="Engine\Graphics\Include\InputLayout.h" />
+    <ClInclude Include="Engine\Graphics\Include\PixelShader.h" />
     <ClInclude Include="Engine\Graphics\Include\RenderTarget.h" />
     <ClInclude Include="Engine\Graphics\Include\SwapChain.h" />
+    <ClInclude Include="Engine\Graphics\Include\VertexBuffer.h" />
+    <ClInclude Include="Engine\Graphics\Include\VertexShader.h" />
     <ClInclude Include="Engine\Include\Application.h" />
     <ClInclude Include="Engine\Include\Keyboard.h" />
     <ClInclude Include="Engine\Include\Mouse.h" />
@@ -43,8 +57,10 @@
     <ClInclude Include="Engine\Include\Windows.h" />
     <ClInclude Include="Engine\Utilities\Include\Color.h" />
     <ClInclude Include="Engine\Utilities\Include\Exception.h" />
+    <ClInclude Include="Engine\Utilities\Include\PerformanceProfiler.h" />
     <ClInclude Include="Engine\Utilities\Include\String.h" />
     <ClInclude Include="Engine\Utilities\Include\Timer.h" />
+    <ClInclude Include="Include\TestApp.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -117,7 +133,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Rave\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,7 +149,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Rave\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -8,14 +8,14 @@ namespace rave
 	public:
 		SwapChain(Graphics& gfx, HWND hwnd, unsigned int width, unsigned int height);
 
-		void Present();
+		void Present() noexcept;
 
 		void SetVSync(const bool vsync) noexcept;
 		bool GetVSync() const noexcept;
 
 	private:
 		ComPtr<IDXGISwapChain> pSwap;
-		unsigned int sync;
+		unsigned int sync = 1;
 
 		friend class RenderTarget;
 	};

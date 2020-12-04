@@ -29,10 +29,10 @@ rave::SwapChain::SwapChain(Graphics& gfx, HWND hwnd, unsigned int width, unsigne
 	));
 }
 
-void rave::SwapChain::Present()
+void rave::SwapChain::Present() noexcept
 {
-	HRESULT hr;
-	rave_check_hr( pSwap->Present(sync, 0) );
+	HRESULT hr = pSwap->Present(sync, 0);
+	assert( SUCCEEDED( hr ) && "Presenting Backbuffer Failed" );
 }
 
 void rave::SwapChain::SetVSync(const bool vsync) noexcept

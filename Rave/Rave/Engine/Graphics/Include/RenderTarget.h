@@ -11,7 +11,7 @@ namespace rave
 		RenderTarget(Graphics& gfx, SwapChain& swap);
 
 		void Bind(Graphics& gfx);
-		void Clear(Graphics& gfx, const FColor& background);
+		void Clear(Graphics& gfx, const FColor& background) noexcept;
 		
 	private:
 		ComPtr<ID3D11RenderTargetView> pTarget;

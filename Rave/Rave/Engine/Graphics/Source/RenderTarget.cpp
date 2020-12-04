@@ -25,7 +25,7 @@ void rave::RenderTarget::Bind(Graphics& gfx)
 	GetContext(gfx)->OMSetRenderTargets(0u, pTarget.GetAddressOf(), NULL);
 }
 
-void rave::RenderTarget::Clear(Graphics& gfx, const FColor& background)
+void rave::RenderTarget::Clear(Graphics& gfx, const FColor& background) noexcept
 {
 	GetContext(gfx)->ClearRenderTargetView(pTarget.Get(), background.Get());
 }

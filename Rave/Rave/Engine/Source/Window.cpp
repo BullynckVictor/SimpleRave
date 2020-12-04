@@ -24,6 +24,8 @@ rave::Window::Window(Graphics& gfx, const wchar_t* windowName, const int width, 
 
     if (!RegisterRawInputDevices(rid, 1u, sizeof(RAWINPUTDEVICE)))
         rave_throw_last();
+
+    Bind();
 }
 
 HWND rave::Window::CreateHWND(const HINSTANCE hInst, const wchar_t* windowName, const int width, const int height, const wchar_t* className, const Window* _this)
@@ -72,6 +74,21 @@ rave::Window::~Window()
     UnregisterClassW(className.c_str(), hInstance);
 }
 
+void rave::Window::Clear() noexcept
+{
+    target.Clear(gfx, background);
+}
+
+void rave::Window::Present()
+{
+    swap.Present();
+}
+
+void rave::Window::Bind()
+{
+    target.Bind(gfx);
+}
+
 bool rave::Window::HandleMessages() noexcept
 {
     MSG msg = { };
@@ -104,6 +121,16 @@ int rave::Window::GetWidth() const noexcept
 int rave::Window::GetHeight() const noexcept
 {
     return height;
+}
+
+void rave::Window::SetVSync(const bool vsync) noexcept
+{
+    swap.SetVSync(vsync);
+}
+
+bool rave::Window::GetVSync() const noexcept
+{
+    return swap.GetVSync();
 }
 
 void rave::Window::EnableCursor() noexcept
