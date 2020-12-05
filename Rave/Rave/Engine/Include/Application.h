@@ -22,6 +22,8 @@ namespace rave
 		virtual void Update(const float dt) = 0;
 		virtual void Initialize();
 
+		Vector2 MousePos() const noexcept;
+
 	private:
 		Timer ft;
 		PerformanceProfiler profiler;

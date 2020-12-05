@@ -23,15 +23,23 @@ namespace rave
 	{
 	public:
 		Transform() noexcept;
+		Transform(const Matrix& matrix) noexcept;
 		Transform(const Vector2& pos, const Vector2& scale, const float rotation) noexcept;
 
 		Matrix& Concatonate() noexcept;
+
+		void TransformPoint(Vector2& point) const noexcept;
+		Vector2 GetTransformedPoint(Vector2 point) const noexcept;
+
+		void TransformPointView(Vector2& point) noexcept;
+		Vector2 GetTransformedPointView(Vector2 point) noexcept;
 
 		Vector2 position;
 		Vector2 scale;
 		float rotation;
 		
 		Matrix viewMatrix;
+		Matrix worldMatrix;
 
 		static Camera camera;
 	};

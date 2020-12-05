@@ -7,6 +7,7 @@ namespace rave
 {
 	class Mouse
 	{
+	public:
 		Mouse(const bool useEvents, const bool useRawDeltas);
 
 		struct RawDelta

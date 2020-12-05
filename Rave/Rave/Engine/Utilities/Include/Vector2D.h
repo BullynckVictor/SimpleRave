@@ -58,6 +58,14 @@ namespace rave
 		{
 			return { x - rhs.x, y - rhs.y };
 		}
+		Vector2D_t  operator*  (const Vector2D_t& rhs) const
+		{
+			return { x * rhs.x, y * rhs.y };
+		}
+		Vector2D_t  operator/  (const Vector2D_t& rhs) const
+		{
+			return { x / rhs.x, y / rhs.y };
+		}
 		Vector2D_t& operator+= (const Vector2D_t& rhs)
 		{
 			*this = *this + rhs;
@@ -66,6 +74,16 @@ namespace rave
 		Vector2D_t& operator-= (const Vector2D_t& rhs)
 		{
 			*this = *this - rhs;
+			return *this;
+		}
+		Vector2D_t& operator*= (const Vector2D_t& rhs)
+		{
+			*this = *this * rhs;
+			return *this;
+		}
+		Vector2D_t& operator/= (const Vector2D_t& rhs)
+		{
+			*this = *this / rhs;
 			return *this;
 		}
 
@@ -123,6 +141,8 @@ namespace rave
 		Vector2D_t Normalized() const
 		{
 			T length = Length();
+			if (length == 0)
+				return 0;
 			return { x / length, y / length };
 		}
 		void Normalize()

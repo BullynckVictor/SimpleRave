@@ -76,14 +76,14 @@ rave::Shape rave::Triangle(Graphics& gfx, const Vector2& pos, const float rotati
 	return Shape(
 		gfx,
 		vertices,
-		Transform(pos, scale, rotation),
+		Transform(pos, scale, Radian(rotation)),
 		color,
 		fill,
 		write
 	);
 }
 
-rave::Shape rave::Rectangle(Graphics& gfx, const Vector2& pos, const float width, const float height, const float rotation, const FColor color, const bool fill, const bool write)
+rave::Shape rave::Rect(Graphics& gfx, const Vector2& pos, const float width, const float height, const float rotation, const FColor color, const bool fill, const bool write)
 {
 	std::vector<Vertex> vertices;
 
@@ -106,7 +106,7 @@ rave::Shape rave::Rectangle(Graphics& gfx, const Vector2& pos, const float width
 	return Shape(
 		gfx,
 		vertices,
-		Transform(pos, 1, rotation),
+		Transform(pos, 1, Radian(rotation)),
 		color,
 		fill,
 		write

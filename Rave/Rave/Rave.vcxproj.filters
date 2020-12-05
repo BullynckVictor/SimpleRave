@@ -167,9 +167,13 @@
     <ClInclude Include="Engine\Graphics\Include\ViewPort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\ExampleApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Engine\Graphics\Shaders\PositionVS.hlsl" />
     <FxCompile Include="Engine\Graphics\Shaders\ColorPS.hlsl" />
+    <FxCompile Include="Engine\Graphics\Shaders\TransformVS.hlsl" />
   </ItemGroup>
 </Project>

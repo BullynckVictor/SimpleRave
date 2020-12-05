@@ -34,7 +34,27 @@ void rave::Application::Initialize()
 {
 	memory.inputLayoutCodex.Add( "position", InputLayout( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex))}));
 	memory.vertexShaderCodex.Add("position", VertexShader(gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso"));
+	memory.vertexShaderCodex.Add("transform", VertexShader(gfx, L"Engine/Graphics/ShaderBins/TransformVS.cso"));
 	memory.pixelShaderCodex.Add("color", PixelShader(gfx, L"Engine/Graphics/ShaderBins/ColorPS.cso"));
 
 	Shape::StaticInitialize(gfx, memory);
+}
+
+rave::Vector2 rave::Application::MousePos() const noexcept
+{
+	Vector2 pos = { (float)wnd.mouse.GetPosX(), (float)wnd.mouse.GetPosY() };
+	pos /= { (float)wnd.GetWidth(), (float)wnd.GetHeight() };
+	pos.x = pos.x * 2 - 1;
+	pos.y = -pos.y * 2 + 1;
+	pos *= camera.size;
+
+	rave::Matrix mat =
+		DirectX::XMMatrixScaling(camera.zoom, camera.zoom, 1)
+		* DirectX::XMMatrixRotationZ(camera.rotation)
+		* DirectX::XMMatrixTranslation(camera.position.x, camera.position.y, 0)
+		;
+
+	rave::Transform(mat).TransformPointView(pos);
+
+	return pos;
 }

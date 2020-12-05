@@ -7,7 +7,7 @@ namespace rave
 	class Shape : public GraphicsFriend
 	{
 	public:
-		Shape(Graphics& gfx, const std::vector<Vertex>& vertices, const Transform& transform, const FColor& color, const bool fill = true, const bool write = false);
+		Shape(Graphics& gfx, const std::vector<Vertex>& vertices, const Transform& transform, const FColor& color, const bool fill = true, const bool write = true);
 
 		void Bind(Graphics& gfx);
 		static void StaticInitialize(Graphics& gfx, GraphicsMemory& memory);
@@ -29,6 +29,6 @@ namespace rave
 		static VertexShader* pVertexShader;
 	};
 
-	Shape Triangle(Graphics& gfx, const Vector2& pos, const float rotation, const float scale, const FColor color, const bool fill = true, const bool write = false);
-	Shape Rectangle(Graphics& gfx, const Vector2& pos, const float width, const float height, const float rotation, const FColor color, const bool fill = true, const bool write = false);
+	Shape Triangle(Graphics& gfx, const Vector2& pos, const float rotation, const float scale, const FColor color, const bool fill = true, const bool write = true);
+	Shape Rect(Graphics& gfx, const Vector2& pos, const float width, const float height, const float rotation, const FColor color, const bool fill = true, const bool write = true);
 }

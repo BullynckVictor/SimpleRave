@@ -81,19 +81,20 @@ void rave::Mouse::ClearDeltaQueue() noexcept
 
 void rave::Mouse::AddEvent(const Event::Type type, const POINTS p, const WPARAM wParam)
 {
-    rave_assert_info(useEvents, L"Mouse Events are disabled, change this value in the rave::Mouse constructor");
+    if (useEvents)
+    {
+        Mouse::Event e;
+        e.type = type;
+        e.x = p.x;
+        e.y = p.y;
+        e.leftPressed = wParam & MK_LBUTTON;
+        e.middlePressed = wParam & MK_MBUTTON;
+        e.rightPressed = wParam & MK_RBUTTON;
+        e.ctrlPressed = wParam & MK_CONTROL;
+        e.shiftPressed = wParam & MK_SHIFT;
 
-    Mouse::Event e;
-    e.type = type;
-    e.x = p.x;
-    e.y = p.y;
-    e.leftPressed = wParam & MK_LBUTTON;
-    e.middlePressed = wParam & MK_MBUTTON;
-    e.rightPressed = wParam & MK_RBUTTON;
-    e.ctrlPressed = wParam & MK_CONTROL;
-    e.shiftPressed = wParam & MK_SHIFT;
-
-    events.push(e);
+        events.push(e);
+    }
 }
 
 rave::Mouse::Event::Event()

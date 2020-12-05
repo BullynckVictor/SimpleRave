@@ -11,4 +11,6 @@ private:
 
 private:
 	rave::Shape shape;
+	rave::Shape cursor;
+	float r = 0.0f;
 };
