@@ -1,6 +1,7 @@
 #include "Engine/Include/Window.h"
 #include "Engine/Graphics/Include/ViewPort.h"
 #include "Engine/Include/Transform.h"
+#include "resource.h"
 
 rave::Window::Window(Graphics& gfx, const wchar_t* windowName, const int width, const int height, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
 	:
@@ -38,8 +39,8 @@ HWND rave::Window::CreateHWND(const HINSTANCE hInst, const wchar_t* windowName, 
     wc.style = CS_OWNDC;
     wc.lpfnWndProc = StaticWindowProcSetup;
     wc.hInstance = hInst;
-//    wc.hIcon = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 64, 64, 0));
-    wc.hIcon = NULL;
+    wc.hIcon = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, ::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON), 0));
+    wc.hIconSm = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0));
     wc.hCursor = NULL;
     wc.lpszClassName = className;
 
@@ -52,9 +53,7 @@ HWND rave::Window::CreateHWND(const HINSTANCE hInst, const wchar_t* windowName, 
     wr.bottom = height + wr.top;
     DWORD style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
     if (AdjustWindowRect(&wr, style, FALSE) == 0)
-    {
-        throw rave::HrException(GetLastError(), __FILE__, __LINE__);
-    }
+        rave_throw_last();
 
     hwnd = CreateWindow(
         className, windowName, style,

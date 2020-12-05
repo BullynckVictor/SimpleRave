@@ -58,3 +58,39 @@ rave::Vector2 rave::Application::MousePos() const noexcept
 
 	return pos;
 }
+
+void rave::Application::ControllCamera(const float dt, const float moveSpeed, const float rotationSpeed, const float scrollSpeed) noexcept
+{
+	Vector2 delta;
+
+	for (size_t c = 0; c < 255; c++)
+	{
+		if (wnd.kbd.KeyIsPressed((char)c))
+			switch (c)
+			{
+			case 'Q':
+			case VK_LEFT:
+				delta.x -= 1;
+				break;
+			case 'D':
+			case VK_RIGHT:
+				delta.x += 1;
+				break;
+			case 'Z':
+			case VK_UP:
+				delta.y += 1;
+				break;
+			case 'S':
+			case VK_DOWN:
+				delta.y -= 1;
+				break;
+			case 'A':
+				camera.rotation += rotationSpeed * dt;
+				break;
+			case 'E':
+				camera.rotation -= rotationSpeed * dt;
+			}
+	}
+	camera.position += Transform(0, 1, -camera.rotation).GetTransformedPoint(delta.Normalized()) * moveSpeed * dt;
+	camera.zoom += camera.zoom * -(float)wnd.mouse.GetScrollDelta() / scrollSpeed;
+}

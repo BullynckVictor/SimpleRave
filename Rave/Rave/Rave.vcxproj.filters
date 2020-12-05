@@ -170,10 +170,23 @@
     <ClInclude Include="Include\ExampleApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Engine\Graphics\Shaders\PositionVS.hlsl" />
     <FxCompile Include="Engine\Graphics\Shaders\ColorPS.hlsl" />
     <FxCompile Include="Engine\Graphics\Shaders\TransformVS.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Rave.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Engine\icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

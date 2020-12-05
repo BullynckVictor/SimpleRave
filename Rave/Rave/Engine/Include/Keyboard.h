@@ -2,6 +2,8 @@
 #include <bitset>
 #include <queue>
 #include <optional>
+#include "Engine/Include/Windows.h"
+#include "Engine/Utilities/Include/Exception.h"	
 
 namespace rave
 {
@@ -18,7 +20,7 @@ namespace rave
 			const unsigned char key;
 			const bool pressed;
 		};
-		bool KeyIsPressed(const unsigned char key);
+		bool KeyIsPressed(const unsigned char key) const;
 		const std::optional<Event> GetKeyEvent();
 		const std::vector<Event> GetAllEvents();
 		const std::optional<wchar_t>  GetChar();

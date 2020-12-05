@@ -72,6 +72,7 @@
     <ClInclude Include="Engine\Utilities\Include\Vector2D.h" />
     <ClInclude Include="Include\ExampleApp.h" />
     <ClInclude Include="Include\TestApp.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Engine\Graphics\Shaders\ColorPS.hlsl">
@@ -92,6 +93,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Rave.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Engine\icon.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -1,6 +1,6 @@
 #include "Engine/Include/Keyboard.h"
 
-bool rave::Keyboard::KeyIsPressed(const unsigned char key)
+bool rave::Keyboard::KeyIsPressed(const unsigned char key) const
 {
     return pressedKeys.test((size_t)key);
 }

@@ -23,6 +23,7 @@ namespace rave
 		virtual void Initialize();
 
 		Vector2 MousePos() const noexcept;
+		void ControllCamera(const float dt, const float moveSpeed = 1.0f, const float rotationSpeed = 1.0f, const float scrollSpeed = 15.0f) noexcept;
 
 	private:
 		Timer ft;
