@@ -3,6 +3,10 @@
 #include "Engine/Utilities/Include/PerformanceProfiler.h"
 #include "Engine/Graphics/Include/Graphics.h"
 #include "Engine/Include/Window.h"
+#include "Engine/Include/MemoryManager.h"
+
+#include "Engine/Drawables/Include/Drawable.h"
+#include "Engine/Drawables/Include/Shape.h"
 
 namespace rave
 {
@@ -16,14 +20,16 @@ namespace rave
 
 	protected:
 		virtual void Update(const float dt) = 0;
+		virtual void Initialize();
 
 	private:
-		Graphics gfx;
 		Timer ft;
 		PerformanceProfiler profiler;
 
 	protected:
+		Graphics gfx;
 		Window wnd;
+		GraphicsMemory memory;
 	};
 
 	template<typename T>

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Drawables\Source\Shape.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\ViewPort.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Buffer.cpp" />
     <ClCompile Include="Engine\Graphics\Source\IndexBuffer.cpp" />
     <ClCompile Include="Engine\Graphics\Source\InputLayout.cpp" />
@@ -30,6 +32,7 @@
     <ClCompile Include="Engine\Source\Application.cpp" />
     <ClCompile Include="Engine\Source\Keyboard.cpp" />
     <ClCompile Include="Engine\Source\Mouse.cpp" />
+    <ClCompile Include="Engine\Source\Transform.cpp" />
     <ClCompile Include="Engine\Source\Window.cpp" />
     <ClCompile Include="Engine\Utilities\Source\Exception.cpp" />
     <ClCompile Include="Engine\Utilities\Source\PerformanceProfiler.cpp" />
@@ -38,6 +41,8 @@
     <ClCompile Include="Source\TestApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Drawables\Include\Drawable.h" />
+    <ClInclude Include="Engine\Drawables\Include\Shape.h" />
     <ClInclude Include="Engine\Graphics\Include\Buffer.h" />
     <ClInclude Include="Engine\Graphics\Include\ConstantBuffer.h" />
     <ClInclude Include="Engine\Graphics\Include\DirectX.h" />
@@ -49,8 +54,12 @@
     <ClInclude Include="Engine\Graphics\Include\SwapChain.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexBuffer.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexShader.h" />
+    <ClInclude Include="Engine\Graphics\Include\ViewPort.h" />
     <ClInclude Include="Engine\Include\Application.h" />
+    <ClInclude Include="Engine\Include\Transform.h" />
+    <ClInclude Include="Engine\Utilities\Include\Codex.h" />
     <ClInclude Include="Engine\Include\Keyboard.h" />
+    <ClInclude Include="Engine\Include\MemoryManager.h" />
     <ClInclude Include="Engine\Include\Mouse.h" />
     <ClInclude Include="Engine\Include\RaveEngine.h" />
     <ClInclude Include="Engine\Include\Window.h" />
@@ -60,7 +69,22 @@
     <ClInclude Include="Engine\Utilities\Include\PerformanceProfiler.h" />
     <ClInclude Include="Engine\Utilities\Include\String.h" />
     <ClInclude Include="Engine\Utilities\Include\Timer.h" />
+    <ClInclude Include="Engine\Utilities\Include\Vector2D.h" />
     <ClInclude Include="Include\TestApp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Engine\Graphics\Shaders\ColorPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Engine\Graphics\Shaders\PositionVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -139,6 +163,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <FxCompile>
+      <ObjectFileOutput>$(ProjectDir)Engine\Graphics\ShaderBins\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -157,6 +184,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <FxCompile>
+      <ObjectFileOutput>$(ProjectDir)Engine\Graphics\ShaderBins\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

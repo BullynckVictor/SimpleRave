@@ -5,6 +5,7 @@ rave::Application::Application(const wchar_t* windowName, const int width, const
 	:
 	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className)
 {
+	Initialize();
 }
 
 void rave::Application::Go()
@@ -26,4 +27,13 @@ void rave::Application::Go()
 		profiler.EndSection("Draw");
 		profiler.StartSection("Windows");
 	}
+}
+
+void rave::Application::Initialize()
+{
+	memory.inputLayoutCodex.Add( "position", InputLayout( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex))}));
+	memory.vertexShaderCodex.Add("position", VertexShader(gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso"));
+	memory.pixelShaderCodex.Add("color", PixelShader(gfx, L"Engine/Graphics/ShaderBins/ColorPS.cso"));
+
+	Shape::StaticInitialize(gfx, memory);
 }

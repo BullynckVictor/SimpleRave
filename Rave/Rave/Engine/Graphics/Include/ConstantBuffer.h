@@ -30,12 +30,12 @@ namespace rave
 
 		void BindToPixelShader(Graphics& gfx) const noexcept
 		{
-			GetContext(gfx)->PSSetConstantBuffers(0u, 1u, pBuffer.Get());
+			GetContext(gfx)->PSSetConstantBuffers(0u, 1u, pBuffer.GetAddressOf());
 		}
 
 		void BindToVertexShader(Graphics& gfx) const noexcept
 		{
-			GetContext(gfx)->VSSetConstantBuffers(0u, 1u, pBuffer.Get());
+			GetContext(gfx)->VSSetConstantBuffers(0u, 1u, pBuffer.GetAddressOf());
 		}
 
 	private:
@@ -46,11 +46,11 @@ namespace rave
 				static constexpr size_t size = (sizeof(T) / 16 + 1) * 16;
 				std::vector<unsigned char> data(size);
 				memcpy(data.data(), &value, sizeof (T));
-				return Buffer(gfx, writeAccess, D3D11_BIND_CONSTANT_BUFFER, size, 0, &value)
+				return Buffer(gfx, writeAccess, D3D11_BIND_CONSTANT_BUFFER, size, 0, &value);
 			}
 			else
 			{
-				return Buffer(gfx, writeAccess, D3D11_BIND_CONSTANT_BUFFER, sizeof(T), 0, &value)
+				return Buffer(gfx, writeAccess, D3D11_BIND_CONSTANT_BUFFER, sizeof(T), 0, &value);
 			}
 		}
 	};

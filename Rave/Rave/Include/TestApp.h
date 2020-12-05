@@ -5,9 +5,12 @@ class TestApp : public rave::Application
 {
 public:
 	TestApp();
-	~TestApp();
 
 private:
 	void Update(const float dt) override;
+
+private:
 	rave::Timer timer;
+
+	rave::Shape shape;
 };

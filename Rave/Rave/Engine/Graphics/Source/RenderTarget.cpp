@@ -19,10 +19,10 @@ void rave::RenderTarget::Bind(Graphics& gfx)
 {
 	ID3D11ShaderResourceView* pClearView = nullptr;
 
-	GetContext(gfx)->VSGetShaderResources(0u, 1u, &pClearView);
-	GetContext(gfx)->PSGetShaderResources(0u, 1u, &pClearView);
+	GetContext(gfx)->VSSetShaderResources(0u, 1u, &pClearView);
+	GetContext(gfx)->PSSetShaderResources(0u, 1u, &pClearView);
 
-	GetContext(gfx)->OMSetRenderTargets(0u, pTarget.GetAddressOf(), NULL);
+	GetContext(gfx)->OMSetRenderTargets(1u, pTarget.GetAddressOf(), NULL);
 }
 
 void rave::RenderTarget::Clear(Graphics& gfx, const FColor& background) noexcept
