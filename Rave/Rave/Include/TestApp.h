@@ -10,7 +10,5 @@ private:
 	void Update(const float dt) override;
 
 private:
-	rave::Timer timer;
-
 	rave::Shape shape;
 };

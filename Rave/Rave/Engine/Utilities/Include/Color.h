@@ -49,17 +49,19 @@ namespace rave
 
 	namespace Colors
 	{
-		static constexpr Color Transparent	= Color( 0,   0,   0,   0 );
+		static constexpr Color Transparent	= Color(   0,   0,   0,   0 );
 		static constexpr Color White		= Color( 255, 255, 255 );
-		static constexpr Color Black		= Color( 0,   0,   0   );
-		static constexpr Color Red			= Color( 255, 0,   0   );
-		static constexpr Color Green		= Color( 0,   255, 0   );
-		static constexpr Color Blue			= Color( 0,   0,   255 );
-		static constexpr Color Yellow		= Color( 255, 255, 0   );
-		static constexpr Color Cyan			= Color( 0,   255, 255 );
-		static constexpr Color Magenta		= Color( 255, 0,   255 );
+		static constexpr Color Black		= Color(   0,   0,   0 );
+		static constexpr Color Red			= Color( 255,   0,   0 );
+		static constexpr Color Green		= Color(   0, 255,   0 );
+		static constexpr Color Blue			= Color(   0,   0, 255 );
+		static constexpr Color Yellow		= Color( 255, 255,   0 );
+		static constexpr Color Cyan			= Color(   0, 255, 255 );
+		static constexpr Color Magenta		= Color( 255,   0, 255 );
 		static constexpr Color Gray			= Color( 128, 128, 128 );
 		static constexpr Color LightGray	= Color( 211, 211, 211 );
+		static constexpr Color RaveBlue		= Color(  13,  30,  43 );
+		static constexpr Color RaveYellow	= Color( 242, 213,  65 );
 	}
 	namespace FColors
 	{
@@ -74,5 +76,7 @@ namespace rave
 		static constexpr FColor Magenta		= FColor( 1.0f, 0.0f, 1.0f );
 		static constexpr FColor Gray		= ConvertColor( Color( 128, 128, 128 ) );
 		static constexpr FColor LightGray	= ConvertColor( Color( 211, 211, 211 ) );
+		static constexpr FColor RaveBlue	= FColor( 0.051f, 0.118f, 0.169f );
+		static constexpr FColor RaveYellow	= FColor( 0.949f, 0.835f, 0.255f );
 	}
 }

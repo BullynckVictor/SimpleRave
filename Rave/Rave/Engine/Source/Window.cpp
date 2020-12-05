@@ -1,5 +1,6 @@
 #include "Engine/Include/Window.h"
 #include "Engine/Graphics/Include/ViewPort.h"
+#include "Engine/Include/Transform.h"
 
 rave::Window::Window(Graphics& gfx, const wchar_t* windowName, const int width, const int height, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
 	:
@@ -88,6 +89,7 @@ void rave::Window::Present()
 void rave::Window::Bind()
 {
     ViewPort(width, height).Bind(gfx);
+    Transform::camera.size.x = (float)width / (float)height;
     target.Bind(gfx);
 }
 

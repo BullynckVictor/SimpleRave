@@ -30,6 +30,7 @@ namespace rave
 		Graphics gfx;
 		Window wnd;
 		GraphicsMemory memory;
+		Camera& camera;
 	};
 
 	template<typename T>

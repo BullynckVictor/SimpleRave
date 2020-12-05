@@ -3,7 +3,8 @@
 
 rave::Application::Application(const wchar_t* windowName, const int width, const int height, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
 	:
-	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className)
+	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className),
+	camera(Transform::camera)
 {
 	Initialize();
 }

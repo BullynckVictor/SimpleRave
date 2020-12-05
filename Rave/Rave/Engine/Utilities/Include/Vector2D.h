@@ -131,9 +131,9 @@ namespace rave
 		}
 	};
 
-	typedef Vector2D_t<float>	Vec2;
+	typedef Vector2D_t<float>	Vector2;
 	typedef Vector2D_t<float>	Vertex;
-	typedef Vector2D_t<double>	Vec2_D;
-	typedef Vector2D_t<int>		Vec2_I;
-	typedef Vector2D_t<int>		Vec2_U;
+	typedef Vector2D_t<double>	Vector2_D;
+	typedef Vector2D_t<int>		Vector2_I;
+	typedef Vector2D_t<int>		Vector2_U;
 }
