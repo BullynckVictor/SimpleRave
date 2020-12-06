@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/Graphics/Include/RenderTarget.h"
+#include "Engine/Graphics/Include/Blender.h"
 #include "Engine/Include/Mouse.h"
 #include "Engine/Include/Keyboard.h"
 #include <string>
@@ -15,6 +16,8 @@ namespace rave
 		void Clear() noexcept;
 		void Present();
 		void Bind();
+
+		void SetAlphaBlending(const bool blendAlpha);
 
 		int GetWidth() const noexcept;
 		int GetHeight() const noexcept;
@@ -64,6 +67,7 @@ namespace rave
 		Graphics& gfx;
 		SwapChain swap;
 		RenderTarget target;
+		Blender blender;
 
 		bool captured = false;
 		bool cursorEnabled = true;

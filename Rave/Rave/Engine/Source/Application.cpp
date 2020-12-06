@@ -1,12 +1,28 @@
 #include "Engine/Include/Application.h"
 #include "Engine/Utilities/Include/Exception.h"
 
-rave::Application::Application(const wchar_t* windowName, const int width, const int height, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
+rave::Application::Application(const wchar_t* windowName, const int width, const int height, std::initializer_list<std::pair<const char*, const wchar_t*>> textures, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
 	:
 	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className),
 	camera(Transform::camera)
 {
-	Initialize();
+	memory.inputLayoutCodex.Add(  "position",	InputLayout( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex))}));
+	memory.inputLayoutCodex.Add(  "texture",	InputLayout( gfx, L"Engine/Graphics/ShaderBins/TextureVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex)), InputLayoutElement("TexCoord", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex)) }));
+	memory.vertexShaderCodex.Add( "position",	VertexShader(gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso"));
+	memory.vertexShaderCodex.Add( "transform",	VertexShader(gfx, L"Engine/Graphics/ShaderBins/TransformVS.cso"));
+	memory.vertexShaderCodex.Add( "texture",	VertexShader(gfx, L"Engine/Graphics/ShaderBins/TextureVS.cso"));
+	memory.pixelShaderCodex.Add(  "color",		PixelShader( gfx, L"Engine/Graphics/ShaderBins/ColorPS.cso"));
+	memory.pixelShaderCodex.Add(  "texture",	PixelShader( gfx, L"Engine/Graphics/ShaderBins/TexturePS.cso"));
+	memory.samplerCodex.Add(	  "linear",		Sampler(gfx, D3D11_FILTER_MIN_MAG_MIP_LINEAR));
+	memory.samplerCodex.Add(	  "pixel",		Sampler(gfx, D3D11_FILTER_MIN_MAG_MIP_POINT));
+
+	Shape::StaticInitialize(gfx, memory);
+	Sprite::StaticInitialize(gfx, memory);
+	Animation::StaticInitialize(gfx, memory);
+
+	ImageDecoder decoder;
+	for (const auto& p : textures)
+		LoadTexture(decoder, p.first, p.second);
 }
 
 void rave::Application::Go()
@@ -28,16 +44,6 @@ void rave::Application::Go()
 		profiler.EndSection("Draw");
 		profiler.StartSection("Windows");
 	}
-}
-
-void rave::Application::Initialize()
-{
-	memory.inputLayoutCodex.Add( "position", InputLayout( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex))}));
-	memory.vertexShaderCodex.Add("position", VertexShader(gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso"));
-	memory.vertexShaderCodex.Add("transform", VertexShader(gfx, L"Engine/Graphics/ShaderBins/TransformVS.cso"));
-	memory.pixelShaderCodex.Add("color", PixelShader(gfx, L"Engine/Graphics/ShaderBins/ColorPS.cso"));
-
-	Shape::StaticInitialize(gfx, memory);
 }
 
 rave::Vector2 rave::Application::MousePos() const noexcept
@@ -93,4 +99,9 @@ void rave::Application::ControllCamera(const float dt, const float moveSpeed, co
 	}
 	camera.position += Transform(0, 1, -camera.rotation).GetTransformedPoint(delta.Normalized()) * moveSpeed * dt;
 	camera.zoom += camera.zoom * -(float)wnd.mouse.GetScrollDelta() / scrollSpeed;
+}
+
+void rave::Application::LoadTexture(ImageDecoder& decoder, const char* key, const wchar_t* path)
+{
+	memory.textureCodex.Add(key, TextureView(gfx, Texture(gfx, decoder, 4, DXGI_FORMAT_R8G8B8A8_UNORM, path)));
 }

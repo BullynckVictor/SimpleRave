@@ -14,7 +14,8 @@ rave::Window::Window(Graphics& gfx, const wchar_t* windowName, const int width, 
 	height(height),
 	gfx(gfx),
 	swap(gfx, hwnd, width, height),
-	target(gfx, swap)
+	target(gfx, swap),
+    blender(gfx, true)
 {
     ShowWindow(hwnd, SW_SHOWDEFAULT);
 
@@ -29,6 +30,7 @@ rave::Window::Window(Graphics& gfx, const wchar_t* windowName, const int width, 
         rave_throw_last();
 
     Bind();
+    blender.Bind(gfx);
 }
 
 HWND rave::Window::CreateHWND(const HINSTANCE hInst, const wchar_t* windowName, const int width, const int height, const wchar_t* className, const Window* _this)
@@ -90,6 +92,12 @@ void rave::Window::Bind()
     ViewPort(width, height).Bind(gfx);
     Transform::camera.size.x = (float)width / (float)height;
     target.Bind(gfx);
+}
+
+void rave::Window::SetAlphaBlending(const bool blendAlpha)
+{
+    blender.SetAlpha(gfx, blendAlpha);
+    blender.Bind(gfx);
 }
 
 bool rave::Window::HandleMessages() noexcept

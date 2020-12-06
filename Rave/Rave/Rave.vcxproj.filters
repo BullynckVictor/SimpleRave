@@ -87,6 +87,18 @@
     <ClCompile Include="Engine\Graphics\Source\TextureView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Drawables\Source\Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Drawables\Source\Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Graphics\Source\Sampler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Graphics\Source\Blender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Graphics\Include\DirectX.h">
@@ -197,11 +209,25 @@
     <ClInclude Include="Engine\Graphics\Include\TextureView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Drawables\Include\Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Drawables\Include\Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Graphics\Include\Sampler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Graphics\Include\Blender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Engine\Graphics\Shaders\PositionVS.hlsl" />
     <FxCompile Include="Engine\Graphics\Shaders\ColorPS.hlsl" />
     <FxCompile Include="Engine\Graphics\Shaders\TransformVS.hlsl" />
+    <FxCompile Include="Engine\Graphics\Shaders\TextureVS.hlsl" />
+    <FxCompile Include="Engine\Graphics\Shaders\TexturePS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Rave.rc">

@@ -17,6 +17,4 @@ namespace rave
 
 		friend class TextureView;
 	};
-
-	Texture LoadTexture(Graphics& gfx, ImageDecoder& decoder, const wchar_t* fileName, size_t* pWidth = nullptr, size_t* pHeight = nullptr, const bool shaderResource = true);
 }

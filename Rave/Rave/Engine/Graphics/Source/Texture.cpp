@@ -60,7 +60,6 @@ rave::Texture::Texture(Graphics& gfx, ImageDecoder& decoder, const size_t byteWi
 	sub.pSysMem = pData.data();
 	sub.SysMemPitch = width * byteWidth;
 
-	ComPtr<ID3D11Texture2D> pTexture;
 	rave_check_hr(GetDevice(gfx)->CreateTexture2D(&desc, &sub, &pTexture));
 }
 
@@ -125,9 +124,4 @@ GUID rave::Texture::GetWICFormat() const
 		rave_throw_message(ss.str().c_str());
 		break;
 	}
-}
-
-rave::Texture rave::LoadTexture(Graphics& gfx, ImageDecoder& decoder, const wchar_t* fileName, size_t* pWidth, size_t* pHeight, const bool shaderResource)
-{
-	return Texture(gfx, decoder, 4, DXGI_FORMAT_R8G8B8A8_UNORM, fileName, pWidth, pHeight, shaderResource);
 }

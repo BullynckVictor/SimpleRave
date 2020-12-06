@@ -7,23 +7,25 @@
 
 #include "Engine/Drawables/Include/Drawable.h"
 #include "Engine/Drawables/Include/Shape.h"
+#include "Engine/Drawables/Include/Sprite.h"
+#include "Engine/Drawables/Include/Animation.h"
 
 namespace rave
 {
 	class Application
 	{
 	public:
-		Application(const wchar_t* windowName, const int width, const int height, const bool useMouseEvents = false, const bool useMouseRawDeltas = false, const wchar_t* className = L"RaveEngine Direct3D Class");
+		Application(const wchar_t* windowName, const int width, const int height, std::initializer_list<std::pair<const char*, const wchar_t*>> textures = {}, const bool useMouseEvents = false, const bool useMouseRawDeltas = false, const wchar_t* className = L"RaveEngine Direct3D Class");
 		virtual ~Application() {}
 
 		void Go();
 
 	protected:
 		virtual void Update(const float dt) = 0;
-		virtual void Initialize();
 
 		Vector2 MousePos() const noexcept;
 		void ControllCamera(const float dt, const float moveSpeed = 1.0f, const float rotationSpeed = 1.0f, const float scrollSpeed = 15.0f) noexcept;
+		void LoadTexture(ImageDecoder& decoder, const char* key, const wchar_t* path);
 
 	private:
 		Timer ft;
