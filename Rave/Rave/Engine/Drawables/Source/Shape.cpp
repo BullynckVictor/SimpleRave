@@ -18,6 +18,8 @@ void rave::Shape::Bind(Graphics& gfx)
 {
 	rave_assert_info(IsInitialized(), L"rave::Shape has not been staticaly initialized yet, have you called rave::Shape::StaticInitialize?");
 
+	gfx.ClearInfoManager();
+
 	pLayout->Bind(gfx);
 	pPixelShader->Bind(gfx);
 	pVertexShader->Bind(gfx);
@@ -28,6 +30,8 @@ void rave::Shape::Bind(Graphics& gfx)
 
 	GetContext(gfx)->IASetPrimitiveTopology(topology);
 	GetContext(gfx)->Draw(size, 0);
+
+	gfx.CheckInfoManager();
 }
 
 void rave::Shape::StaticInitialize(Graphics& gfx, GraphicsMemory& memory)

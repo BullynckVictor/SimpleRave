@@ -6,6 +6,7 @@ namespace rave
 {
 	class IndexBuffer : public Buffer
 	{
+	public:
 		IndexBuffer(Graphics& gfx, const std::vector<size_t>& vertices, const bool writeAccess = false);
 
 		void Write(Graphics& gfx, const std::vector<size_t>& vertices);

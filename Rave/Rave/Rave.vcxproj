@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Drawables\Source\Shape.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\ImageDecoder.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\InfoManager.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\Texture.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\TextureView.cpp" />
     <ClCompile Include="Engine\Graphics\Source\ViewPort.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Buffer.cpp" />
     <ClCompile Include="Engine\Graphics\Source\IndexBuffer.cpp" />
@@ -47,11 +51,15 @@
     <ClInclude Include="Engine\Graphics\Include\ConstantBuffer.h" />
     <ClInclude Include="Engine\Graphics\Include\DirectX.h" />
     <ClInclude Include="Engine\Graphics\Include\Graphics.h" />
+    <ClInclude Include="Engine\Graphics\Include\ImageDecoder.h" />
     <ClInclude Include="Engine\Graphics\Include\IndexBuffer.h" />
+    <ClInclude Include="Engine\Graphics\Include\InfoManager.h" />
     <ClInclude Include="Engine\Graphics\Include\InputLayout.h" />
     <ClInclude Include="Engine\Graphics\Include\PixelShader.h" />
     <ClInclude Include="Engine\Graphics\Include\RenderTarget.h" />
     <ClInclude Include="Engine\Graphics\Include\SwapChain.h" />
+    <ClInclude Include="Engine\Graphics\Include\Texture.h" />
+    <ClInclude Include="Engine\Graphics\Include\TextureView.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexBuffer.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexShader.h" />
     <ClInclude Include="Engine\Graphics\Include\ViewPort.h" />

@@ -13,7 +13,7 @@ TestApp::TestApp()
 
 void TestApp::Update(const float dt)
 {
-	static constexpr float speed = 1.0f;	
+	static constexpr float speed = 1.0f;
 
 	ControllCamera(dt);
 

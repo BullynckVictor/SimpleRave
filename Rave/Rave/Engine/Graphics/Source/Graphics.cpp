@@ -26,6 +26,28 @@ rave::Graphics::Graphics()
 	rave_check_hr(CreateDXGIFactory(__uuidof(IDXGIFactory), &pFactory));
 }
 
+void rave::Graphics::ClearInfoManager() noexcept
+{
+#ifndef NDEBUG
+	infoManager.ClearQueue();
+#endif
+}
+
+void rave::Graphics::CheckInfoManager()
+{
+#ifndef NDEBUG
+	const auto messages = infoManager.GetNewMessages();
+	if (!messages.empty())
+	{
+		std::string message;
+		for (const auto s : messages)
+			message += s + '\n';
+		message.pop_back();
+		rave_throw_message(Widen(message).c_str());
+	}
+#endif
+}
+
 rave::ComPtr<ID3D11Device>& rave::GraphicsFriend::GetDevice(Graphics& gfx) noexcept
 {
 	return gfx.pDevice;
