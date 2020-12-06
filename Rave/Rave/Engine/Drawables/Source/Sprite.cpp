@@ -6,7 +6,7 @@ rave::VertexShader* rave::Sprite::pVertexShader = nullptr;
 
 rave::Sprite::Sprite(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform& transform, const bool pixel, const bool write)
 	:
-	transform(gfx, transform.viewMatrix),
+	transform(gfx, transform.viewMatrix, write),
 	pTexture(memory.textureCodex.Get(textureKey)),
 	pSampler(memory.samplerCodex.Get(pixel ? "pixel" : "linear")),
 	vertices(InitializeVertices(gfx, memory, textureKey))

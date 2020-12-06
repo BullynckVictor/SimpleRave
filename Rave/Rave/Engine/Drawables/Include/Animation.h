@@ -1,19 +1,24 @@
 #pragma once
 #include "Engine/Drawables/Include/Drawable.h"
+#include "Engine/Utilities/Include/Timer.h"
 
 namespace rave
 {
-	class AnimationState : public GraphicsFriend
+	struct AnimationState : public GraphicsFriend
 	{
-
+		AnimationState(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const size_t nFrames);
+		std::vector<VertexBuffer<TVertex>> vertices;
+		TextureView* pTexture;
 	};
 
 	class Animation : public GraphicsFriend
 	{
 	public:
-		Animation(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform& transform, const size_t nFrames, const float fps, const bool write = true);
+		Animation(Graphics& gfx, GraphicsMemory& memory, const std::vector<AnimationState>& states, const Transform& transform, const float fps, const bool pixel = false, const bool write = true);
 
 		void Bind(Graphics& gfx);
+		void SetState(const size_t state) noexcept;
+		void ResetTimer() noexcept;
 		static void StaticInitialize(Graphics& gfx, GraphicsMemory& memory);
 
 		ConstantBuffer<Matrix>	transform;
@@ -21,9 +26,11 @@ namespace rave
 	private:
 		static bool IsInitialized() noexcept;
 
-		std::vector<VertexBuffer<TVertex>> vertices;
-		TextureView* pTexture;
 		const float spf;
+		size_t index = 0;
+		std::vector<AnimationState> animations;
+		Sampler* pSampler;
+		Timer timer;
 
 		static InputLayout* pLayout;
 		static PixelShader* pPixelShader;

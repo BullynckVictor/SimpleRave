@@ -13,5 +13,7 @@ private:
 	rave::Shape shape;
 	rave::Shape cursor;
 	rave::Sprite kappa;
+	rave::Sprite mario;
+	rave::Animation knight;
 	float r = 0.0f;
 };
