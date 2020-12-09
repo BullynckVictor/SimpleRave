@@ -5,6 +5,7 @@
 #include "Engine/Graphics/Include/InputLayout.h"
 #include "Engine/Graphics/Include/TextureView.h"
 #include "Engine/Graphics/Include/Sampler.h"
+#include "Engine/Utilities/Include/Vector2D.h"
 
 namespace rave
 {
@@ -16,5 +17,6 @@ namespace rave
 		Codex<VertexShader> vertexShaderCodex;
 		Codex<TextureView>  textureCodex;
 		Codex<Sampler>		samplerCodex;
+		Codex<Vector2>		sizeCodex;
 	};
 }

@@ -103,5 +103,8 @@ void rave::Application::ControllCamera(const float dt, const float moveSpeed, co
 
 void rave::Application::LoadTexture(ImageDecoder& decoder, const char* key, const wchar_t* path)
 {
-	memory.textureCodex.Add(key, TextureView(gfx, Texture(gfx, decoder, 4, DXGI_FORMAT_R8G8B8A8_UNORM, path)));
+	UINT width;
+	UINT height;
+	memory.textureCodex.Add(key, TextureView(gfx, Texture(gfx, decoder, 4, DXGI_FORMAT_R8G8B8A8_UNORM, path, &width, &height)));
+	memory.sizeCodex.Add(key, Vector2((float)width, (float)height));
 }

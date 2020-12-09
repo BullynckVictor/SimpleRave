@@ -9,7 +9,7 @@ TestApp::TestApp()
 		{
 			{ "kappa", L"Assets/Kappa.png" },
 			{ "mario", L"Assets/Mario.png" },
-			{ "knight", L"Assets/knight walk.png" }
+			{ "knight", L"Assets/knight walk.gif" }
 		}
 	),
 	shape(Triangle(gfx, 0, 0, .5f, FColors::RaveYellow)),
@@ -31,10 +31,12 @@ void TestApp::Update(const float dt)
 	cursor.transform.Write(gfx, Transform(MousePos(), 1, Radian(45)).viewMatrix);
 	shape.transform.Write(gfx, Transform(0, 1, r).Concatonate());
 	mario.transform.Write(gfx, Transform(0, .75f, r).Concatonate());
+	kappa.transform.Write(gfx, Transform().Concatonate());
+	knight.transform.Write(gfx, Transform().Concatonate());
 
-	shape.Bind(gfx);
-	kappa.Bind(gfx);
-	mario.Bind(gfx);
+//	shape.Bind(gfx);
+//	kappa.Bind(gfx);
+//	mario.Bind(gfx);
 	knight.Bind(gfx);
 	cursor.Bind(gfx);
 }

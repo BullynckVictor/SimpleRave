@@ -91,7 +91,9 @@ rave::AnimationState::AnimationState(Graphics& gfx, GraphicsMemory& memory, cons
 	}
 #endif
 
-	Vertex size = 1;
+	Vertex size = *memory.sizeCodex.Get(textureKey);
+	size.x /= (float)nFrames;
+	size /= std::max(size.x, size.y);
 	const float frameWidth = 1.0f / (float)nFrames;
 
 	vertices.reserve(nFrames);
@@ -101,13 +103,13 @@ rave::AnimationState::AnimationState(Graphics& gfx, GraphicsMemory& memory, cons
 			VertexBuffer<TVertex>(
 				gfx,
 				{
-					{ {-size.x / 2,  size.y / 2}, { ((float)i + 0) * frameWidth, 0 } },
-					{ { size.x / 2,  size.y / 2}, { ((float)i + 1) * frameWidth, 0 } },
-					{ {-size.x / 2, -size.y / 2}, { ((float)i + 0) * frameWidth, 1 } },
-					{ { size.x / 2, -size.y / 2}, { ((float)i + 1) * frameWidth, 1 } }
+					{ {-size.x,  size.y}, { ((float)i + 0) * frameWidth, 0 } },
+					{ { size.x,  size.y}, { ((float)i + 1) * frameWidth, 0 } },
+					{ {-size.x, -size.y}, { ((float)i + 0) * frameWidth, 1 } },
+					{ { size.x, -size.y}, { ((float)i + 1) * frameWidth, 1 } }
 				},
 				false
-				)
+			)
 		);
 	}
 }
