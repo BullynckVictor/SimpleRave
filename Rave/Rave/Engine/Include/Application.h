@@ -4,6 +4,8 @@
 #include "Engine/Graphics/Include/Graphics.h"
 #include "Engine/Include/Window.h"
 #include "Engine/Include/MemoryManager.h"
+#include "Engine/Audio/Include/AudioManager.h"
+#include "Engine/Include/ComManager.h"
 
 #include "Engine/Drawables/Include/Drawable.h"
 #include "Engine/Drawables/Include/Shape.h"
@@ -35,6 +37,7 @@ namespace rave
 		Graphics gfx;
 		Window wnd;
 		GraphicsMemory memory;
+		AudioManager audio;
 		Camera& camera;
 	};
 
@@ -44,6 +47,7 @@ namespace rave
 	{
 		try
 		{
+			ComManager com;
 			T{}.Go();
 		}
 		catch (rave::Exception& e)

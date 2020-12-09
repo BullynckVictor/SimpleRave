@@ -6,3 +6,5 @@
 #include "Engine/Utilities/Include/Color.h"
 #include "Engine/Utilities/Include/Timer.h"
 #include "Engine/Utilities/Include/PerformanceProfiler.h"
+
+#include "Engine/Audio/Include/Sound.h"

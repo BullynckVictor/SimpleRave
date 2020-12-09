@@ -12,6 +12,8 @@ TestApp::TestApp()
 			{ "knight", L"Assets/knight walk.gif" }
 		}
 	),
+	mixer(audio),
+	music(audio, mixer, L"Assets/Audio/Abstraction/Ludum Dare 38 - Track 2.wav"),
 	shape(Triangle(gfx, 0, 0, .5f, FColors::RaveYellow)),
 	cursor(Rect(gfx, 0, .01f, .01f, 45, FColors::White, false)),
 	kappa(gfx, memory, "kappa", {}),
@@ -19,6 +21,7 @@ TestApp::TestApp()
 	knight(gfx, memory, { AnimationState(gfx, memory, "knight", 8) }, {}, 12, true)
 {
 	wnd.background = FColors::RaveBlue;
+	music.Play();
 }
 
 void TestApp::Update(const float dt)

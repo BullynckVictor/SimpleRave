@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Audio\Source\AudioManager.cpp" />
+    <ClCompile Include="Engine\Audio\Source\Sound.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Shape.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Animation.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Sprite.cpp" />
@@ -38,6 +40,7 @@
     <ClCompile Include="Engine\Graphics\Source\Graphics.cpp" />
     <ClCompile Include="Engine\Graphics\Source\VertexShader.cpp" />
     <ClCompile Include="Engine\Source\Application.cpp" />
+    <ClCompile Include="Engine\Source\ComManager.cpp" />
     <ClCompile Include="Engine\Source\Keyboard.cpp" />
     <ClCompile Include="Engine\Source\Mouse.cpp" />
     <ClCompile Include="Engine\Source\Transform.cpp" />
@@ -49,6 +52,8 @@
     <ClCompile Include="Source\TestApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Audio\Include\AudioManager.h" />
+    <ClInclude Include="Engine\Audio\Include\Sound.h" />
     <ClInclude Include="Engine\Drawables\Include\Drawable.h" />
     <ClInclude Include="Engine\Drawables\Include\Shape.h" />
     <ClInclude Include="Engine\Drawables\Include\Animation.h" />
@@ -72,6 +77,7 @@
     <ClInclude Include="Engine\Graphics\Include\VertexShader.h" />
     <ClInclude Include="Engine\Graphics\Include\ViewPort.h" />
     <ClInclude Include="Engine\Include\Application.h" />
+    <ClInclude Include="Engine\Include\ComManager.h" />
     <ClInclude Include="Engine\Include\Transform.h" />
     <ClInclude Include="Engine\Utilities\Include\Codex.h" />
     <ClInclude Include="Engine\Include\Keyboard.h" />
