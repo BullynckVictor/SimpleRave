@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/Texture.h"
 
-rave::Texture::Texture(Graphics& gfx, const size_t width, const size_t height, const size_t byteWidth, const DXGI_FORMAT format, const void* pData, const bool shaderResource)
+rave::Texture::Texture(Graphics& gfx, const size_t width, const size_t height, const size_t byteWidth, const DXGI_FORMAT format, const void* pData, const Flag<Texture> flag)
 	:
 	format(format)
 {
@@ -15,16 +15,26 @@ rave::Texture::Texture(Graphics& gfx, const size_t width, const size_t height, c
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
 	desc.Usage = D3D11_USAGE_DEFAULT;
-	desc.BindFlags = (shaderResource ?  D3D11_BIND_SHADER_RESOURCE : D3D11_BIND_UNORDERED_ACCESS);
+	desc.BindFlags = 0;
+	if (flag.Contains(bindTextureView))
+		desc.BindFlags |= D3D11_BIND_SHADER_RESOURCE;
+	if (flag.Contains(bindTextureUAV))
+		desc.BindFlags |= D3D11_BIND_UNORDERED_ACCESS;
 	desc.CPUAccessFlags = 0;
 	desc.MiscFlags = 0;
 
-	D3D11_SUBRESOURCE_DATA sub;
-	sub.pSysMem = pData;
-	sub.SysMemPitch = width * byteWidth;
+	if (pData)
+	{
+		D3D11_SUBRESOURCE_DATA sub;
+		sub.pSysMem = pData;
+		sub.SysMemPitch = width * byteWidth;
 
-	ComPtr<ID3D11Texture2D> pTexture;
-	rave_check_hr(GetDevice(gfx)->CreateTexture2D(&desc, &sub, &pTexture));
+		rave_check_hr(GetDevice(gfx)->CreateTexture2D(&desc, &sub, &pTexture));
+	}
+	else
+	{
+		rave_check_hr(GetDevice(gfx)->CreateTexture2D(&desc, NULL, &pTexture));
+	}
 }
 
 rave::Texture::Texture(Graphics& gfx, ImageDecoder& decoder, const size_t byteWidth, const DXGI_FORMAT format, const wchar_t* filename, size_t* pWidth, size_t* pHeight, const bool shaderResource)
@@ -61,6 +71,11 @@ rave::Texture::Texture(Graphics& gfx, ImageDecoder& decoder, const size_t byteWi
 	sub.SysMemPitch = width * byteWidth;
 
 	rave_check_hr(GetDevice(gfx)->CreateTexture2D(&desc, &sub, &pTexture));
+}
+
+ID3D11Resource* rave::Texture::GetResource() const noexcept
+{
+	return pTexture.Get();
 }
 
 GUID rave::Texture::GetWICFormat() const

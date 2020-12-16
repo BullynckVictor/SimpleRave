@@ -25,10 +25,14 @@
     <ClCompile Include="Engine\Drawables\Source\Animation.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Sprite.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Blender.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\ComputeShader.cpp" />
     <ClCompile Include="Engine\Graphics\Source\ImageDecoder.cpp" />
     <ClCompile Include="Engine\Graphics\Source\InfoManager.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\ResourceUAV.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\ResourceView.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Sampler.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Texture.cpp" />
+    <ClCompile Include="Engine\Graphics\Source\TextureUAV.cpp" />
     <ClCompile Include="Engine\Graphics\Source\TextureView.cpp" />
     <ClCompile Include="Engine\Graphics\Source\ViewPort.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Buffer.cpp" />
@@ -58,6 +62,7 @@
     <ClInclude Include="Engine\Drawables\Include\Shape.h" />
     <ClInclude Include="Engine\Drawables\Include\Animation.h" />
     <ClInclude Include="Engine\Drawables\Include\Sprite.h" />
+    <ClInclude Include="Engine\Graphics\Include\ComputeShader.h" />
     <ClInclude Include="Engine\Graphics\Include\Blender.h" />
     <ClInclude Include="Engine\Graphics\Include\Buffer.h" />
     <ClInclude Include="Engine\Graphics\Include\ConstantBuffer.h" />
@@ -69,9 +74,13 @@
     <ClInclude Include="Engine\Graphics\Include\InputLayout.h" />
     <ClInclude Include="Engine\Graphics\Include\PixelShader.h" />
     <ClInclude Include="Engine\Graphics\Include\RenderTarget.h" />
+    <ClInclude Include="Engine\Graphics\Include\Resource.h" />
+    <ClInclude Include="Engine\Graphics\Include\ResourceUAV.h" />
+    <ClInclude Include="Engine\Graphics\Include\ResourceView.h" />
     <ClInclude Include="Engine\Graphics\Include\Sampler.h" />
     <ClInclude Include="Engine\Graphics\Include\SwapChain.h" />
     <ClInclude Include="Engine\Graphics\Include\Texture.h" />
+    <ClInclude Include="Engine\Graphics\Include\TextureUAV.h" />
     <ClInclude Include="Engine\Graphics\Include\TextureView.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexBuffer.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexShader.h" />
@@ -88,6 +97,7 @@
     <ClInclude Include="Engine\Include\Windows.h" />
     <ClInclude Include="Engine\Utilities\Include\Color.h" />
     <ClInclude Include="Engine\Utilities\Include\Exception.h" />
+    <ClInclude Include="Engine\Utilities\Include\Flag.h" />
     <ClInclude Include="Engine\Utilities\Include\PerformanceProfiler.h" />
     <ClInclude Include="Engine\Utilities\Include\String.h" />
     <ClInclude Include="Engine\Utilities\Include\Timer.h" />
@@ -102,6 +112,16 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Engine\Graphics\Shaders\Perlin.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Engine\Graphics\Shaders\PositionVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
@@ -213,6 +233,7 @@
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)Engine\Graphics\ShaderBins\%(Filename).cso</ObjectFileOutput>
+      <ShaderModel>5.0</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -234,6 +255,7 @@
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)Engine\Graphics\ShaderBins\%(Filename).cso</ObjectFileOutput>
+      <ShaderModel>5.0</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

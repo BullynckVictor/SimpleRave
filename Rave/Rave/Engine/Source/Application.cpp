@@ -1,7 +1,7 @@
 #include "Engine/Include/Application.h"
 #include "Engine/Utilities/Include/Exception.h"
 
-rave::Application::Application(const wchar_t* windowName, const int width, const int height, std::initializer_list<std::pair<const char*, const wchar_t*>> textures, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
+rave::Application::Application(const wchar_t* windowName, const int width, const int height, std::optional<std::function<void(Graphics&, GraphicsMemory&)>> preLoadFunc, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
 	:
 	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className),
 	camera(Transform::camera)
@@ -20,9 +20,8 @@ rave::Application::Application(const wchar_t* windowName, const int width, const
 	Sprite::StaticInitialize(gfx, memory);
 	Animation::StaticInitialize(gfx, memory);
 
-	ImageDecoder decoder;
-	for (const auto& p : textures)
-		LoadTexture(decoder, p.first, p.second);
+	if (preLoadFunc)
+		preLoadFunc.value()(gfx, memory);
 }
 
 void rave::Application::Go()
@@ -101,7 +100,7 @@ void rave::Application::ControllCamera(const float dt, const float moveSpeed, co
 	camera.zoom += camera.zoom * -(float)wnd.mouse.GetScrollDelta() / scrollSpeed;
 }
 
-void rave::Application::LoadTexture(ImageDecoder& decoder, const char* key, const wchar_t* path)
+void rave::Application::LoadTexture(Graphics& gfx, GraphicsMemory& memory, ImageDecoder& decoder, const char* key, const wchar_t* path)
 {
 	UINT width;
 	UINT height;

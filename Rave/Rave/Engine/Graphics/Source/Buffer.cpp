@@ -42,6 +42,11 @@ void rave::Buffer::Write(Graphics& gfx, const size_t rowPitch, const size_t dept
 	GetContext(gfx)->Unmap(pBuffer.Get(), 0u);
 }
 
+ID3D11Resource* rave::Buffer::GetResource() const noexcept
+{
+	return pBuffer.Get();
+}
+
 bool rave::Buffer::HasWriteAccess() const noexcept
 {
 	return writeAccess;

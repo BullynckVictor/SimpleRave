@@ -10,8 +10,8 @@ private:
 	void Update(const float dt) override;
 
 private:
-	rave::SoundMixer mixer;
-	rave::Sound music;
+	static void PreLoad(rave::Graphics& gfx, rave::GraphicsMemory& memory);
+
 	rave::Shape shape;
 	rave::Shape cursor;
 	rave::Sprite kappa;

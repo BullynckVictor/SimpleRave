@@ -1,9 +1,9 @@
 #pragma once
-#include "Engine/Graphics/Include/Graphics.h"
+#include "Engine/Graphics/Include/Resource.h"
 
 namespace rave
 {
-	class Buffer : public GraphicsFriend
+	class Buffer : public Resource
 	{
 	public:
 		Buffer(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data);
@@ -17,6 +17,7 @@ namespace rave
 		ComPtr<ID3D11Buffer> pBuffer;
 
 	private:
+		ID3D11Resource* GetResource() const noexcept override;
 		const bool writeAccess;
 	};
 }

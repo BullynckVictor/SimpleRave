@@ -1,4 +1,6 @@
 #pragma once
+#include <functional>
+#include <optional>
 #include "Engine/Utilities/Include/Timer.h"
 #include "Engine/Utilities/Include/PerformanceProfiler.h"
 #include "Engine/Graphics/Include/Graphics.h"
@@ -17,7 +19,7 @@ namespace rave
 	class Application
 	{
 	public:
-		Application(const wchar_t* windowName, const int width, const int height, std::initializer_list<std::pair<const char*, const wchar_t*>> textures = {}, const bool useMouseEvents = false, const bool useMouseRawDeltas = false, const wchar_t* className = L"RaveEngine Direct3D Class");
+		Application(const wchar_t* windowName, const int width, const int height, std::optional<std::function<void(Graphics&, GraphicsMemory&)>> preLoadFunc = {}, const bool useMouseEvents = false, const bool useMouseRawDeltas = false, const wchar_t* className = L"RaveEngine Direct3D Class");
 		virtual ~Application() {}
 
 		void Go();
@@ -27,7 +29,7 @@ namespace rave
 
 		Vector2 MousePos() const noexcept;
 		void ControllCamera(const float dt, const float moveSpeed = 1.0f, const float rotationSpeed = 1.0f, const float scrollSpeed = 15.0f) noexcept;
-		void LoadTexture(ImageDecoder& decoder, const char* key, const wchar_t* path);
+		static void LoadTexture(Graphics& gfx, GraphicsMemory& memory, ImageDecoder& decoder, const char* key, const wchar_t* path);
 
 	private:
 		Timer ft;
