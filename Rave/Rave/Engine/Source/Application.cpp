@@ -16,9 +16,8 @@ rave::Application::Application(const wchar_t* windowName, const int width, const
 	memory.samplerCodex.Add(	  "linear",		Sampler().Load(gfx, D3D11_FILTER_MIN_MAG_MIP_LINEAR));
 	memory.samplerCodex.Add(	  "pixel",		Sampler().Load(gfx, D3D11_FILTER_MIN_MAG_MIP_POINT));
 
-	Shape::StaticInitialize(gfx, memory);
-	Sprite::StaticInitialize(gfx, memory);
-	Animation::StaticInitialize(gfx, memory);
+	shapeRenderer.Load(gfx, memory, "position", "color", "transform");
+	spriteRenderer.Load(gfx, memory, "texture", "texture", "texture");
 }
 
 void rave::Application::Go()
@@ -103,4 +102,19 @@ void rave::Application::LoadTexture(const char* key, const wchar_t* path)
 	UINT height;
 	memory.textureCodex.Add(key, TextureView().Load(gfx, Texture().Load(gfx, decoder, 4, DXGI_FORMAT_R8G8B8A8_UNORM, path, &width, &height)));
 	memory.sizeCodex.Add(key, Vector2((float)width, (float)height));
+}
+
+void rave::Application::Render(const Shape& object)
+{
+	shapeRenderer.Render(gfx, object);
+}
+
+void rave::Application::Render(const Sprite& object)
+{
+	spriteRenderer.Render(gfx, object);
+}
+
+void rave::Application::Render(const Animation& object)
+{
+	spriteRenderer.Render(gfx, object);
 }

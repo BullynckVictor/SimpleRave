@@ -120,6 +120,9 @@
     <ClCompile Include="Engine\Graphics\Source\TextureUAV.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Drawables\Source\FlatRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Graphics\Include\DirectX.h">
@@ -267,6 +270,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utilities\Include\Flag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Drawables\Include\FlatRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

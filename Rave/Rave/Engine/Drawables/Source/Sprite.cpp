@@ -1,9 +1,5 @@
 #include "Engine/Drawables/Include/Sprite.h"
 
-rave::InputLayout* rave::Sprite::pLayout = nullptr;
-rave::PixelShader* rave::Sprite::pPixelShader = nullptr;
-rave::VertexShader* rave::Sprite::pVertexShader = nullptr;
-
 rave::Sprite& rave::Sprite::Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform& transform_, const bool pixel, const bool write)
 {
 	pTexture = memory.textureCodex.Get(textureKey);
@@ -48,15 +44,9 @@ rave::Sprite& rave::Sprite::Load(Graphics& gfx, GraphicsMemory& memory, const ch
 	return *this;
 }
 
-void rave::Sprite::Bind(Graphics& gfx)
+void rave::Sprite::Bind(Graphics& gfx) const
 {
-	rave_assert_info(IsInitialized(), L"rave::Shape has not been staticaly initialized yet, have you called rave::Shape::StaticInitialize?");
-
 	gfx.ClearInfoManager();
-
-	pLayout->Bind(gfx);
-	pPixelShader->Bind(gfx);
-	pVertexShader->Bind(gfx);
 
 	vertices.Bind(gfx);
 	pSampler->Bind(gfx);
@@ -67,20 +57,4 @@ void rave::Sprite::Bind(Graphics& gfx)
 	GetContext(gfx)->Draw(4, 0);
 
 	gfx.CheckInfoManager();
-}
-
-void rave::Sprite::StaticInitialize(Graphics& gfx, GraphicsMemory& memory)
-{
-	pLayout = memory.inputLayoutCodex.Get("texture");
-	pPixelShader = memory.pixelShaderCodex.Get("texture");
-	pVertexShader = memory.vertexShaderCodex.Get("texture");
-
-	rave_assert_info(pLayout, L"Key \"texture\" not found in inputLayoutCodex");
-	rave_assert_info(pPixelShader, L"Key \"texture\" not found in inputLayoutCodex");
-	rave_assert_info(pVertexShader, L"Key \"texture\" not found in inputLayoutCodex");
-}
-
-bool rave::Sprite::IsInitialized() noexcept
-{
-	return pPixelShader && pLayout && pVertexShader;
 }

@@ -1,10 +1,5 @@
 #include "Engine/Drawables/Include/Animation.h"
 
-rave::InputLayout*  rave::Animation::pLayout = nullptr;
-rave::PixelShader*  rave::Animation::pPixelShader = nullptr;
-rave::VertexShader* rave::Animation::pVertexShader = nullptr;
-
-
 rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, const std::vector<AnimationState>& states, const Transform& transform_, const float fps, const bool pixel, const bool write)
 {
 	animations = states;
@@ -28,15 +23,14 @@ rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, co
 	return *this;
 }
 
-void rave::Animation::Bind(Graphics& gfx)
+rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const size_t nFrames, const Transform& transform, const float fps, const bool pixel, const bool write)
 {
-	rave_assert_info(IsInitialized(), L"rave::Animation has not been staticaly initialized yet, have you called rave::Animation::StaticInitialize?");
+	return Load(gfx, memory, { { gfx, memory, textureKey, nFrames } }, transform, fps, pixel, write);
+}
 
+void rave::Animation::Bind(Graphics& gfx) const
+{
 	gfx.ClearInfoManager();
-
-	pLayout->Bind(gfx);
-	pPixelShader->Bind(gfx);
-	pVertexShader->Bind(gfx);
 
 	animations[index].pTexture->Bind(gfx);
 	pSampler->Bind(gfx);
@@ -52,17 +46,6 @@ void rave::Animation::Bind(Graphics& gfx)
 	gfx.CheckInfoManager();
 }
 
-void rave::Animation::StaticInitialize(Graphics& gfx, GraphicsMemory& memory)
-{
-	pLayout = memory.inputLayoutCodex.Get("texture");
-	pPixelShader = memory.pixelShaderCodex.Get("texture");
-	pVertexShader = memory.vertexShaderCodex.Get("texture");
-
-	rave_assert_info(pLayout, L"Key \"texture\" not found in inputLayoutCodex");
-	rave_assert_info(pPixelShader, L"Key \"texture\" not found in inputLayoutCodex");
-	rave_assert_info(pVertexShader, L"Key \"texture\" not found in inputLayoutCodex");
-}
-
 void rave::Animation::SetState(const size_t state) noexcept
 {
 	index = state;
@@ -71,11 +54,6 @@ void rave::Animation::SetState(const size_t state) noexcept
 void rave::Animation::ResetTimer() noexcept
 {
 	timer.Mark();
-}
-
-bool rave::Animation::IsInitialized() noexcept
-{
-	return pPixelShader && pLayout && pVertexShader;
 }
 
 rave::AnimationState::AnimationState(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const size_t nFrames)

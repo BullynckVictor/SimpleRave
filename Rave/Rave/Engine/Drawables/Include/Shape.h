@@ -9,8 +9,7 @@ namespace rave
 	public:
 		Shape& Load(Graphics& gfx, const std::vector<Vertex>& vertices, const Transform& transform, const FColor& color, const bool fill = true, const bool write = true);
 
-		void Bind(Graphics& gfx);
-		static void StaticInitialize(Graphics& gfx, GraphicsMemory& memory);
+		void Bind(Graphics& gfx) const;
 
 		bool IsFilled() const noexcept;
 
@@ -19,14 +18,8 @@ namespace rave
 		ConstantBuffer<Matrix>	transform;
 
 	private:
-		static bool IsInitialized() noexcept;
-
 		Topology topology;
 		size_t size;
-
-		static InputLayout*  pLayout;
-		static PixelShader*  pPixelShader;
-		static VertexShader* pVertexShader;
 	};
 
 	Shape Triangle(Graphics& gfx, const Vector2& pos, const float rotation, const float scale, const FColor color, const bool fill = true, const bool write = true);

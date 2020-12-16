@@ -15,4 +15,10 @@ namespace rave
 		Vertex pos;
 		Vertex tex;
 	};
+
+	template<typename T>
+	concept BindableConcept = requires(T t, Graphics gfx)
+	{
+		t.Bind(gfx);
+	};
 }

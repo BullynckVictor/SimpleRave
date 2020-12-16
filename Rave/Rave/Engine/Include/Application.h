@@ -13,6 +13,7 @@
 #include "Engine/Drawables/Include/Shape.h"
 #include "Engine/Drawables/Include/Sprite.h"
 #include "Engine/Drawables/Include/Animation.h"
+#include "Engine/Drawables/Include/FlatRenderer.h"
 
 namespace rave
 {
@@ -31,10 +32,17 @@ namespace rave
 		void ControllCamera(const float dt, const float moveSpeed = 1.0f, const float rotationSpeed = 1.0f, const float scrollSpeed = 15.0f) noexcept;
 		void LoadTexture(const char* key, const wchar_t* path);
 
+		void Render(const Shape& object);
+		void Render(const Sprite& object);
+		void Render(const Animation& object);
+
 	private:
 		Timer ft;
 		PerformanceProfiler profiler;
 		ImageDecoder decoder;
+
+		FlatRenderer shapeRenderer;
+		FlatRenderer spriteRenderer;
 
 	protected:
 		Graphics gfx;

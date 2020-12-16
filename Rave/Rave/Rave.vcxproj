@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\Audio\Source\AudioManager.cpp" />
     <ClCompile Include="Engine\Audio\Source\Sound.cpp" />
+    <ClCompile Include="Engine\Drawables\Source\FlatRenderer.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Shape.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Animation.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Sprite.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="Engine\Audio\Include\AudioManager.h" />
     <ClInclude Include="Engine\Audio\Include\Sound.h" />
     <ClInclude Include="Engine\Drawables\Include\Drawable.h" />
+    <ClInclude Include="Engine\Drawables\Include\FlatRenderer.h" />
     <ClInclude Include="Engine\Drawables\Include\Shape.h" />
     <ClInclude Include="Engine\Drawables\Include\Animation.h" />
     <ClInclude Include="Engine\Drawables\Include\Sprite.h" />

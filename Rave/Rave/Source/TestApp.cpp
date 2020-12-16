@@ -9,6 +9,7 @@ TestApp::TestApp()
 	Application(L"Rave Application", 800, 600)
 {
 	wnd.background = FColors::RaveBlue;
+	wnd.SetVSync(false);
 
 	LoadTexture("kappa", L"Assets/Kappa.png");
 	LoadTexture("mario", L"Assets/Mario.png");
@@ -18,7 +19,7 @@ TestApp::TestApp()
 	cursor = Rect(gfx, 0, .01f, .01f, 45, FColors::White, false);
 	kappa.Load(gfx, memory, "kappa", {});
 	mario.Load(gfx, memory, "mario", {}, true);
-	knight.Load(gfx, memory, { AnimationState(gfx, memory, "knight", 8) }, {}, 12, true);
+	knight.Load(gfx, memory, "knight", 8, {}, 12, true);
 }
 
 void TestApp::Update(const float dt)
@@ -34,9 +35,7 @@ void TestApp::Update(const float dt)
 	kappa.transform.Write(gfx, Transform(MousePos(), 1, 0).viewMatrix);
 	knight.transform.Write(gfx, Transform(0, .75f, 0).viewMatrix);
 
-	shape.Bind(gfx);
-	kappa.Bind(gfx);
-	mario.Bind(gfx);
-	knight.Bind(gfx);
-	cursor.Bind(gfx);
+	Render(kappa);
+	Render(knight);
+	Render(cursor);
 }

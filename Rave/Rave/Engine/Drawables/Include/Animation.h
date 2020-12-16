@@ -15,25 +15,19 @@ namespace rave
 	{
 	public:
 		Animation& Load(Graphics& gfx, GraphicsMemory& memory, const std::vector<AnimationState>& states, const Transform& transform, const float fps, const bool pixel = false, const bool write = true);
+		Animation& Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const size_t nFrames, const Transform& transform, const float fps, const bool pixel = false, const bool write = true);
 
-		void Bind(Graphics& gfx);
+		void Bind(Graphics& gfx) const;
 		void SetState(const size_t state) noexcept;
 		void ResetTimer() noexcept;
-		static void StaticInitialize(Graphics& gfx, GraphicsMemory& memory);
 
 		ConstantBuffer<Matrix>	transform;
 
 	private:
-		static bool IsInitialized() noexcept;
-
-		float spf;
+		float spf = 0;
 		size_t index = 0;
 		std::vector<AnimationState> animations;
-		Sampler* pSampler;
+		Sampler* pSampler = nullptr;
 		Timer timer;
-
-		static InputLayout* pLayout;
-		static PixelShader* pPixelShader;
-		static VertexShader* pVertexShader;
 	};
 }

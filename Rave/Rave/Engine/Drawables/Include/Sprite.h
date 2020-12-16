@@ -9,20 +9,14 @@ namespace rave
 	public:
 		Sprite& Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform& transform, const bool pixel = false, const bool write = true);
 
-		void Bind(Graphics& gfx);
-		static void StaticInitialize(Graphics& gfx, GraphicsMemory& memory);
+		void Bind(Graphics& gfx) const;
 
 		ConstantBuffer<Matrix>	transform;
 
 	private:
-		static bool IsInitialized() noexcept;
-
 		VertexBuffer<TVertex> vertices;
-		TextureView* pTexture;
-		Sampler* pSampler;
 
-		static InputLayout* pLayout;
-		static PixelShader* pPixelShader;
-		static VertexShader* pVertexShader;
+		Sampler* pSampler = nullptr;
+		TextureView* pTexture = nullptr;
 	};
 }
