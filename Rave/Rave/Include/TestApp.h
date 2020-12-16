@@ -10,8 +10,6 @@ private:
 	void Update(const float dt) override;
 
 private:
-	static void PreLoad(rave::Graphics& gfx, rave::GraphicsMemory& memory);
-
 	rave::Shape shape;
 	rave::Shape cursor;
 	rave::Sprite kappa;

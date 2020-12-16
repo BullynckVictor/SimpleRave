@@ -6,7 +6,7 @@ namespace rave
 	class Blender : public GraphicsFriend
 	{
 	public:
-		Blender(Graphics& gfx, const bool blendAlpha);
+		Blender& Load(Graphics& gfx, const bool blendAlpha);
 
 		void SetAlpha(Graphics& gfx, const bool blendAlpha);
 		void Bind(Graphics& gfx) const noexcept;

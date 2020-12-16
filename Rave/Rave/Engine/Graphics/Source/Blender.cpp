@@ -1,8 +1,9 @@
 #include "Engine/Graphics/Include/Blender.h"
 
-rave::Blender::Blender(Graphics& gfx, const bool blendAlpha)
+rave::Blender& rave::Blender::Load(Graphics& gfx, const bool blendAlpha)
 {
 	SetAlpha(gfx, blendAlpha);
+	return *this;
 }
 
 void rave::Blender::SetAlpha(Graphics& gfx, const bool blendAlpha)

@@ -7,7 +7,7 @@ namespace rave
 	class ComputeShader : public GraphicsFriend
 	{
 	public:
-		ComputeShader(Graphics& gfx, const wchar_t* filename);
+		ComputeShader& Load(Graphics& gfx, const wchar_t* filename);
 		void Run(Graphics& gfx, const std::vector<ResourceView>& views, const std::vector<ResourceUAV>& uavs, const UINT x, const UINT y, const UINT z);
 
 

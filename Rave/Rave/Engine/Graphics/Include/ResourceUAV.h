@@ -6,7 +6,7 @@ namespace rave
 	class ResourceUAV : public GraphicsFriend
 	{
 	public:
-		ResourceUAV(Graphics& gfx, const Resource& resource, const D3D11_UNORDERED_ACCESS_VIEW_DESC& desc);
+		ResourceUAV& Load(Graphics& gfx, const Resource& resource, const D3D11_UNORDERED_ACCESS_VIEW_DESC& desc);
 		virtual ~ResourceUAV() {}
 
 	protected:

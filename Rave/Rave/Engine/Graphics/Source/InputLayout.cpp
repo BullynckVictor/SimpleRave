@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/InputLayout.h"
 
-rave::InputLayout::InputLayout(Graphics& gfx, const wchar_t* path, const std::vector<InputLayoutElement>& elements)
+rave::InputLayout& rave::InputLayout::Load(Graphics& gfx, const wchar_t* path, const std::vector<InputLayoutElement>& elements)
 {
 	HRESULT hr;
 	ComPtr<ID3DBlob> pBlob;
@@ -25,6 +25,8 @@ rave::InputLayout::InputLayout(Graphics& gfx, const wchar_t* path, const std::ve
 		pBlob->GetBufferSize(),
 		&pLayout
 	));
+
+	return *this;
 }
 
 void rave::InputLayout::Bind(Graphics& gfx) const noexcept

@@ -1,9 +1,11 @@
 #include "Engine/Graphics/Include/IndexBuffer.h"
 
-rave::IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<size_t>& vertices, const bool writeAccess)
-	:
-	Buffer(gfx, writeAccess, D3D11_BIND_INDEX_BUFFER, sizeof(size_t)* vertices.size(), sizeof(size_t), vertices.data())
-{}
+rave::IndexBuffer& rave::IndexBuffer::Load(Graphics& gfx, const std::vector<size_t>& vertices, const bool writeAccess)
+{
+	Buffer::Load(gfx, writeAccess, D3D11_BIND_INDEX_BUFFER, sizeof(size_t) * vertices.size(), sizeof(size_t), vertices.data());
+
+	return *this;
+}
 
 
 void rave::IndexBuffer::Write(Graphics& gfx, const std::vector<size_t>& vertices)

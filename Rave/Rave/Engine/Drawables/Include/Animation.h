@@ -14,7 +14,7 @@ namespace rave
 	class Animation : public GraphicsFriend
 	{
 	public:
-		Animation(Graphics& gfx, GraphicsMemory& memory, const std::vector<AnimationState>& states, const Transform& transform, const float fps, const bool pixel = false, const bool write = true);
+		Animation& Load(Graphics& gfx, GraphicsMemory& memory, const std::vector<AnimationState>& states, const Transform& transform, const float fps, const bool pixel = false, const bool write = true);
 
 		void Bind(Graphics& gfx);
 		void SetState(const size_t state) noexcept;
@@ -26,7 +26,7 @@ namespace rave
 	private:
 		static bool IsInitialized() noexcept;
 
-		const float spf;
+		float spf;
 		size_t index = 0;
 		std::vector<AnimationState> animations;
 		Sampler* pSampler;

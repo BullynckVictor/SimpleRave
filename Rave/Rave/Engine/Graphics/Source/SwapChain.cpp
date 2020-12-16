@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/SwapChain.h"
 
-rave::SwapChain::SwapChain(Graphics& gfx, HWND hwnd, unsigned int width, unsigned int height)
+rave::SwapChain& rave::SwapChain::Load(Graphics& gfx, HWND hwnd, unsigned int width, unsigned int height)
 {
 	HRESULT hr;
 
@@ -27,6 +27,8 @@ rave::SwapChain::SwapChain(Graphics& gfx, HWND hwnd, unsigned int width, unsigne
 		&sd,
 		&pSwap
 	));
+
+	return *this;
 }
 
 void rave::SwapChain::Present() noexcept

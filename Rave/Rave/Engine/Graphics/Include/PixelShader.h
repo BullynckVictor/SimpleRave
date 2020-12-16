@@ -6,7 +6,7 @@ namespace rave
 	class PixelShader : public GraphicsFriend
 	{
 	public:
-		PixelShader(Graphics& gfx, const wchar_t* path);
+		PixelShader& Load(Graphics& gfx, const wchar_t* path);
 		void Bind(Graphics& gfx) const noexcept;
 
 	private:

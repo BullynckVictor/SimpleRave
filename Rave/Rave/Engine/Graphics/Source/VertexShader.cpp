@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/VertexShader.h"
 
-rave::VertexShader::VertexShader(Graphics& gfx, const wchar_t* path)
+rave::VertexShader& rave::VertexShader::Load(Graphics& gfx, const wchar_t* path)
 {
 	HRESULT hr;
 	ComPtr<ID3DBlob> pBlob;
@@ -12,6 +12,8 @@ rave::VertexShader::VertexShader(Graphics& gfx, const wchar_t* path)
 		NULL,
 		&pShader
 	));
+
+	return *this;
 }
 
 void rave::VertexShader::Bind(Graphics& gfx) const noexcept

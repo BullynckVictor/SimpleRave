@@ -1,9 +1,9 @@
 #include "Engine/Graphics/Include/Buffer.h"
 
-rave::Buffer::Buffer(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data)
-	:
-	writeAccess(writeAccess)
+rave::Buffer& rave::Buffer::Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data)
 {
+	this->writeAccess = writeAccess;
+
 	HRESULT hr;
 
 	if(bindFlag == D3D11_BIND_CONSTANT_BUFFER)
@@ -27,6 +27,8 @@ rave::Buffer::Buffer(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLA
 	D3D11_SUBRESOURCE_DATA sd = {};
 	sd.pSysMem = data;
 	rave_check_hr(GetDevice(gfx)->CreateBuffer(&bd, &sd, &pBuffer));
+
+	return *this;
 }
 
 void rave::Buffer::Write(Graphics& gfx, const size_t rowPitch, const size_t depthPitch, const size_t size, const void* const data)

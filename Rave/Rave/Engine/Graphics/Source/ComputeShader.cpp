@@ -1,12 +1,14 @@
 #include "Engine/Graphics/Include/ComputeShader.h"
 
-rave::ComputeShader::ComputeShader(Graphics& gfx, const wchar_t* filename)
+rave::ComputeShader& rave::ComputeShader::Load(Graphics& gfx, const wchar_t* filename)
 {
 	HRESULT hr;
 
 	ComPtr<ID3DBlob> pBlob;
 	rave_check_hr(D3DReadFileToBlob(filename, &pBlob));
 	rave_check_hr(GetDevice(gfx)->CreateComputeShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pShader));
+
+	return *this;
 }
 
 void rave::ComputeShader::Run(Graphics& gfx, const std::vector<ResourceView>& views, const std::vector<ResourceUAV>& uavs, const UINT x, const UINT y, const UINT z)

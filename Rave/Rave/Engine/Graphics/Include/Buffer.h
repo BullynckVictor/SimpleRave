@@ -6,8 +6,8 @@ namespace rave
 	class Buffer : public Resource
 	{
 	public:
-		Buffer(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data);
 		virtual ~Buffer() {}
+		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data);
 		bool HasWriteAccess() const noexcept;
 
 	protected:
@@ -18,6 +18,6 @@ namespace rave
 
 	private:
 		ID3D11Resource* GetResource() const noexcept override;
-		const bool writeAccess;
+		bool writeAccess;
 	};
 }

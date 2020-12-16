@@ -1,9 +1,9 @@
 #include "Engine/Graphics/Include/Texture.h"
 
-rave::Texture::Texture(Graphics& gfx, const size_t width, const size_t height, const size_t byteWidth, const DXGI_FORMAT format, const void* pData, const Flag<Texture> flag)
-	:
-	format(format)
+rave::Texture& rave::Texture::Load(Graphics& gfx, const size_t width, const size_t height, const size_t byteWidth, const DXGI_FORMAT format, const void* pData, const Flag<Texture> flag)
 {
+	this->format = format;
+
 	HRESULT hr;
 
 	D3D11_TEXTURE2D_DESC desc;
@@ -35,12 +35,14 @@ rave::Texture::Texture(Graphics& gfx, const size_t width, const size_t height, c
 	{
 		rave_check_hr(GetDevice(gfx)->CreateTexture2D(&desc, NULL, &pTexture));
 	}
+
+	return *this;
 }
 
-rave::Texture::Texture(Graphics& gfx, ImageDecoder& decoder, const size_t byteWidth, const DXGI_FORMAT format, const wchar_t* filename, size_t* pWidth, size_t* pHeight, const bool shaderResource)
-	:
-	format(format)
+rave::Texture& rave::Texture::Load(Graphics& gfx, ImageDecoder& decoder, const size_t byteWidth, const DXGI_FORMAT format, const wchar_t* filename, size_t* pWidth, size_t* pHeight, const bool shaderResource)
 {
+	this->format = format;
+
 	HRESULT hr;
 
 	UINT width, height;
@@ -71,6 +73,13 @@ rave::Texture::Texture(Graphics& gfx, ImageDecoder& decoder, const size_t byteWi
 	sub.SysMemPitch = width * byteWidth;
 
 	rave_check_hr(GetDevice(gfx)->CreateTexture2D(&desc, &sub, &pTexture));
+
+	return *this;
+}
+
+DXGI_FORMAT rave::Texture::GetFormat() const noexcept
+{
+	return format;
 }
 
 ID3D11Resource* rave::Texture::GetResource() const noexcept

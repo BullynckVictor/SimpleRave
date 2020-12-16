@@ -8,10 +8,10 @@ namespace rave
 	class VertexBuffer : public Buffer
 	{
 	public:
-		VertexBuffer(Graphics& gfx, const std::vector<V>& vertices, const bool writeAccess = false)
-			:
-			Buffer(gfx, writeAccess, D3D11_BIND_VERTEX_BUFFER, sizeof(V)* vertices.size(), sizeof(V), vertices.data())
+		VertexBuffer& Load(Graphics& gfx, const std::vector<V>& vertices, const bool writeAccess = false)
 		{
+			Buffer::Load(gfx, writeAccess, D3D11_BIND_VERTEX_BUFFER, sizeof(V) * vertices.size(), sizeof(V), vertices.data());
+			return *this;
 		}
 		void Write(Graphics& gfx, const std::vector<V>& vertices)
 		{

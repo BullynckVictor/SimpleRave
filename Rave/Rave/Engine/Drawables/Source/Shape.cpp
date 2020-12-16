@@ -4,14 +4,15 @@ rave::InputLayout*  rave::Shape::pLayout = nullptr;
 rave::PixelShader*  rave::Shape::pPixelShader = nullptr;
 rave::VertexShader* rave::Shape::pVertexShader = nullptr;
 
-rave::Shape::Shape(Graphics& gfx, const std::vector<Vertex>& vertices, const Transform& transform, const FColor& color, const bool fill, const bool write)
-	:
-	vertices(gfx, vertices, write),
-	color(gfx, color, write),
-	transform(gfx, transform.viewMatrix, write),
-	size(vertices.size()),
-	topology(fill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP)
+rave::Shape& rave::Shape::Load(Graphics& gfx, const std::vector<Vertex>& vertices_, const Transform& transform_, const FColor& color_, const bool fill, const bool write)
 {
+	vertices.Load(gfx, vertices_, write);
+	color.Load(gfx, color_, write);
+	transform.Load(gfx, transform_.viewMatrix, write);
+	size = vertices_.size();
+	topology = fill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP;
+
+	return *this;
 }
 
 void rave::Shape::Bind(Graphics& gfx)
@@ -77,7 +78,7 @@ rave::Shape rave::Triangle(Graphics& gfx, const Vector2& pos, const float rotati
 			{ cosf(p1) * scale, sinf(p1) * scale }
 	};
 
-	return Shape(
+	return Shape().Load(
 		gfx,
 		vertices,
 		Transform(pos, scale, Radian(rotation)),
@@ -107,7 +108,7 @@ rave::Shape rave::Rect(Graphics& gfx, const Vector2& pos, const float width, con
 			{ -width,  height}
 	};
 
-	return Shape(
+	return Shape().Load(
 		gfx,
 		vertices,
 		Transform(pos, 1, Radian(rotation)),

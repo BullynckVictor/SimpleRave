@@ -6,7 +6,7 @@ namespace rave
 	class Sampler : public GraphicsFriend
 	{
 	public:
-		Sampler(Graphics& gfx, const D3D11_FILTER filter);
+		Sampler& Load(Graphics& gfx, const D3D11_FILTER filter);
 		void Bind(Graphics& gfx);
 
 	private:

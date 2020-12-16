@@ -5,13 +5,14 @@ rave::PixelShader*  rave::Animation::pPixelShader = nullptr;
 rave::VertexShader* rave::Animation::pVertexShader = nullptr;
 
 
-rave::Animation::Animation(Graphics& gfx, GraphicsMemory& memory, const std::vector<AnimationState>& states, const Transform& transform, const float fps, const bool pixel, const bool write)
-	:
-	animations(states),
-	transform(gfx, transform.viewMatrix, write),
-	spf(1.0f / fps),
-	pSampler(memory.samplerCodex.Get(pixel ? "pixel" : "linear"))
+rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, const std::vector<AnimationState>& states, const Transform& transform_, const float fps, const bool pixel, const bool write)
 {
+	animations = states;
+	spf = (1.0f / fps);
+	pSampler = memory.samplerCodex.Get(pixel ? "pixel" : "linear");
+
+	transform.Load(gfx, transform_.viewMatrix, write);
+
 #ifndef NDEBUG
 	if (!pSampler)
 	{
@@ -23,6 +24,8 @@ rave::Animation::Animation(Graphics& gfx, GraphicsMemory& memory, const std::vec
 		rave_throw_message(error.str().c_str());
 	}
 #endif
+
+	return *this;
 }
 
 void rave::Animation::Bind(Graphics& gfx)
@@ -99,17 +102,18 @@ rave::AnimationState::AnimationState(Graphics& gfx, GraphicsMemory& memory, cons
 	vertices.reserve(nFrames);
 	for (size_t i = 0; i < nFrames; i++)
 	{
-		vertices.push_back(
-			VertexBuffer<TVertex>(
-				gfx,
-				{
-					{ {-size.x,  size.y}, { ((float)i + 0) * frameWidth, 0 } },
-					{ { size.x,  size.y}, { ((float)i + 1) * frameWidth, 0 } },
-					{ {-size.x, -size.y}, { ((float)i + 0) * frameWidth, 1 } },
-					{ { size.x, -size.y}, { ((float)i + 1) * frameWidth, 1 } }
-				},
-				false
-			)
+		VertexBuffer<TVertex> v;
+		v.Load(
+			gfx,
+			{
+				{ {-size.x,  size.y}, { ((float)i + 0) * frameWidth, 0 } },
+				{ { size.x,  size.y}, { ((float)i + 1) * frameWidth, 0 } },
+				{ {-size.x, -size.y}, { ((float)i + 0) * frameWidth, 1 } },
+				{ { size.x, -size.y}, { ((float)i + 1) * frameWidth, 1 } }
+			},
+			false
 		);
+
+		vertices.push_back(v);
 	}
 }

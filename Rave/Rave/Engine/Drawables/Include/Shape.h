@@ -7,7 +7,7 @@ namespace rave
 	class Shape : public GraphicsFriend
 	{
 	public:
-		Shape(Graphics& gfx, const std::vector<Vertex>& vertices, const Transform& transform, const FColor& color, const bool fill = true, const bool write = true);
+		Shape& Load(Graphics& gfx, const std::vector<Vertex>& vertices, const Transform& transform, const FColor& color, const bool fill = true, const bool write = true);
 
 		void Bind(Graphics& gfx);
 		static void StaticInitialize(Graphics& gfx, GraphicsMemory& memory);
@@ -21,8 +21,8 @@ namespace rave
 	private:
 		static bool IsInitialized() noexcept;
 
-		const Topology topology;
-		const size_t size;
+		Topology topology;
+		size_t size;
 
 		static InputLayout*  pLayout;
 		static PixelShader*  pPixelShader;

@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/PixelShader.h"
 
-rave::PixelShader::PixelShader(Graphics& gfx, const wchar_t* path)
+rave::PixelShader& rave::PixelShader::Load(Graphics& gfx, const wchar_t* path)
 {
 	HRESULT hr;
 	ComPtr<ID3DBlob> pBlob;
@@ -12,6 +12,8 @@ rave::PixelShader::PixelShader(Graphics& gfx, const wchar_t* path)
 		NULL,
 		&pShader
 	));
+
+	return *this;
 }
 
 void rave::PixelShader::Bind(Graphics& gfx) const noexcept

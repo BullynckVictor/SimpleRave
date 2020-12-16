@@ -15,7 +15,7 @@ namespace rave
 	class InputLayout : public GraphicsFriend
 	{
 	public:
-		InputLayout(Graphics& gfx, const wchar_t* path, const std::vector<InputLayoutElement>& elements);
+		InputLayout& Load(Graphics& gfx, const wchar_t* path, const std::vector<InputLayoutElement>& elements);
 		void Bind(Graphics& gfx) const noexcept;
 
 	private:

@@ -4,13 +4,13 @@ rave::InputLayout* rave::Sprite::pLayout = nullptr;
 rave::PixelShader* rave::Sprite::pPixelShader = nullptr;
 rave::VertexShader* rave::Sprite::pVertexShader = nullptr;
 
-rave::Sprite::Sprite(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform& transform, const bool pixel, const bool write)
-	:
-	transform(gfx, transform.viewMatrix, write),
-	pTexture(memory.textureCodex.Get(textureKey)),
-	pSampler(memory.samplerCodex.Get(pixel ? "pixel" : "linear")),
-	vertices(InitializeVertices(gfx, memory, textureKey))
+rave::Sprite& rave::Sprite::Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform& transform_, const bool pixel, const bool write)
 {
+	pTexture = memory.textureCodex.Get(textureKey);
+	pSampler = memory.samplerCodex.Get(pixel ? "pixel" : "linear");
+
+	transform.Load(gfx, transform_.viewMatrix, write);
+
 #ifndef NDEBUG
 	if (!pTexture)
 	{
@@ -31,6 +31,21 @@ rave::Sprite::Sprite(Graphics& gfx, GraphicsMemory& memory, const char* textureK
 		rave_throw_message(error.str().c_str());
 	}
 #endif
+
+	Vector2 size = *memory.sizeCodex.Get(textureKey);
+	size /= std::max(size.x, size.y);
+	vertices.Load(
+		gfx,
+		{
+			{ {-size.x / 2,  size.y / 2}, { 0, 0 } },
+			{ { size.x / 2,  size.y / 2}, { 1, 0 } },
+			{ {-size.x / 2, -size.y / 2}, { 0, 1 } },
+			{ { size.x / 2, -size.y / 2}, { 1, 1 } }
+		},
+		false
+	);
+
+	return *this;
 }
 
 void rave::Sprite::Bind(Graphics& gfx)
@@ -68,19 +83,4 @@ void rave::Sprite::StaticInitialize(Graphics& gfx, GraphicsMemory& memory)
 bool rave::Sprite::IsInitialized() noexcept
 {
 	return pPixelShader && pLayout && pVertexShader;
-}
-
-rave::VertexBuffer<rave::TVertex> rave::Sprite::InitializeVertices(Graphics& gfx, GraphicsMemory& memory, const char* textureKey)
-{
-	Vector2 size = 2;
-	return VertexBuffer<TVertex>(
-		gfx,
-		{
-			{ {-size.x / 2,  size.y / 2}, { 0, 0 } },
-			{ { size.x / 2,  size.y / 2}, { 1, 0 } },
-			{ {-size.x / 2, -size.y / 2}, { 0, 1 } },
-			{ { size.x / 2, -size.y / 2}, { 1, 1 } }
-		},
-		false
-	);
 }

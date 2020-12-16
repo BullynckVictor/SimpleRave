@@ -8,7 +8,7 @@ namespace rave
 	class RenderTarget : GraphicsFriend
 	{
 	public:
-		RenderTarget(Graphics& gfx, SwapChain& swap);
+		RenderTarget& Load(Graphics& gfx, SwapChain& swap);
 
 		void Bind(Graphics& gfx);
 		void Clear(Graphics& gfx, const FColor& background) noexcept;

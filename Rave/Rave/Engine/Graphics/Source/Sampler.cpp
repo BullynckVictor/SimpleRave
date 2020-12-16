@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/Sampler.h"
 
-rave::Sampler::Sampler(Graphics& gfx, const D3D11_FILTER filter)
+rave::Sampler& rave::Sampler::Load(Graphics& gfx, const D3D11_FILTER filter)
 {
 	HRESULT hr;
 
@@ -12,6 +12,8 @@ rave::Sampler::Sampler(Graphics& gfx, const D3D11_FILTER filter)
 	desc.BorderColor[3] = 0;
 
 	rave_check_hr( GetDevice(gfx)->CreateSamplerState(&desc, &pSamplerState) );
+
+	return *this;
 }
 
 void rave::Sampler::Bind(Graphics& gfx)

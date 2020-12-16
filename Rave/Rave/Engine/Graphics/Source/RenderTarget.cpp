@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/RenderTarget.h"
 
-rave::RenderTarget::RenderTarget(Graphics& gfx, SwapChain& swap)
+rave::RenderTarget& rave::RenderTarget::Load(Graphics& gfx, SwapChain& swap)
 {
 	HRESULT hr;
 
@@ -13,6 +13,8 @@ rave::RenderTarget::RenderTarget(Graphics& gfx, SwapChain& swap)
 	desc.Texture2D = D3D11_TEX2D_RTV{ 0 };
 
 	rave_check_hr(GetDevice(gfx)->CreateRenderTargetView(pBackBuffer.Get(), &desc, &pTarget));
+
+	return *this;
 }
 
 void rave::RenderTarget::Bind(Graphics& gfx)

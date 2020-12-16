@@ -8,10 +8,21 @@ namespace rave
 	class ConstantBuffer : public Buffer
 	{
 	public:
-		ConstantBuffer(Graphics& gfx, const T& value, const bool writeAccess = false)
-			:
-			Buffer(CreateBuffer(gfx, value, writeAccess))
-		{}
+		ConstantBuffer& Load(Graphics& gfx, const T& value, const bool writeAccess = false)
+		{
+			if constexpr (sizeof(T) % 16)
+			{
+				static constexpr size_t size = (sizeof(T) / 16 + 1) * 16;
+				std::vector<unsigned char> data(size);
+				memcpy(data.data(), &value, sizeof(T));
+				Buffer::Load(gfx, writeAccess, D3D11_BIND_CONSTANT_BUFFER, size, 0, &value);
+			}
+			else
+			{
+				Buffer::Load(gfx, writeAccess, D3D11_BIND_CONSTANT_BUFFER, sizeof(T), 0, &value);
+			}
+			return *this;
+		}
 
 		void Write(Graphics& gfx, const T& value)
 		{
@@ -36,22 +47,6 @@ namespace rave
 		void BindToVertexShader(Graphics& gfx) const noexcept
 		{
 			GetContext(gfx)->VSSetConstantBuffers(0u, 1u, pBuffer.GetAddressOf());
-		}
-
-	private:
-		static Buffer CreateBuffer(Graphics& gfx, const T& value, const bool writeAccess)
-		{
-			if constexpr (sizeof(T) % 16)
-			{
-				static constexpr size_t size = (sizeof(T) / 16 + 1) * 16;
-				std::vector<unsigned char> data(size);
-				memcpy(data.data(), &value, sizeof (T));
-				return Buffer(gfx, writeAccess, D3D11_BIND_CONSTANT_BUFFER, size, 0, &value);
-			}
-			else
-			{
-				return Buffer(gfx, writeAccess, D3D11_BIND_CONSTANT_BUFFER, sizeof(T), 0, &value);
-			}
 		}
 	};
 }

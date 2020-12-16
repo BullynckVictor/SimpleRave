@@ -17,9 +17,9 @@ namespace rave
 			return &it->second;
 		}
 
-		void Add(const char* key, T&& t)
+		void Add(const char* key, const T& t)
 		{
-			map.insert_or_assign(key, std::move(t));
+			map[key] = t;
 		}
 
 		void Remove(const char* key)

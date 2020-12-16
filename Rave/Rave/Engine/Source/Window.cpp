@@ -12,11 +12,12 @@ rave::Window::Window(Graphics& gfx, const wchar_t* windowName, const int width, 
     className(className),
 	width(width),
 	height(height),
-	gfx(gfx),
-	swap(gfx, hwnd, width, height),
-	target(gfx, swap),
-    blender(gfx, true)
+	gfx(gfx)
 {
+    swap.Load(gfx, hwnd, width, height);
+    target.Load(gfx, swap);
+    blender.Load(gfx, true);
+
     ShowWindow(hwnd, SW_SHOWDEFAULT);
 
     //register raw input device

@@ -6,7 +6,7 @@ namespace rave
 	class SwapChain : GraphicsFriend
 	{
 	public:
-		SwapChain(Graphics& gfx, HWND hwnd, unsigned int width, unsigned int height);
+		SwapChain& Load(Graphics& gfx, HWND hwnd, unsigned int width, unsigned int height);
 
 		void Present() noexcept;
 

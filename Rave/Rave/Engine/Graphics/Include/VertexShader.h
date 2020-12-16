@@ -6,7 +6,7 @@ namespace rave
 	class VertexShader : public GraphicsFriend
 	{
 	public:
-		VertexShader(Graphics& gfx, const wchar_t* path);
+		VertexShader& Load(Graphics& gfx, const wchar_t* path);
 		void Bind(Graphics& gfx) const noexcept;
 
 	private:
