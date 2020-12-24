@@ -17,8 +17,11 @@ namespace rave
 		ID3D11Resource* GetResource() const noexcept override;
 		GUID GetWICFormat() const;
 		ComPtr<ID3D11Texture2D> pTexture;
+
+		friend class RenderTarget;
 	};
 
 	static constexpr Flag<Texture> bindTextureView = NewFlag<Texture>(0);
 	static constexpr Flag<Texture> bindTextureUAV  = NewFlag<Texture>(1);
+	static constexpr Flag<Texture> bindTextureRT   = NewFlag<Texture>(2);
 }

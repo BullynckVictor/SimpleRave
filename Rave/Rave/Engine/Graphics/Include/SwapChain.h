@@ -8,7 +8,7 @@ namespace rave
 	public:
 		SwapChain& Load(Graphics& gfx, HWND hwnd, unsigned int width, unsigned int height);
 
-		void Present() noexcept;
+		void Present();
 
 		void SetVSync(const bool vsync) noexcept;
 		bool GetVSync() const noexcept;

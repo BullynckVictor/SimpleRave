@@ -3,8 +3,7 @@
 
 rave::Application::Application(const wchar_t* windowName, const int width, const int height, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
 	:
-	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className),
-	camera(Transform::camera)
+	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className)
 {
 	memory.inputLayoutCodex.Add(  "position",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex))}));
 	memory.inputLayoutCodex.Add(  "texture",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/TextureVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex)), InputLayoutElement("TexCoord", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex)) }));
@@ -18,6 +17,8 @@ rave::Application::Application(const wchar_t* windowName, const int width, const
 
 	shapeRenderer.Load(gfx, memory, "position", "color", "transform");
 	spriteRenderer.Load(gfx, memory, "texture", "texture", "texture");
+
+	Transform::pCamera = &camera;
 }
 
 void rave::Application::Go()
@@ -47,7 +48,7 @@ rave::Vector2 rave::Application::MousePos() const noexcept
 	pos /= { (float)wnd.GetWidth(), (float)wnd.GetHeight() };
 	pos.x = pos.x * 2 - 1;
 	pos.y = -pos.y * 2 + 1;
-	pos *= camera.size;
+	pos *= targetSize.relative;
 
 	rave::Matrix mat =
 		DirectX::XMMatrixScaling(camera.zoom, camera.zoom, 1)
@@ -104,6 +105,16 @@ void rave::Application::LoadTexture(const char* key, const wchar_t* path)
 	memory.sizeCodex.Add(key, Vector2((float)width, (float)height));
 }
 
+void rave::Application::LoadText(Text& text, const wchar_t* font, const float size, const FColor& color, Vector2 boundingSize)
+{
+	text.Load(gfx, wnd.GetRenderTarget(), font, size, color, boundingSize);
+}
+
+void rave::Application::UpdateText(Text& text, const Vector2& boundingSize)
+{
+	text.Update(gfx, wnd.GetRenderTarget(), boundingSize);
+}
+
 void rave::Application::Render(const Shape& object)
 {
 	shapeRenderer.Render(gfx, object);
@@ -117,4 +128,9 @@ void rave::Application::Render(const Sprite& object)
 void rave::Application::Render(const Animation& object)
 {
 	spriteRenderer.Render(gfx, object);
+}
+
+void rave::Application::Render(const Text& object)
+{
+	object.Bind(wnd.GetRenderTarget());
 }

@@ -16,4 +16,6 @@ private:
 	rave::Sprite mario;
 	rave::Animation knight;
 	float r = 0.0f;
+
+	rave::Text debugText;
 };

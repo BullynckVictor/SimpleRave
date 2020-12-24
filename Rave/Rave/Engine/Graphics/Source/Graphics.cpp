@@ -24,6 +24,17 @@ rave::Graphics::Graphics()
 	));
 
 	rave_check_hr(CreateDXGIFactory(__uuidof(IDXGIFactory), &pFactory));
+
+	//DirectWrite
+	rave_check_hr(DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,
+		__uuidof(IDWriteFactory),
+		reinterpret_cast<IUnknown**>(pDWFactory.ReleaseAndGetAddressOf())));
+
+	// create the Direct2D factory
+	D2D1_FACTORY_OPTIONS options{};
+	options.debugLevel = D2D1_DEBUG_LEVEL_NONE;
+
+	rave_check_hr(D2D1CreateFactory(D2D1_FACTORY_TYPE_MULTI_THREADED, __uuidof(ID2D1Factory), &options, (void**)pD2DFactory.ReleaseAndGetAddressOf()));
 }
 
 void rave::Graphics::ClearInfoManager() noexcept
@@ -58,7 +69,17 @@ rave::ComPtr<ID3D11DeviceContext>& rave::GraphicsFriend::GetContext(Graphics& gf
 	return gfx.pContext;
 }
 
-rave::ComPtr<IDXGIFactory>& rave::GraphicsFriend::GetFactory(Graphics& gfx) noexcept
+rave::ComPtr<IDXGIFactory>& rave::GraphicsFriend::GetDXGIFactory(Graphics& gfx) noexcept
 {
 	return gfx.pFactory;
+}
+
+rave::ComPtr<ID2D1Factory>& rave::GraphicsFriend::GetD2DFactory(Graphics& gfx) noexcept
+{
+	return gfx.pD2DFactory;
+}
+
+rave::ComPtr<IDWriteFactory>& rave::GraphicsFriend::GetDWFactory(Graphics& gfx) noexcept
+{
+	return gfx.pDWFactory;
 }

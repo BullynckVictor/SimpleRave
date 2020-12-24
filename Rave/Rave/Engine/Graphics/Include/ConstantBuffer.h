@@ -48,5 +48,10 @@ namespace rave
 		{
 			GetContext(gfx)->VSSetConstantBuffers(0u, 1u, pBuffer.GetAddressOf());
 		}
+
+		void BindToComputeShader(Graphics& gfx) const noexcept
+		{
+			GetContext(gfx)->CSSetConstantBuffers(0u, 1u, pBuffer.GetAddressOf());
+		}
 	};
 }

@@ -58,3 +58,8 @@ void rave::Sprite::Bind(Graphics& gfx) const
 
 	gfx.CheckInfoManager();
 }
+
+void rave::Sprite::WriteTransform(Graphics& gfx, const Transform& transform_)
+{
+	transform.Write(gfx, transform_.viewMatrix);
+}

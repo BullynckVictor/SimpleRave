@@ -20,6 +20,8 @@ rave::Texture& rave::Texture::Load(Graphics& gfx, const size_t width, const size
 		desc.BindFlags |= D3D11_BIND_SHADER_RESOURCE;
 	if (flag.Contains(bindTextureUAV))
 		desc.BindFlags |= D3D11_BIND_UNORDERED_ACCESS;
+	if (flag.Contains(bindTextureRT))
+		desc.BindFlags |= D3D11_BIND_RENDER_TARGET;
 	desc.CPUAccessFlags = 0;
 	desc.MiscFlags = 0;
 

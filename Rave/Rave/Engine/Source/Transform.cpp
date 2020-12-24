@@ -1,6 +1,6 @@
 #include "Engine/Include/Transform.h"
 
-rave::Camera rave::Transform::camera;
+rave::Camera* rave::Transform::pCamera = nullptr;
 
 rave::Transform::Transform() noexcept
 	:
@@ -35,11 +35,11 @@ rave::Matrix& rave::Transform::Concatonate() noexcept
 	viewMatrix = DirectX::XMMatrixTranspose(
 		DirectX::XMMatrixScaling(scale.x, scale.y, 1)
 		* DirectX::XMMatrixRotationZ(rotation)
-		* DirectX::XMMatrixTranslation((position.x - camera.position.x), (position.y - camera.position.y), 0)
-		* DirectX::XMMatrixRotationZ(-camera.rotation)
-		* DirectX::XMMatrixTranslation(-(position.x - camera.position.x), -(position.y - camera.position.y), 0)
-		* DirectX::XMMatrixTranslation((position.x - camera.position.x), (position.y - camera.position.y), 0)
-		* DirectX::XMMatrixScaling(1 / (camera.size.x * camera.zoom), 1 / (camera.size.y * camera.zoom), 1)
+		* DirectX::XMMatrixTranslation((position.x - pCamera->position.x), (position.y - pCamera->position.y), 0)
+		* DirectX::XMMatrixRotationZ(-pCamera->rotation)
+		* DirectX::XMMatrixTranslation(-(position.x - pCamera->position.x), -(position.y - pCamera->position.y), 0)
+		* DirectX::XMMatrixTranslation((position.x - pCamera->position.x), (position.y - pCamera->position.y), 0)
+		* DirectX::XMMatrixScaling(1 / (targetSize.relative.x * pCamera->zoom), 1 / (targetSize.relative.y * pCamera->zoom), 1)
 	);
 	worldMatrix = DirectX::XMMatrixTranspose(
 		DirectX::XMMatrixRotationZ(rotation)

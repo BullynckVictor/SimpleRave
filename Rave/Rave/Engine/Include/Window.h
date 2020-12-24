@@ -39,6 +39,9 @@ namespace rave
 		void Close()  const noexcept;
 		bool IsOpen() const noexcept;
 
+		RenderTarget& GetRenderTarget() noexcept;
+		const TargetSize GetSize() const noexcept;
+
 	public:
 		FColor background;
 
@@ -63,6 +66,7 @@ namespace rave
 
 		const int width;
 		const int height;
+		TargetSize size;
 
 		Graphics& gfx;
 		SwapChain swap;

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\Audio\Source\AudioManager.cpp" />
     <ClCompile Include="Engine\Audio\Source\Sound.cpp" />
+    <ClCompile Include="Engine\Drawables\Source\Text.cpp" />
     <ClCompile Include="Engine\Drawables\Source\FlatRenderer.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Shape.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Animation.cpp" />
@@ -35,7 +36,6 @@
     <ClCompile Include="Engine\Graphics\Source\Texture.cpp" />
     <ClCompile Include="Engine\Graphics\Source\TextureUAV.cpp" />
     <ClCompile Include="Engine\Graphics\Source\TextureView.cpp" />
-    <ClCompile Include="Engine\Graphics\Source\ViewPort.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Buffer.cpp" />
     <ClCompile Include="Engine\Graphics\Source\IndexBuffer.cpp" />
     <ClCompile Include="Engine\Graphics\Source\InputLayout.cpp" />
@@ -48,6 +48,7 @@
     <ClCompile Include="Engine\Source\ComManager.cpp" />
     <ClCompile Include="Engine\Source\Keyboard.cpp" />
     <ClCompile Include="Engine\Source\Mouse.cpp" />
+    <ClCompile Include="Engine\Source\TargetSize.cpp" />
     <ClCompile Include="Engine\Source\Transform.cpp" />
     <ClCompile Include="Engine\Source\Window.cpp" />
     <ClCompile Include="Engine\Utilities\Source\Exception.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Engine\Drawables\Include\Shape.h" />
     <ClInclude Include="Engine\Drawables\Include\Animation.h" />
     <ClInclude Include="Engine\Drawables\Include\Sprite.h" />
+    <ClInclude Include="Engine\Drawables\Include\Text.h" />
     <ClInclude Include="Engine\Graphics\Include\ComputeShader.h" />
     <ClInclude Include="Engine\Graphics\Include\Blender.h" />
     <ClInclude Include="Engine\Graphics\Include\Buffer.h" />
@@ -86,9 +88,9 @@
     <ClInclude Include="Engine\Graphics\Include\TextureView.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexBuffer.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexShader.h" />
-    <ClInclude Include="Engine\Graphics\Include\ViewPort.h" />
     <ClInclude Include="Engine\Include\Application.h" />
     <ClInclude Include="Engine\Include\ComManager.h" />
+    <ClInclude Include="Engine\Include\TargetSize.h" />
     <ClInclude Include="Engine\Include\Transform.h" />
     <ClInclude Include="Engine\Utilities\Include\Codex.h" />
     <ClInclude Include="Engine\Include\Keyboard.h" />

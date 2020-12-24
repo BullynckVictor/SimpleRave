@@ -25,6 +25,9 @@ namespace rave
 		ComPtr<ID3D11DeviceContext>	pContext;
 		ComPtr<IDXGIFactory>		pFactory;
 
+		ComPtr<ID2D1Factory>		pD2DFactory;
+		ComPtr<IDWriteFactory>		pDWFactory;
+
 		friend class GraphicsFriend;
 	};
 
@@ -33,6 +36,9 @@ namespace rave
 	protected:
 		static ComPtr<ID3D11Device>&		GetDevice  (Graphics& gfx) noexcept;
 		static ComPtr<ID3D11DeviceContext>&	GetContext (Graphics& gfx) noexcept;
-		static ComPtr<IDXGIFactory>&		GetFactory (Graphics& gfx) noexcept;
+		static ComPtr<IDXGIFactory>&		GetDXGIFactory (Graphics& gfx) noexcept;
+
+		static ComPtr<ID2D1Factory>&		GetD2DFactory (Graphics& gfx) noexcept;
+		static ComPtr<IDWriteFactory>&		GetDWFactory  (Graphics& gfx) noexcept;
 	};
 }

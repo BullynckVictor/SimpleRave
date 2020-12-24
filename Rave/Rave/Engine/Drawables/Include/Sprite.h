@@ -11,6 +11,7 @@ namespace rave
 
 		void Bind(Graphics& gfx) const;
 
+		void WriteTransform(Graphics& gfx, const Transform& transform);		
 		ConstantBuffer<Matrix>	transform;
 
 	private:

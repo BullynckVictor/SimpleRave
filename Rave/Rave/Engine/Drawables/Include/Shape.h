@@ -12,6 +12,7 @@ namespace rave
 		void Bind(Graphics& gfx) const;
 
 		bool IsFilled() const noexcept;
+		void WriteTransform(Graphics& gfx, const Transform& transform);
 
 		VertexBuffer<Vertex>	vertices;
 		ConstantBuffer<FColor>	color;

@@ -30,6 +30,11 @@ bool rave::Shape::IsFilled() const noexcept
 	return topology == D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP;
 }
 
+void rave::Shape::WriteTransform(Graphics& gfx, const Transform& transform_)
+{
+	transform.Write(gfx, transform_.viewMatrix);
+}
+
 rave::Shape rave::Triangle(Graphics& gfx, const Vector2& pos, const float rotation, const float scale, const FColor color, const bool fill, const bool write)
 {
 	static constexpr float p1 = Radian(90.0f);

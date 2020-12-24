@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/Graphics/Include/DirectX.h"
 #include "Engine/Utilities/Include/Vector2D.h"
+#include "Engine/Include/TargetSize.h"
 
 namespace rave
 {
@@ -16,7 +17,6 @@ namespace rave
 		float zoom = 1;
 		float rotation = 0;
 		Vector2 position = { 0, 0 };
-		Vector2 size = { 1, 1 };
 	};
 
 	class Transform
@@ -41,6 +41,6 @@ namespace rave
 		Matrix viewMatrix;
 		Matrix worldMatrix;
 
-		static Camera camera;
+		static Camera* pCamera;
 	};
 }

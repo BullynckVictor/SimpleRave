@@ -1,5 +1,4 @@
 #include "Engine/Include/Window.h"
-#include "Engine/Graphics/Include/ViewPort.h"
 #include "Engine/Include/Transform.h"
 #include "resource.h"
 
@@ -17,6 +16,8 @@ rave::Window::Window(Graphics& gfx, const wchar_t* windowName, const int width, 
     swap.Load(gfx, hwnd, width, height);
     target.Load(gfx, swap);
     blender.Load(gfx, true);
+
+    size = target.GetTargetSize();
 
     ShowWindow(hwnd, SW_SHOWDEFAULT);
 
@@ -85,13 +86,12 @@ void rave::Window::Clear() noexcept
 
 void rave::Window::Present()
 {
+    target.EndDraw();
     swap.Present();
 }
 
 void rave::Window::Bind()
 {
-    ViewPort(width, height).Bind(gfx);
-    Transform::camera.size.x = (float)width / (float)height;
     target.Bind(gfx);
 }
 
@@ -190,6 +190,16 @@ void rave::Window::Close() const noexcept
 bool rave::Window::IsOpen() const noexcept
 {
     return open;
+}
+
+rave::RenderTarget& rave::Window::GetRenderTarget() noexcept
+{
+    return target;
+}
+
+const rave::TargetSize rave::Window::GetSize() const noexcept
+{
+    return size;
 }
 
 bool rave::Window::CursorEnabled() const noexcept

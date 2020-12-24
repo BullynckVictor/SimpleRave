@@ -22,7 +22,7 @@ rave::SwapChain& rave::SwapChain::Load(Graphics& gfx, HWND hwnd, unsigned int wi
 	sd.Flags = 0;
 
 
-	rave_check_hr(GetFactory(gfx)->CreateSwapChain(
+	rave_check_hr(GetDXGIFactory(gfx)->CreateSwapChain(
 		GetDevice(gfx).Get(),
 		&sd,
 		&pSwap
@@ -31,10 +31,10 @@ rave::SwapChain& rave::SwapChain::Load(Graphics& gfx, HWND hwnd, unsigned int wi
 	return *this;
 }
 
-void rave::SwapChain::Present() noexcept
+void rave::SwapChain::Present()
 {
-	HRESULT hr = pSwap->Present(sync, 0);
-	assert( SUCCEEDED( hr ) && "Presenting Backbuffer Failed" );
+	HRESULT hr;
+	rave_check_hr( pSwap->Present(sync, 0) );
 }
 
 void rave::SwapChain::SetVSync(const bool vsync) noexcept

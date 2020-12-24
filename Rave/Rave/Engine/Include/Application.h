@@ -13,6 +13,7 @@
 #include "Engine/Drawables/Include/Shape.h"
 #include "Engine/Drawables/Include/Sprite.h"
 #include "Engine/Drawables/Include/Animation.h"
+#include "Engine/Drawables/Include/Text.h"
 #include "Engine/Drawables/Include/FlatRenderer.h"
 
 namespace rave
@@ -31,10 +32,13 @@ namespace rave
 		Vector2 MousePos() const noexcept;
 		void ControllCamera(const float dt, const float moveSpeed = 1.0f, const float rotationSpeed = 1.0f, const float scrollSpeed = 15.0f) noexcept;
 		void LoadTexture(const char* key, const wchar_t* path);
+		void LoadText(Text& text, const wchar_t* font, const float size, const FColor& color, Vector2 boundingSize = Vector2(targetSize.relative.x, -targetSize.relative.y));
+		void UpdateText(Text& text, const Vector2& boundingSize = Vector2(targetSize.relative.x, -targetSize.relative.y));
 
 		void Render(const Shape& object);
 		void Render(const Sprite& object);
 		void Render(const Animation& object);
+		void Render(const Text& object);
 
 	private:
 		Timer ft;
@@ -49,7 +53,7 @@ namespace rave
 		Window wnd;
 		GraphicsMemory memory;
 		AudioManager audio;
-		Camera& camera;
+		Camera camera;
 	};
 
 	template<typename T>

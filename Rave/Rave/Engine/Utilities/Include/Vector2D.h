@@ -28,6 +28,13 @@ namespace rave
 			x(other.x),
 			y(other.y)
 		{}
+
+		template<typename U>
+		explicit operator Vector2D_t<U>()
+		{
+			return Vector2D_t<U>(static_cast<U>(x), static_cast<U>(y));
+		}
+
 		Vector2D_t& operator=  (const Vector2D_t& rhs)
 		{
 			x = rhs.x;

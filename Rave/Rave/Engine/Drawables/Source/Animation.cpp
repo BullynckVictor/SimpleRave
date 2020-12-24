@@ -28,6 +28,11 @@ rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, co
 	return Load(gfx, memory, { { gfx, memory, textureKey, nFrames } }, transform, fps, pixel, write);
 }
 
+void rave::Animation::WriteTransform(Graphics& gfx, const Transform& transform_)
+{
+	transform.Write(gfx, transform_.viewMatrix);
+}
+
 void rave::Animation::Bind(Graphics& gfx) const
 {
 	gfx.ClearInfoManager();
