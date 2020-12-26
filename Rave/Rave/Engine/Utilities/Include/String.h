@@ -30,4 +30,22 @@ namespace rave
 
 		return ret;
 	}
+
+	constexpr size_t fnv1a_32(char const* s, size_t count)
+	{
+		return ((count ? fnv1a_32(s, count - 1) : 2166136261u) ^ s[count]) * 16777619u;
+	}
+
+	constexpr size_t HashString(std::string_view s)
+	{
+		return fnv1a_32(s.data(), s.length());
+	}
+
+	template<typename T>
+	std::string ToString(const T& t)
+	{
+		std::stringstream ss;
+		ss << t;
+		return ss.str();
+	}
 }

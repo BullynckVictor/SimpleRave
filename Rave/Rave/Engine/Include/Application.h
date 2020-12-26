@@ -43,7 +43,6 @@ namespace rave
 	private:
 		Timer ft;
 		PerformanceProfiler profiler;
-		ImageDecoder decoder;
 
 		FlatRenderer shapeRenderer;
 		FlatRenderer spriteRenderer;
@@ -54,6 +53,7 @@ namespace rave
 		GraphicsMemory memory;
 		AudioManager audio;
 		Camera camera;
+		ImageDecoder decoder;
 	};
 
 	template<typename T>

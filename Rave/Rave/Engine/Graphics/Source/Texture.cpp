@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/Texture.h"
 
-rave::Texture& rave::Texture::Load(Graphics& gfx, const size_t width, const size_t height, const size_t byteWidth, const DXGI_FORMAT format, const void* pData, const Flag<Texture> flag)
+rave::Texture& rave::Texture::Load(Graphics& gfx, const size_t width, const size_t height, const size_t byteWidth, const DXGI_FORMAT format, const void* pData, const Flag<Resource> flag)
 {
 	this->format = format;
 
@@ -16,14 +16,21 @@ rave::Texture& rave::Texture::Load(Graphics& gfx, const size_t width, const size
 	desc.SampleDesc.Quality = 0;
 	desc.Usage = D3D11_USAGE_DEFAULT;
 	desc.BindFlags = 0;
-	if (flag.Contains(bindTextureView))
-		desc.BindFlags |= D3D11_BIND_SHADER_RESOURCE;
-	if (flag.Contains(bindTextureUAV))
-		desc.BindFlags |= D3D11_BIND_UNORDERED_ACCESS;
-	if (flag.Contains(bindTextureRT))
-		desc.BindFlags |= D3D11_BIND_RENDER_TARGET;
 	desc.CPUAccessFlags = 0;
 	desc.MiscFlags = 0;
+
+	if (flag.Contains(bindResourceView))
+		desc.BindFlags |= D3D11_BIND_SHADER_RESOURCE;
+	if (flag.Contains(bindResourceUAV))
+		desc.BindFlags |= D3D11_BIND_UNORDERED_ACCESS;
+	if (flag.Contains(bindResourceRT))
+		desc.BindFlags |= D3D11_BIND_RENDER_TARGET;
+
+	if (flag.Contains(writeResource))
+	{
+		desc.Usage = D3D11_USAGE_DYNAMIC;
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	}
 
 	if (pData)
 	{
@@ -82,6 +89,20 @@ rave::Texture& rave::Texture::Load(Graphics& gfx, ImageDecoder& decoder, const s
 DXGI_FORMAT rave::Texture::GetFormat() const noexcept
 {
 	return format;
+}
+
+void rave::Texture::Save(Graphics& gfx, ImageDecoder& decoder, const wchar_t* filename, const size_t byteWidth)
+{
+	auto vec = Read<BYTE>(gfx, byteWidth);
+	auto size = GetSize();
+	decoder.SaveImage(filename, size.x, size.y, vec.size(), byteWidth * size.x, GetWICFormat(), vec.data());
+}
+
+rave::Size rave::Texture::GetSize() const noexcept
+{
+	D3D11_TEXTURE2D_DESC desc;
+	pTexture->GetDesc(&desc);
+	return { desc.Width, desc.Height };
 }
 
 ID3D11Resource* rave::Texture::GetResource() const noexcept
