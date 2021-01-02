@@ -10,11 +10,9 @@
 #include "Engine/Include/ComManager.h"
 
 #include "Engine/Drawables/Include/Drawable.h"
-#include "Engine/Drawables/Include/Shape.h"
-#include "Engine/Drawables/Include/Sprite.h"
-#include "Engine/Drawables/Include/Animation.h"
-#include "Engine/Drawables/Include/Text.h"
+#include "Engine/GUI/Include/Gui.h"
 #include "Engine/Drawables/Include/FlatRenderer.h"
+#include "Engine/Drawables/Include/Text.h"
 
 namespace rave
 {
@@ -35,25 +33,33 @@ namespace rave
 		void LoadText(Text& text, const wchar_t* font, const float size, const FColor& color, Vector2 boundingSize = Vector2(targetSize.relative.x, -targetSize.relative.y));
 		void UpdateText(Text& text, const Vector2& boundingSize = Vector2(targetSize.relative.x, -targetSize.relative.y));
 
-		void Render(const Shape& object);
-		void Render(const Sprite& object);
-		void Render(const Animation& object);
-		void Render(const Text& object);
+		template<BindableConcept T>
+		void Render(const T& object, const FlatRenderer& renderer)
+		{
+			renderer.Render(gfx, object);
+		}
+		template<GuiConcept T>
+		void RenderGUI(const T& object, const FlatRenderer& renderer)
+		{
+			renderer.Render(gfx, wnd.GetRenderTarget(), object);
+		}
+
+		void RenderGUI(const Text& object);
 
 	private:
 		Timer ft;
 		PerformanceProfiler profiler;
 
-		FlatRenderer shapeRenderer;
-		FlatRenderer spriteRenderer;
-
 	protected:
 		Graphics gfx;
 		Window wnd;
-		GraphicsMemory memory;
+		GraphicsMemory memory; 
 		AudioManager audio;
 		Camera camera;
 		ImageDecoder decoder;
+
+		FlatRenderer flatR;
+		FlatRenderer textureR;
 	};
 
 	template<typename T>

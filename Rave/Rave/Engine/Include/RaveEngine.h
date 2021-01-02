@@ -8,3 +8,9 @@
 #include "Engine/Utilities/Include/PerformanceProfiler.h"
 
 #include "Engine/Audio/Include/Sound.h"
+
+#include "Engine/Drawables/Include/Shape.h"
+#include "Engine/Drawables/Include/Sprite.h"
+#include "Engine/Drawables/Include/Animation.h"
+
+#include "Engine/GUI/Include/guiWindow.h"

@@ -42,6 +42,8 @@ namespace rave
 		RenderTarget& GetRenderTarget() noexcept;
 		const TargetSize GetSize() const noexcept;
 
+		Vector2 MousePos() const noexcept;
+
 	public:
 		FColor background;
 

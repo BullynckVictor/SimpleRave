@@ -45,6 +45,8 @@
     <ClCompile Include="Engine\Graphics\Source\RenderTarget.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Graphics.cpp" />
     <ClCompile Include="Engine\Graphics\Source\VertexShader.cpp" />
+    <ClCompile Include="Engine\GUI\Source\EmptyCameraLock.cpp" />
+    <ClCompile Include="Engine\GUI\Source\guiWindow.cpp" />
     <ClCompile Include="Engine\Source\Application.cpp" />
     <ClCompile Include="Engine\Source\ComManager.cpp" />
     <ClCompile Include="Engine\Source\Keyboard.cpp" />
@@ -67,6 +69,7 @@
     <ClInclude Include="Engine\Drawables\Include\Animation.h" />
     <ClInclude Include="Engine\Drawables\Include\Sprite.h" />
     <ClInclude Include="Engine\Drawables\Include\Text.h" />
+    <ClInclude Include="Engine\Graphics\Include\Bindable.h" />
     <ClInclude Include="Engine\Graphics\Include\ComputeShader.h" />
     <ClInclude Include="Engine\Graphics\Include\Blender.h" />
     <ClInclude Include="Engine\Graphics\Include\Buffer.h" />
@@ -89,10 +92,14 @@
     <ClInclude Include="Engine\Graphics\Include\TextureView.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexBuffer.h" />
     <ClInclude Include="Engine\Graphics\Include\VertexShader.h" />
+    <ClInclude Include="Engine\GUI\Include\EmptyCameraLock.h" />
+    <ClInclude Include="Engine\GUI\Include\Gui.h" />
+    <ClInclude Include="Engine\GUI\Include\guiWindow.h" />
     <ClInclude Include="Engine\Include\Application.h" />
     <ClInclude Include="Engine\Include\ComManager.h" />
     <ClInclude Include="Engine\Include\TargetSize.h" />
     <ClInclude Include="Engine\Include\Transform.h" />
+    <ClInclude Include="Engine\Utilities\Include\Box.h" />
     <ClInclude Include="Engine\Utilities\Include\Codex.h" />
     <ClInclude Include="Engine\Include\Keyboard.h" />
     <ClInclude Include="Engine\Include\MemoryManager.h" />

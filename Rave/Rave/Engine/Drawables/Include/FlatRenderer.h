@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/Drawables/Include/Drawable.h"
+#include "Engine/Gui/Include/Gui.h"
 
 namespace rave
 {
@@ -14,6 +15,14 @@ namespace rave
 			pPixelShader->Bind(gfx);
 			pVertexShader->Bind(gfx);
 			object.Bind(gfx);
+		}
+		template<GuiConcept T>
+		void Render(Graphics& gfx, RenderTarget& target, const T& object) const
+		{
+			pLayout->Bind(gfx);
+			pPixelShader->Bind(gfx);
+			pVertexShader->Bind(gfx);
+			object.Bind(gfx, target);
 		}
 
 	private:

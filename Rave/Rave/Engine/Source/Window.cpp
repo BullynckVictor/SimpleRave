@@ -202,6 +202,18 @@ const rave::TargetSize rave::Window::GetSize() const noexcept
     return size;
 }
 
+rave::Vector2 rave::Window::MousePos() const noexcept
+{
+    TargetSize ts = GetSize();
+    Vector2 pos = { (float)mouse.GetPosX(), (float)mouse.GetPosY() };
+    pos /= { (float)ts.pixel.x, (float)ts.pixel.y };
+    pos.x = pos.x * 2 - 1;
+    pos.y = -pos.y * 2 + 1;
+    pos *= ts.relative;
+
+    return pos;
+}
+
 bool rave::Window::CursorEnabled() const noexcept
 {
     return cursorEnabled;

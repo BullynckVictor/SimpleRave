@@ -12,7 +12,6 @@ private:
 private:
 	rave::Shape shape;
 	rave::Shape cursor;
-	rave::Shape debugtri;
 	rave::Sprite kappa;
 	rave::Sprite mario;
 	rave::Animation knight;

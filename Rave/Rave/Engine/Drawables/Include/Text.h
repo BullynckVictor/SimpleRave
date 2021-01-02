@@ -19,10 +19,22 @@ namespace rave
 		Vector2 pos;
 
 		static Vector2 GetTargetBoundingSize(RenderTarget& target) noexcept;
+		float GetHeight(RenderTarget& target) const;
 
 	private:
 		ComPtr<IDWriteTextFormat> pFormat;
 		ComPtr<IDWriteTextLayout> pLayout;
 		ComPtr<ID2D1SolidColorBrush> pBrush;
 	};
+
+	template<typename T>
+	static constexpr T PixelToPoint(const T& a)
+	{
+		return (T)72 / (T)96 * a;
+	}
+	template<typename T>
+	static constexpr T PointToPixel(const T& a)
+	{
+		return (T)96 / (T)72 * a;
+	}
 }

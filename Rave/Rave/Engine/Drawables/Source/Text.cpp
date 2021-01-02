@@ -11,6 +11,8 @@ rave::Text& rave::Text::Load(Graphics& gfx, RenderTarget& target, const wchar_t*
 {
 	HRESULT hr;
 
+	float em = PixelToPoint(std::min((float)target.GetHeight(), (float)target.GetWidth()) * size);
+
 	rave_check_hr(GetD2DTarget(target)->CreateSolidColorBrush(
 		D2D1::ColorF(color.r, color.g, color.b, color.a),
 		pBrush.ReleaseAndGetAddressOf()
@@ -22,7 +24,7 @@ rave::Text& rave::Text::Load(Graphics& gfx, RenderTarget& target, const wchar_t*
 		DWRITE_FONT_WEIGHT_REGULAR,
 		DWRITE_FONT_STYLE_NORMAL,
 		DWRITE_FONT_STRETCH_NORMAL,
-		floor((float)target.GetHeight() * size),
+		floor(em),
 		L"en-us",
 		&pFormat
 	));
@@ -66,6 +68,15 @@ void rave::Text::Bind(RenderTarget& target) const
 		pLayout.Get(),
 		pBrush.Get()
 	);
+}
+
+float rave::Text::GetHeight(RenderTarget& target) const
+{
+	HRESULT hr;
+
+	DWRITE_TEXT_METRICS metrics = {};
+	rave_check_hr(pLayout->GetMetrics(&metrics));
+	return PointToPixel( metrics.height + metrics.top ) / std::min((float)target.GetHeight(), (float)target.GetWidth());
 }
 
 rave::Vector2 rave::Text::GetTargetBoundingSize(RenderTarget& target) noexcept

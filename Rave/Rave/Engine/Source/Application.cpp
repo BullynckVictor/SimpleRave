@@ -1,5 +1,6 @@
 #include "Engine/Include/Application.h"
 #include "Engine/Utilities/Include/Exception.h"
+#include "Engine/Include/RaveEngine.h"
 
 rave::Application::Application(const wchar_t* windowName, const int width, const int height, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
 	:
@@ -15,8 +16,9 @@ rave::Application::Application(const wchar_t* windowName, const int width, const
 	memory.samplerCodex.Add(	  "linear",		Sampler().Load(gfx, D3D11_FILTER_MIN_MAG_MIP_LINEAR));
 	memory.samplerCodex.Add(	  "pixel",		Sampler().Load(gfx, D3D11_FILTER_MIN_MAG_MIP_POINT));
 
-	shapeRenderer.Load(gfx, memory, "position", "color", "transform");
-	spriteRenderer.Load(gfx, memory, "texture", "texture", "texture");
+	flatR	.Load(gfx, memory, "position", "color", "transform");
+	textureR.Load(gfx, memory, "texture", "texture", "texture");
+
 
 	Transform::pCamera = &camera;
 }
@@ -48,7 +50,7 @@ rave::Vector2 rave::Application::MousePos() const noexcept
 	pos /= { (float)wnd.GetWidth(), (float)wnd.GetHeight() };
 	pos.x = pos.x * 2 - 1;
 	pos.y = -pos.y * 2 + 1;
-	pos *= targetSize.relative;
+	pos *= wnd.GetSize().relative;
 
 	rave::Matrix mat =
 		DirectX::XMMatrixScaling(camera.zoom, camera.zoom, 1)
@@ -115,22 +117,7 @@ void rave::Application::UpdateText(Text& text, const Vector2& boundingSize)
 	text.Update(gfx, wnd.GetRenderTarget(), boundingSize);
 }
 
-void rave::Application::Render(const Shape& object)
-{
-	shapeRenderer.Render(gfx, object);
-}
-
-void rave::Application::Render(const Sprite& object)
-{
-	spriteRenderer.Render(gfx, object);
-}
-
-void rave::Application::Render(const Animation& object)
-{
-	spriteRenderer.Render(gfx, object);
-}
-
-void rave::Application::Render(const Text& object)
+void rave::Application::RenderGUI(const Text& object)
 {
 	object.Bind(wnd.GetRenderTarget());
 }

@@ -31,10 +31,7 @@ TestApp::TestApp()
 
 void TestApp::Update(const float dt)
 {
-	static constexpr float speed = 1.0f;
-
 	ControllCamera(dt);
-
 
 	r += dt;
 	cursor.WriteTransform(gfx, Transform(MousePos(), 1, Radian(45)));
@@ -43,6 +40,7 @@ void TestApp::Update(const float dt)
 	kappa.WriteTransform(gfx, Transform(MousePos(), 1, 0));
 	knight.WriteTransform(gfx, Transform(0, .75f, 0));
 
-	Render(mario);
-	Render(debugText);
+	Render(knight,	textureR);
+	Render(cursor,	flatR);
+	RenderGUI(debugText);
 }
