@@ -93,7 +93,7 @@ void rave::RenderTarget::Bind(Graphics& gfx)
 
 void rave::RenderTarget::Clear(Graphics& gfx, const FColor& background) noexcept
 {
-	GetContext(gfx)->ClearRenderTargetView(pTarget.Get(), background.Get());
+	GetContext(gfx)->ClearRenderTargetView(pTarget.Get(), background.data.data());
 	pD2DTarget->BeginDraw();
 }
 
@@ -117,11 +117,11 @@ rave::TargetSize rave::RenderTarget::GetTargetSize() const noexcept
 {
 	TargetSize ts;
 
-	ts.pixel.x = GetWidth();
-	ts.pixel.y = GetHeight();
+	ts.pixel.view.x = GetWidth();
+	ts.pixel.view.y = GetHeight();
 	const float min = std::min(vp.Width, vp.Height);
-	ts.relative.x = vp.Width / min;
-	ts.relative.y = vp.Height / min;
+	ts.relative.view.x = vp.Width / min;
+	ts.relative.view.y = vp.Height / min;
 
 	return ts;
 }

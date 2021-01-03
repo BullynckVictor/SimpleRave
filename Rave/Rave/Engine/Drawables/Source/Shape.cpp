@@ -1,6 +1,6 @@
 #include "Engine/Drawables/Include/Shape.h"
 
-rave::Shape& rave::Shape::Load(Graphics& gfx, const std::vector<Vertex>& vertices_, const Transform& transform_, const FColor& color_, const bool fill, const bool write)
+rave::Shape& rave::Shape::Load(Graphics& gfx, const std::vector<Vertex>& vertices_, const Transform2& transform_, const FColor& color_, const bool fill, const bool write)
 {
 	vertices.Load(gfx, vertices_, write);
 	color.Load(gfx, color_, write);
@@ -30,7 +30,7 @@ bool rave::Shape::IsFilled() const noexcept
 	return topology == D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP;
 }
 
-void rave::Shape::WriteTransform(Graphics& gfx, const Transform& transform_)
+void rave::Shape::WriteTransform(Graphics& gfx, const Transform2& transform_)
 {
 	transform.Write(gfx, transform_.viewMatrix);
 }
@@ -60,7 +60,7 @@ rave::Shape rave::Triangle(Graphics& gfx, const Vector2& pos, const float rotati
 	return Shape().Load(
 		gfx,
 		vertices,
-		Transform(pos, scale, Radian(rotation)),
+		Transform2(pos, scale, Radian(rotation)),
 		color,
 		fill,
 		write
@@ -90,7 +90,7 @@ rave::Shape rave::Rect(Graphics& gfx, const Vector2& pos, const float width, con
 	return Shape().Load(
 		gfx,
 		vertices,
-		Transform(pos, 1, Radian(rotation)),
+		Transform2(pos, 1, Radian(rotation)),
 		color,
 		fill,
 		write

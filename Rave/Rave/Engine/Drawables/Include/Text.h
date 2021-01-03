@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/Drawables/Include/Drawable.h"
-#include "Engine/Utilities/Include/Color.h"
+#include "Engine/Utilities/Include/Vector.h"
 #include "Engine/Graphics/Include/RenderTarget.h"
 
 namespace rave
@@ -11,8 +11,8 @@ namespace rave
 		Text() = default;
 		Text(const wchar_t* text, const Vector2& pos);
 
-		Text& Load(Graphics& gfx, RenderTarget& target, const wchar_t* font, const float size, const FColor& color, Vector2 boundingSize = Vector2(targetSize.relative.x, -targetSize.relative.y ));
-		void Update(Graphics& gfx, RenderTarget& target, Vector2 boundingSize = Vector2(targetSize.relative.x, -targetSize.relative.y));
+		Text& Load(Graphics& gfx, RenderTarget& target, const wchar_t* font, const float size, const FColor& color, Vector2 boundingSize = Vector2({ targetSize.relative.view.x, -targetSize.relative.view.y }));
+		void Update(Graphics& gfx, RenderTarget& target, Vector2 boundingSize = Vector2({ targetSize.relative.view.x, -targetSize.relative.view.y }));
 		void Bind(RenderTarget& target) const;
 
 		std::wstring string;

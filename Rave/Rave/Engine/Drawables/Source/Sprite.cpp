@@ -1,6 +1,6 @@
 #include "Engine/Drawables/Include/Sprite.h"
 
-rave::Sprite& rave::Sprite::Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform& transform_, const bool pixel, const bool write)
+rave::Sprite& rave::Sprite::Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform2& transform_, const bool pixel, const bool write)
 {
 	pTexture = memory.textureCodex.Get(textureKey);
 	pSampler = memory.samplerCodex.Get(pixel ? "pixel" : "linear");
@@ -29,14 +29,14 @@ rave::Sprite& rave::Sprite::Load(Graphics& gfx, GraphicsMemory& memory, const ch
 #endif
 
 	Vector2 size = *memory.sizeCodex.Get(textureKey);
-	size /= std::max(size.x, size.y);
+	size /= std::max(size.view.x, size.view.y);
 	vertices.Load(
 		gfx,
 		{
-			{ {-size.x / 2,  size.y / 2}, { 0, 0 } },
-			{ { size.x / 2,  size.y / 2}, { 1, 0 } },
-			{ {-size.x / 2, -size.y / 2}, { 0, 1 } },
-			{ { size.x / 2, -size.y / 2}, { 1, 1 } }
+			{ {-size.view.x / 2,  size.view.y / 2}, { 0, 0 } },
+			{ { size.view.x / 2,  size.view.y / 2}, { 1, 0 } },
+			{ {-size.view.x / 2, -size.view.y / 2}, { 0, 1 } },
+			{ { size.view.x / 2, -size.view.y / 2}, { 1, 1 } }
 		},
 		false
 	);
@@ -59,7 +59,7 @@ void rave::Sprite::Bind(Graphics& gfx) const
 	gfx.CheckInfoManager();
 }
 
-void rave::Sprite::WriteTransform(Graphics& gfx, const Transform& transform_)
+void rave::Sprite::WriteTransform(Graphics& gfx, const Transform2& transform_)
 {
 	transform.Write(gfx, transform_.viewMatrix);
 }

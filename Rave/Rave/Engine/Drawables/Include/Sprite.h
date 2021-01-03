@@ -7,11 +7,11 @@ namespace rave
 	class Sprite : public GraphicsFriend
 	{
 	public:
-		Sprite& Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform& transform, const bool pixel = false, const bool write = true);
+		Sprite& Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const Transform2& transform, const bool pixel = false, const bool write = true);
 
 		void Bind(Graphics& gfx) const;
 
-		void WriteTransform(Graphics& gfx, const Transform& transform);		
+		void WriteTransform(Graphics& gfx, const Transform2& transform);		
 		ConstantBuffer<Matrix>	transform;
 
 	private:

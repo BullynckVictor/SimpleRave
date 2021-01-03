@@ -206,9 +206,9 @@ rave::Vector2 rave::Window::MousePos() const noexcept
 {
     TargetSize ts = GetSize();
     Vector2 pos = { (float)mouse.GetPosX(), (float)mouse.GetPosY() };
-    pos /= { (float)ts.pixel.x, (float)ts.pixel.y };
-    pos.x = pos.x * 2 - 1;
-    pos.y = -pos.y * 2 + 1;
+    pos /= { (float)ts.pixel.view.x, (float)ts.pixel.view.y };
+    pos.view.x = pos.view.x * 2 - 1;
+    pos.view.y = -pos.view.y * 2 + 1;
     pos *= ts.relative;
 
     return pos;

@@ -3,12 +3,12 @@
 rave::EmptyCameraLock::EmptyCameraLock()
 	:
 	empty(),
-	pPrev(Transform::pCamera)
+	pPrev(Transform2::pCamera)
 {
-	Transform::pCamera = &empty;
+	Transform2::pCamera = &empty;
 }
 
 rave::EmptyCameraLock::~EmptyCameraLock()
 {
-	Transform::pCamera = pPrev;
+	Transform2::pCamera = pPrev;
 }

@@ -35,7 +35,7 @@ void rave::gui::Window::Update(Graphics& gfx, rave::Window& wnd)
 {
 	Vector2 p = wnd.MousePos();
 	Box headerCollider = box + p - mpos;
-	headerCollider.bottom = headerCollider.top - (headerCollider.top - tboxcentre.y) * 2;
+	headerCollider.bottom = headerCollider.top - (headerCollider.top - tboxcentre.view.y) * 2;
 	if (wnd.mouse.LeftIsPressed() && headerCollider.Collides(p))
 	{
 		Vector2 d = p - mpos;
@@ -46,9 +46,9 @@ void rave::gui::Window::Update(Graphics& gfx, rave::Window& wnd)
 		centre += d;
 		tboxcentre += d;
 
-		background	.WriteTransform(gfx, Transform(centre,		1, 0));
-		outline		.WriteTransform(gfx, Transform(centre,		1, 0));
-		titleBox	.WriteTransform(gfx, Transform(tboxcentre,	1, 0));
+		background	.WriteTransform(gfx, Transform2(centre,		1, 0));
+		outline		.WriteTransform(gfx, Transform2(centre,		1, 0));
+		titleBox	.WriteTransform(gfx, Transform2(tboxcentre,	1, 0));
 
 		title.pos += d;
 	}

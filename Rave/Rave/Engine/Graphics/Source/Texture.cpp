@@ -95,7 +95,7 @@ void rave::Texture::Save(Graphics& gfx, ImageDecoder& decoder, const wchar_t* fi
 {
 	auto vec = Read<BYTE>(gfx, byteWidth);
 	auto size = GetSize();
-	decoder.SaveImage(filename, size.x, size.y, vec.size(), byteWidth * size.x, GetWICFormat(), vec.data());
+	decoder.SaveImage(filename, size.view.x, size.view.y, vec.size(), byteWidth * size.view.x, GetWICFormat(), vec.data());
 }
 
 rave::Size rave::Texture::GetSize() const noexcept

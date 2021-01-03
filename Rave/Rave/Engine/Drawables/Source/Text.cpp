@@ -14,7 +14,7 @@ rave::Text& rave::Text::Load(Graphics& gfx, RenderTarget& target, const wchar_t*
 	float em = PixelToPoint(std::min((float)target.GetHeight(), (float)target.GetWidth()) * size);
 
 	rave_check_hr(GetD2DTarget(target)->CreateSolidColorBrush(
-		D2D1::ColorF(color.r, color.g, color.b, color.a),
+		D2D1::ColorF(color.view.r, color.view.g, color.view.b, color.view.a),
 		pBrush.ReleaseAndGetAddressOf()
 	));
 
@@ -41,14 +41,14 @@ void rave::Text::Update(Graphics& gfx, RenderTarget& target, Vector2 boundingSiz
 	TargetSize ts = target.GetTargetSize();
 	boundingSize /= ts.relative;
 	boundingSize = (boundingSize + 1.0f) * (Vector2)ts.pixel / 2;
-	boundingSize.y = (float)ts.pixel.y - boundingSize.y;
+	boundingSize.view.y = (float)ts.pixel.view.y - boundingSize.view.y;
 
 	rave_check_hr(GetDWFactory(gfx)->CreateTextLayout(
 		string.c_str(),
 		string.size(),
 		pFormat.Get(),
-		boundingSize.x,
-		boundingSize.y,
+		boundingSize.view.x,
+		boundingSize.view.y,
 		&pLayout
 	));
 }
@@ -56,12 +56,12 @@ void rave::Text::Update(Graphics& gfx, RenderTarget& target, Vector2 boundingSiz
 void rave::Text::Bind(RenderTarget& target) const
 {
 	TargetSize ts = target.GetTargetSize();
-	D2D1_POINT_2F p = { pos.x, pos.y };
+	D2D1_POINT_2F p = { pos.view.x, pos.view.y };
 	
-	p.x /= ts.relative.x;
-	p.y /= ts.relative.y;
-	p.x = (p.x + 1.0f) * (float)ts.pixel.x /  2;
-	p.y = (p.y - 1.0f) * (float)ts.pixel.y / -2;
+	p.x /= ts.relative.view.x;
+	p.y /= ts.relative.view.y;
+	p.x = (p.x + 1.0f) * (float)ts.pixel.view.x /  2;
+	p.y = (p.y - 1.0f) * (float)ts.pixel.view.y / -2;
 
 	GetD2DTarget(target)->DrawTextLayout(
 		p,
@@ -82,5 +82,5 @@ float rave::Text::GetHeight(RenderTarget& target) const
 rave::Vector2 rave::Text::GetTargetBoundingSize(RenderTarget& target) noexcept
 {
 	TargetSize ts = target.GetTargetSize();
-	return Vector2(ts.relative.x, -ts.relative.y);
+	return Vector2({ ts.relative.view.x, -ts.relative.view.y });
 }

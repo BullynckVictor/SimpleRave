@@ -30,8 +30,8 @@ namespace rave
 		Vector2 MousePos() const noexcept;
 		void ControllCamera(const float dt, const float moveSpeed = 1.0f, const float rotationSpeed = 1.0f, const float scrollSpeed = 15.0f) noexcept;
 		void LoadTexture(const char* key, const wchar_t* path);
-		void LoadText(Text& text, const wchar_t* font, const float size, const FColor& color, Vector2 boundingSize = Vector2(targetSize.relative.x, -targetSize.relative.y));
-		void UpdateText(Text& text, const Vector2& boundingSize = Vector2(targetSize.relative.x, -targetSize.relative.y));
+		void LoadText(Text& text, const wchar_t* font, const float size, const FColor& color, Vector2 boundingSize = Vector2({ targetSize.relative.view.x, -targetSize.relative.view.y }));
+		void UpdateText(Text& text, const Vector2& boundingSize = Vector2({ targetSize.relative.view.x, -targetSize.relative.view.y }));
 
 		template<BindableConcept T>
 		void Render(const T& object, const FlatRenderer& renderer)

@@ -1,6 +1,6 @@
 #include "Engine/Drawables/Include/Animation.h"
 
-rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, const std::vector<AnimationState>& states, const Transform& transform_, const float fps, const bool pixel, const bool write)
+rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, const std::vector<AnimationState>& states, const Transform2& transform_, const float fps, const bool pixel, const bool write)
 {
 	animations = states;
 	spf = (1.0f / fps);
@@ -23,12 +23,12 @@ rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, co
 	return *this;
 }
 
-rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const size_t nFrames, const Transform& transform, const float fps, const bool pixel, const bool write)
+rave::Animation& rave::Animation::Load(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const size_t nFrames, const Transform2& transform, const float fps, const bool pixel, const bool write)
 {
 	return Load(gfx, memory, { { gfx, memory, textureKey, nFrames } }, transform, fps, pixel, write);
 }
 
-void rave::Animation::WriteTransform(Graphics& gfx, const Transform& transform_)
+void rave::Animation::WriteTransform(Graphics& gfx, const Transform2& transform_)
 {
 	transform.Write(gfx, transform_.viewMatrix);
 }
@@ -78,8 +78,8 @@ rave::AnimationState::AnimationState(Graphics& gfx, GraphicsMemory& memory, cons
 #endif
 
 	Vertex size = *memory.sizeCodex.Get(textureKey);
-	size.x /= (float)nFrames;
-	size /= std::max(size.x, size.y);
+	size.view.x /= (float)nFrames;
+	size /= std::max(size.view.x, size.view.y);
 	const float frameWidth = 1.0f / (float)nFrames;
 
 	vertices.reserve(nFrames);
@@ -89,10 +89,10 @@ rave::AnimationState::AnimationState(Graphics& gfx, GraphicsMemory& memory, cons
 		v.Load(
 			gfx,
 			{
-				{ {-size.x,  size.y}, { ((float)i + 0) * frameWidth, 0 } },
-				{ { size.x,  size.y}, { ((float)i + 1) * frameWidth, 0 } },
-				{ {-size.x, -size.y}, { ((float)i + 0) * frameWidth, 1 } },
-				{ { size.x, -size.y}, { ((float)i + 1) * frameWidth, 1 } }
+				{ {-size.view.x,  size.view.y}, { ((float)i + 0) * frameWidth, 0 } },
+				{ { size.view.x,  size.view.y}, { ((float)i + 1) * frameWidth, 0 } },
+				{ {-size.view.x, -size.view.y}, { ((float)i + 0) * frameWidth, 1 } },
+				{ { size.view.x, -size.view.y}, { ((float)i + 1) * frameWidth, 1 } }
 			},
 			false
 		);

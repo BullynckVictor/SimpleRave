@@ -107,13 +107,12 @@
     <ClInclude Include="Engine\Include\RaveEngine.h" />
     <ClInclude Include="Engine\Include\Window.h" />
     <ClInclude Include="Engine\Include\Windows.h" />
-    <ClInclude Include="Engine\Utilities\Include\Color.h" />
     <ClInclude Include="Engine\Utilities\Include\Exception.h" />
     <ClInclude Include="Engine\Utilities\Include\Flag.h" />
     <ClInclude Include="Engine\Utilities\Include\PerformanceProfiler.h" />
     <ClInclude Include="Engine\Utilities\Include\String.h" />
     <ClInclude Include="Engine\Utilities\Include\Timer.h" />
-    <ClInclude Include="Engine\Utilities\Include\Vector2D.h" />
+    <ClInclude Include="Engine\Utilities\Include\Vector.h" />
     <ClInclude Include="Include\ExampleApp.h" />
     <ClInclude Include="Include\TestApp.h" />
     <ClInclude Include="resource.h" />

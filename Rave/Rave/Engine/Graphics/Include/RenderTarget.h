@@ -2,7 +2,7 @@
 #include "Engine/Graphics/Include/Graphics.h"
 #include "Engine/Graphics/Include/SwapChain.h"
 #include "Engine/Graphics/Include/Texture.h"
-#include "Engine/Utilities/Include/Color.h"
+#include "Engine/Utilities/Include/Vector.h"
 #include "Engine/Include/TargetSize.h"
 
 namespace rave

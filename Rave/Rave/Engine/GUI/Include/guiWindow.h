@@ -17,9 +17,9 @@ namespace rave
 			void Update(Graphics& gfx, rave::Window& wnd);
 
 		private:
-			static constexpr FColor defaultbg = FColor(.212f, .224f, .247f);
-			static constexpr FColor defaultln = FColor(.447f, .537f, .855f);
-			static constexpr FColor defaulttc = FColor(.184f, .192f, .212f);
+			static constexpr FColor defaultbg = FColor({ .212f, .224f, .247f });
+			static constexpr FColor defaultln = FColor({ .447f, .537f, .855f });
+			static constexpr FColor defaulttc = FColor({ .184f, .192f, .212f });
 			static constexpr float defaultFontSize = 1.0f / 25.0f;
 
 			Vector2 mpos;

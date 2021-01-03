@@ -20,7 +20,7 @@ rave::Application::Application(const wchar_t* windowName, const int width, const
 	textureR.Load(gfx, memory, "texture", "texture", "texture");
 
 
-	Transform::pCamera = &camera;
+	Transform2::pCamera = &camera;
 }
 
 void rave::Application::Go()
@@ -48,17 +48,17 @@ rave::Vector2 rave::Application::MousePos() const noexcept
 {
 	Vector2 pos = { (float)wnd.mouse.GetPosX(), (float)wnd.mouse.GetPosY() };
 	pos /= { (float)wnd.GetWidth(), (float)wnd.GetHeight() };
-	pos.x = pos.x * 2 - 1;
-	pos.y = -pos.y * 2 + 1;
+	pos.view.x = pos.view.x * 2 - 1;
+	pos.view.y = -pos.view.y * 2 + 1;
 	pos *= wnd.GetSize().relative;
 
 	rave::Matrix mat =
 		DirectX::XMMatrixScaling(camera.zoom, camera.zoom, 1)
 		* DirectX::XMMatrixRotationZ(camera.rotation)
-		* DirectX::XMMatrixTranslation(camera.position.x, camera.position.y, 0)
+		* DirectX::XMMatrixTranslation(camera.position.view.x, camera.position.view.y, 0)
 		;
 
-	rave::Transform(mat).TransformPointView(pos);
+	rave::Transform2(mat).TransformPointView(pos);
 
 	return pos;
 }
@@ -74,19 +74,19 @@ void rave::Application::ControllCamera(const float dt, const float moveSpeed, co
 			{
 			case 'Q':
 			case VK_LEFT:
-				delta.x -= 1;
+				delta.view.x -= 1;
 				break;
 			case 'D':
 			case VK_RIGHT:
-				delta.x += 1;
+				delta.view.x += 1;
 				break;
 			case 'Z':
 			case VK_UP:
-				delta.y += 1;
+				delta.view.y += 1;
 				break;
 			case 'S':
 			case VK_DOWN:
-				delta.y -= 1;
+				delta.view.y -= 1;
 				break;
 			case 'A':
 				camera.rotation += rotationSpeed * dt;
@@ -95,7 +95,7 @@ void rave::Application::ControllCamera(const float dt, const float moveSpeed, co
 				camera.rotation -= rotationSpeed * dt;
 			}
 	}
-	camera.position += Transform(0, 1, -camera.rotation).GetTransformedPoint(delta.Normalized()) * moveSpeed * dt;
+	camera.position += Transform2(0, 1, -camera.rotation).GetTransformedPoint(delta.Normalized()) * moveSpeed * dt;
 	camera.zoom += camera.zoom * -(float)wnd.mouse.GetScrollDelta() / scrollSpeed;
 }
 
@@ -104,7 +104,7 @@ void rave::Application::LoadTexture(const char* key, const wchar_t* path)
 	UINT width;
 	UINT height;
 	memory.textureCodex.Add(key, TextureView().Load(gfx, Texture().Load(gfx, decoder, 4, DXGI_FORMAT_R8G8B8A8_UNORM, path, &width, &height)));
-	memory.sizeCodex.Add(key, Vector2((float)width, (float)height));
+	memory.sizeCodex.Add(key, Vector2({ (float)width, (float)height }));
 }
 
 void rave::Application::LoadText(Text& text, const wchar_t* font, const float size, const FColor& color, Vector2 boundingSize)

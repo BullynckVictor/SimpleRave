@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/Graphics/Include/DirectX.h"
-#include "Engine/Utilities/Include/Vector2D.h"
+#include "Engine/Utilities/Include/Vector.h"
 #include "Engine/Include/TargetSize.h"
 
 namespace rave
@@ -19,12 +19,12 @@ namespace rave
 		Vector2 position = { 0, 0 };
 	};
 
-	class Transform
+	class Transform2
 	{
 	public:
-		Transform() noexcept;
-		Transform(const Matrix& matrix) noexcept;
-		Transform(const Vector2& pos, const Vector2& scale, const float rotation) noexcept;
+		Transform2() noexcept;
+		Transform2(const Matrix& matrix) noexcept;
+		Transform2(const Vector2& pos, const Vector2& scale, const float rotation) noexcept;
 
 		Matrix& Concatonate() noexcept;
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/Utilities/Include/Vector2D.h"
+#include "Engine/Utilities/Include/Vector.h"
 #include <algorithm>
 
 namespace rave
@@ -21,70 +21,70 @@ namespace rave
 			right	(right),
 			bottom	(bottom)
 		{}
-		Box_t(const Vector2D_t<T>& p1, const Vector2D_t<T>& p2)
+		Box_t(const Vector<2, T>& p1, const Vector<2, T>& p2)
 			:
-			left	(p1.x),
-			top		(p1.y),
-			right	(p2.x),
-			bottom	(p2.y)
+			left	(p1.view.x),
+			top		(p1.view.y),
+			right	(p2.view.x),
+			bottom	(p2.view.y)
 		{}
 
-		Box_t operator+ (const Vector2D_t<T>& rhs) const noexcept
+		Box_t operator+ (const Vector<2, T>& rhs) const noexcept
 		{
 			return Box_t(*this) += rhs;
 		}
-		Box_t operator- (const Vector2D_t<T>& rhs) const noexcept
+		Box_t operator- (const Vector<2, T>& rhs) const noexcept
 		{
 			return Box_t(*this) -= rhs;
 		}
-		Box_t operator* (const Vector2D_t<T>& rhs) const noexcept
+		Box_t operator* (const Vector<2, T>& rhs) const noexcept
 		{
 			return Box_t(*this) *= rhs;
 		}
-		Box_t operator/ (const Vector2D_t<T>& rhs) const noexcept
+		Box_t operator/ (const Vector<2, T>& rhs) const noexcept
 		{
 			return Box_t(*this) /= rhs;
 		}
 
-		Box_t operator+= (const Vector2D_t<T>& rhs) noexcept
+		Box_t operator+= (const Vector<2, T>& rhs) noexcept
 		{
-			left	+= rhs.x;
-			right	+= rhs.x;
-			top		+= rhs.y;
-			bottom	+= rhs.y;
+			left	+= rhs.view.x;
+			right	+= rhs.view.x;
+			top		+= rhs.view.y;
+			bottom	+= rhs.view.y;
 			return *this;
 		}
-		Box_t operator-= (const Vector2D_t<T>& rhs) noexcept
+		Box_t operator-= (const Vector<2, T>& rhs) noexcept
 		{
-			left	-= rhs.x;
-			right	-= rhs.x;
-			top		-= rhs.y;
-			bottom	-= rhs.y;
+			left	-= rhs.view.x;
+			right	-= rhs.view.x;
+			top		-= rhs.view.y;
+			bottom	-= rhs.view.y;
 			return *this;
 		}
-		Box_t operator*= (const Vector2D_t<T>& rhs) noexcept
+		Box_t operator*= (const Vector<2, T>& rhs) noexcept
 		{
-			left	*= rhs.x;
-			right	*= rhs.x;
-			top		*= rhs.y;
-			bottom	*= rhs.y;
+			left	*= rhs.view.x;
+			right	*= rhs.view.x;
+			top		*= rhs.view.y;
+			bottom	*= rhs.view.y;
 			return *this;
 		}
-		Box_t operator/= (const Vector2D_t<T>& rhs) noexcept
+		Box_t operator/= (const Vector<2, T>& rhs) noexcept
 		{
-			left	/= rhs.x;
-			right	/= rhs.x;
-			top		/= rhs.y;
-			bottom	/= rhs.y;
+			left	/= rhs.view.x;
+			right	/= rhs.view.x;
+			top		/= rhs.view.y;
+			bottom	/= rhs.view.y;
 			return *this;
 		}
 
-		bool Collides(const Vector2D_t<T>& p) const noexcept
+		bool Collides(const Vector<2, T>& p) const noexcept
 		{
 			if constexpr (std::is_integral<T>::value)
-				return p.x < right && p.x > left && p.y > top && p.y < bottom;
+				return p.view.x < right && p.view.x > left && p.view.y > top && p.view.y < bottom;
 			else
-				return p.x < right && p.x > left && p.y < top && p.y > bottom;
+				return p.view.x < right && p.view.x > left && p.view.y < top && p.view.y > bottom;
 		}
 
 		T left;
