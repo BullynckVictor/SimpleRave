@@ -7,6 +7,11 @@ namespace rave
 	{
 	public:
 		virtual ~Buffer() {}
+		template<typename C>
+		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const C& container)
+		{
+			return Load(gfx, writeAccess, bindFlag, sizeof(C::value_type) * container.size(), sizeof(C::value_type), container.data());
+		}
 		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data);
 		bool HasWriteAccess() const noexcept;
 

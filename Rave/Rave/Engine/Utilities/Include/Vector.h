@@ -31,7 +31,7 @@ namespace rave
 		struct { T x, y, z; };
 		struct { T r, g, b; };
 		struct { T u, v; };
-		struct { T width, height; };
+		struct { T width, height, depth; };
 	};
 
 	template<typename T>
@@ -40,7 +40,7 @@ namespace rave
 		struct { T x, y, z, w; };
 		struct { T r, g, b, a; };
 		struct { T u, v; };
-		struct { T width, height; };
+		struct { T width, height, depth; };
 	};
 
 	namespace detail
@@ -227,10 +227,11 @@ namespace rave
 	};
 
 	typedef Vector<2, size_t> Size;
-	typedef Vector<2, float>  Vertex;
 	typedef Vector<2, float>  Vector2;
 	typedef Vector<3, float>  Vector3;
 	typedef Vector<4, float>  Vector4;
+	typedef Vector<2, float>  Vertex2;
+	typedef Vector<3, float>  Vertex3;
 	typedef Vector<4, unsigned char> Color;
 	typedef Vector<4, float>		 FColor;
 

@@ -77,7 +77,7 @@ rave::AnimationState::AnimationState(Graphics& gfx, GraphicsMemory& memory, cons
 	}
 #endif
 
-	Vertex size = *memory.sizeCodex.Get(textureKey);
+	Vertex2 size = *memory.sizeCodex.Get(textureKey);
 	size.view.x /= (float)nFrames;
 	size /= std::max(size.view.x, size.view.y);
 	const float frameWidth = 1.0f / (float)nFrames;

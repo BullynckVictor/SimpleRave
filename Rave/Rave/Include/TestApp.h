@@ -17,5 +17,7 @@ private:
 	rave::Animation knight;
 	float r = 0.0f;
 
+	rave::Cube cube;
+
 	rave::Text debugText;
 };

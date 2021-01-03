@@ -10,7 +10,7 @@ namespace rave
 		~EmptyCameraLock();
 
 	private:
-		Camera empty;
-		Camera* pPrev;
+		Camera2 empty;
+		Camera2* pPrev;
 	};
 }

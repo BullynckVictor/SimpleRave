@@ -1,6 +1,7 @@
 #include "Engine/Include/Transform.h"
 
-rave::Camera* rave::Transform2::pCamera = nullptr;
+rave::Camera2* rave::Transform2::pCamera = nullptr;
+rave::Camera3* rave::Transform3::pCamera = nullptr;
 
 rave::Transform2::Transform2() noexcept
 	:
@@ -33,7 +34,7 @@ rave::Transform2::Transform2(const Matrix& matrix) noexcept
 rave::Matrix& rave::Transform2::Concatonate() noexcept
 {
 	viewMatrix = DirectX::XMMatrixTranspose(
-		DirectX::XMMatrixScaling(scale.view.x, scale.view.y, 1)
+		  DirectX::XMMatrixScaling(scale.view.x, scale.view.y, 1)
 		* DirectX::XMMatrixRotationZ(rotation)
 		* DirectX::XMMatrixTranslation((position.view.x - pCamera->position.view.x), (position.view.y - pCamera->position.view.y), 0)
 		* DirectX::XMMatrixRotationZ(-pCamera->rotation)
@@ -42,7 +43,7 @@ rave::Matrix& rave::Transform2::Concatonate() noexcept
 		* DirectX::XMMatrixScaling(1 / (targetSize.relative.view.x * pCamera->zoom), 1 / (targetSize.relative.view.y * pCamera->zoom), 1)
 	);
 	worldMatrix = DirectX::XMMatrixTranspose(
-		DirectX::XMMatrixRotationZ(rotation)
+		  DirectX::XMMatrixRotationZ(rotation)
 		* DirectX::XMMatrixScaling(scale.view.x, scale.view.y, 1)
 		* DirectX::XMMatrixTranslation(position.view.x, position.view.y, 0)
 	);
@@ -82,4 +83,37 @@ rave::Vector2 rave::Transform2::GetTransformedPointView(Vector2 point) noexcept
 {
 	TransformPointView(point);
 	return point;
+}
+
+rave::Transform3::Transform3() noexcept
+	:
+	position(0),
+	scale(1),
+	rotation(0),
+	viewMatrix(),
+	worldMatrix()
+{
+}
+
+rave::Transform3::Transform3(const Vector3& pos, const Vector3& scale, const Vector3& rotation) noexcept
+	:
+	position(pos),
+	scale(scale),
+	rotation(rotation),
+	viewMatrix(),
+	worldMatrix()
+{
+	Concatonate();
+}
+
+rave::Matrix& rave::Transform3::Concatonate() noexcept
+{
+	Vector2 r = targetSize.relative / std::max(targetSize.relative.view.width, targetSize.relative.view.height);
+	viewMatrix = DirectX::XMMatrixTranspose(
+		  DirectX::XMMatrixScaling(scale.view.x, scale.view.y, scale.view.z)
+		* DirectX::XMMatrixRotationRollPitchYaw(rotation.view.x, rotation.view.y, rotation.view.z)
+		* DirectX::XMMatrixTranslation(position.view.x, position.view.y, position.view.z)
+		* DirectX::XMMatrixPerspectiveLH(r.view.width, r.view.height, pCamera->nearPlane, pCamera->farPlane)
+	);
+	return viewMatrix;
 }

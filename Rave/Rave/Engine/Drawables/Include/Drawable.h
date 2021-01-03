@@ -2,6 +2,7 @@
 #include "Engine/Graphics/Include/ConstantBuffer.h"
 #include "Engine/Graphics/Include/IndexBuffer.h"
 #include "Engine/Graphics/Include/VertexBuffer.h"
+#include "Engine/Graphics/Include/BufferView.h"
 #include "Engine/Utilities/Include/Vector.h"
 #include "Engine/Include/MemoryManager.h"
 #include "Engine/Include/Transform.h"
@@ -12,8 +13,8 @@ namespace rave
 
 	struct TVertex
 	{
-		Vertex pos;
-		Vertex tex;
+		Vertex2 pos;
+		Vertex2 tex;
 	};
 
 	template<typename T>

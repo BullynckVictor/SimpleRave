@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\Audio\Source\AudioManager.cpp" />
     <ClCompile Include="Engine\Audio\Source\Sound.cpp" />
+    <ClCompile Include="Engine\Drawables\Source\Cube.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Text.cpp" />
     <ClCompile Include="Engine\Drawables\Source\FlatRenderer.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Shape.cpp" />
@@ -63,6 +64,7 @@
   <ItemGroup>
     <ClInclude Include="Engine\Audio\Include\AudioManager.h" />
     <ClInclude Include="Engine\Audio\Include\Sound.h" />
+    <ClInclude Include="Engine\Drawables\Include\Cube.h" />
     <ClInclude Include="Engine\Drawables\Include\Drawable.h" />
     <ClInclude Include="Engine\Drawables\Include\FlatRenderer.h" />
     <ClInclude Include="Engine\Drawables\Include\Shape.h" />
@@ -70,6 +72,7 @@
     <ClInclude Include="Engine\Drawables\Include\Sprite.h" />
     <ClInclude Include="Engine\Drawables\Include\Text.h" />
     <ClInclude Include="Engine\Graphics\Include\Bindable.h" />
+    <ClInclude Include="Engine\Graphics\Include\BufferView.h" />
     <ClInclude Include="Engine\Graphics\Include\ComputeShader.h" />
     <ClInclude Include="Engine\Graphics\Include\Blender.h" />
     <ClInclude Include="Engine\Graphics\Include\Buffer.h" />
@@ -86,6 +89,7 @@
     <ClInclude Include="Engine\Graphics\Include\ResourceUAV.h" />
     <ClInclude Include="Engine\Graphics\Include\ResourceView.h" />
     <ClInclude Include="Engine\Graphics\Include\Sampler.h" />
+    <ClInclude Include="Engine\Graphics\Include\Shader.h" />
     <ClInclude Include="Engine\Graphics\Include\SwapChain.h" />
     <ClInclude Include="Engine\Graphics\Include\Texture.h" />
     <ClInclude Include="Engine\Graphics\Include\TextureUAV.h" />
@@ -110,6 +114,7 @@
     <ClInclude Include="Engine\Utilities\Include\Exception.h" />
     <ClInclude Include="Engine\Utilities\Include\Flag.h" />
     <ClInclude Include="Engine\Utilities\Include\PerformanceProfiler.h" />
+    <ClInclude Include="Engine\Utilities\Include\Random.h" />
     <ClInclude Include="Engine\Utilities\Include\String.h" />
     <ClInclude Include="Engine\Utilities\Include\Timer.h" />
     <ClInclude Include="Engine\Utilities\Include\Vector.h" />
@@ -118,6 +123,12 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Engine\Graphics\Shaders\ColorFacePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Engine\Graphics\Shaders\ColorPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -152,7 +163,13 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="Engine\Graphics\Shaders\TransformVS.hlsl">
+    <FxCompile Include="Engine\Graphics\Shaders\Transform2VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Engine\Graphics\Shaders\Transform3VS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

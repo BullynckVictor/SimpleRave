@@ -12,7 +12,7 @@ namespace rave
 
 	typedef DirectX::XMMATRIX Matrix;
 
-	struct Camera
+	struct Camera2
 	{
 		float zoom = 1;
 		float rotation = 0;
@@ -41,6 +41,30 @@ namespace rave
 		Matrix viewMatrix;
 		Matrix worldMatrix;
 
-		static Camera* pCamera;
+		static Camera2* pCamera;
+	};
+
+	struct Camera3
+	{
+		float nearPlane = 0.5f;;
+		float farPlane = 10.0f;
+	};
+
+	class Transform3
+	{
+	public:
+		Transform3() noexcept;
+		Transform3(const Vector3& pos, const Vector3& scale, const Vector3& rotation) noexcept;
+
+		Matrix& Concatonate() noexcept;
+
+		Vector3 position;
+		Vector3 scale;
+		Vector3 rotation;
+
+		Matrix viewMatrix;
+		Matrix worldMatrix;
+
+		static Camera3* pCamera;
 	};
 }

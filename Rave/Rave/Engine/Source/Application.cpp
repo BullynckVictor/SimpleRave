@@ -6,21 +6,26 @@ rave::Application::Application(const wchar_t* windowName, const int width, const
 	:
 	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className)
 {
-	memory.inputLayoutCodex.Add(  "position",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex))}));
-	memory.inputLayoutCodex.Add(  "texture",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/TextureVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex)), InputLayoutElement("TexCoord", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex)) }));
+	memory.inputLayoutCodex.Add(  "position2",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex2))}));
+	memory.inputLayoutCodex.Add(  "position3",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/Transform3VS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32B32_FLOAT, sizeof(Vertex3))}));
+	memory.inputLayoutCodex.Add(  "texture",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/TextureVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex2)), InputLayoutElement("TexCoord", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex2)) }));
 	memory.vertexShaderCodex.Add( "position",	VertexShader().Load(gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso"));
-	memory.vertexShaderCodex.Add( "transform",	VertexShader().Load(gfx, L"Engine/Graphics/ShaderBins/TransformVS.cso"));
+	memory.vertexShaderCodex.Add( "transform2",	VertexShader().Load(gfx, L"Engine/Graphics/ShaderBins/Transform2VS.cso"));
+	memory.vertexShaderCodex.Add( "transform3",	VertexShader().Load(gfx, L"Engine/Graphics/ShaderBins/Transform3VS.cso"));
 	memory.vertexShaderCodex.Add( "texture",	VertexShader().Load(gfx, L"Engine/Graphics/ShaderBins/TextureVS.cso"));
 	memory.pixelShaderCodex.Add(  "color",		PixelShader().Load( gfx, L"Engine/Graphics/ShaderBins/ColorPS.cso"));
+	memory.pixelShaderCodex.Add(  "colorface",	PixelShader().Load( gfx, L"Engine/Graphics/ShaderBins/ColorFacePS.cso"));
 	memory.pixelShaderCodex.Add(  "texture",	PixelShader().Load( gfx, L"Engine/Graphics/ShaderBins/TexturePS.cso"));
 	memory.samplerCodex.Add(	  "linear",		Sampler().Load(gfx, D3D11_FILTER_MIN_MAG_MIP_LINEAR));
 	memory.samplerCodex.Add(	  "pixel",		Sampler().Load(gfx, D3D11_FILTER_MIN_MAG_MIP_POINT));
 
-	flatR	.Load(gfx, memory, "position", "color", "transform");
+	flatR	.Load(gfx, memory, "position2", "color", "transform2");
+	boxR	.Load(gfx, memory, "position3", "colorface", "transform3");
 	textureR.Load(gfx, memory, "texture", "texture", "texture");
 
 
-	Transform2::pCamera = &camera;
+	Transform2::pCamera = &camera2;
+	Transform3::pCamera = &camera3;
 }
 
 void rave::Application::Go()
@@ -53,9 +58,9 @@ rave::Vector2 rave::Application::MousePos() const noexcept
 	pos *= wnd.GetSize().relative;
 
 	rave::Matrix mat =
-		DirectX::XMMatrixScaling(camera.zoom, camera.zoom, 1)
-		* DirectX::XMMatrixRotationZ(camera.rotation)
-		* DirectX::XMMatrixTranslation(camera.position.view.x, camera.position.view.y, 0)
+		DirectX::XMMatrixScaling(camera2.zoom, camera2.zoom, 1)
+		* DirectX::XMMatrixRotationZ(camera2.rotation)
+		* DirectX::XMMatrixTranslation(camera2.position.view.x, camera2.position.view.y, 0)
 		;
 
 	rave::Transform2(mat).TransformPointView(pos);
@@ -89,14 +94,14 @@ void rave::Application::ControllCamera(const float dt, const float moveSpeed, co
 				delta.view.y -= 1;
 				break;
 			case 'A':
-				camera.rotation += rotationSpeed * dt;
+				camera2.rotation += rotationSpeed * dt;
 				break;
 			case 'E':
-				camera.rotation -= rotationSpeed * dt;
+				camera2.rotation -= rotationSpeed * dt;
 			}
 	}
-	camera.position += Transform2(0, 1, -camera.rotation).GetTransformedPoint(delta.Normalized()) * moveSpeed * dt;
-	camera.zoom += camera.zoom * -(float)wnd.mouse.GetScrollDelta() / scrollSpeed;
+	camera2.position += Transform2(0, 1, -camera2.rotation).GetTransformedPoint(delta.Normalized()) * moveSpeed * dt;
+	camera2.zoom += camera2.zoom * -(float)wnd.mouse.GetScrollDelta() / scrollSpeed;
 }
 
 void rave::Application::LoadTexture(const char* key, const wchar_t* path)

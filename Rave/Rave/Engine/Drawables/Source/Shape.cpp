@@ -1,6 +1,6 @@
 #include "Engine/Drawables/Include/Shape.h"
 
-rave::Shape& rave::Shape::Load(Graphics& gfx, const std::vector<Vertex>& vertices_, const Transform2& transform_, const FColor& color_, const bool fill, const bool write)
+rave::Shape& rave::Shape::Load(Graphics& gfx, const std::vector<Vertex2>& vertices_, const Transform2& transform_, const FColor& color_, const bool fill, const bool write)
 {
 	vertices.Load(gfx, vertices_, write);
 	color.Load(gfx, color_, write);
@@ -41,7 +41,7 @@ rave::Shape rave::Triangle(Graphics& gfx, const Vector2& pos, const float rotati
 	static constexpr float p2 = Radian(-30.0f);
 	static constexpr float p3 = Radian(210.0f);
 
-	std::vector<Vertex> vertices;
+	std::vector<Vertex2> vertices;
 
 	if (fill)
 		vertices = {
@@ -69,7 +69,7 @@ rave::Shape rave::Triangle(Graphics& gfx, const Vector2& pos, const float rotati
 
 rave::Shape rave::Rect(Graphics& gfx, const Vector2& pos, const float width, const float height, const float rotation, const FColor color, const bool fill, const bool write)
 {
-	std::vector<Vertex> vertices;
+	std::vector<Vertex2> vertices;
 
 	if (fill)
 		vertices = {

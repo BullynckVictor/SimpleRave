@@ -8,6 +8,5 @@ namespace rave
 	{
 	public:
 		TextureView& Load(Graphics& gfx, const Texture& texture);
-		void Bind(Graphics& gfx);
 	};
 }

@@ -55,11 +55,13 @@ namespace rave
 		Window wnd;
 		GraphicsMemory memory; 
 		AudioManager audio;
-		Camera camera;
+		Camera2 camera2;
+		Camera3 camera3;
 		ImageDecoder decoder;
 
 		FlatRenderer flatR;
 		FlatRenderer textureR;
+		FlatRenderer boxR;
 	};
 
 	template<typename T>

@@ -7,14 +7,14 @@ namespace rave
 	class Shape : public GraphicsFriend
 	{
 	public:
-		Shape& Load(Graphics& gfx, const std::vector<Vertex>& vertices, const Transform2& transform, const FColor& color, const bool fill = true, const bool write = true);
+		Shape& Load(Graphics& gfx, const std::vector<Vertex2>& vertices, const Transform2& transform, const FColor& color, const bool fill = true, const bool write = true);
 
 		void Bind(Graphics& gfx) const;
 
 		bool IsFilled() const noexcept;
 		void WriteTransform(Graphics& gfx, const Transform2& transform);
 
-		VertexBuffer<Vertex>	vertices;
+		VertexBuffer<Vertex2>	vertices;
 		ConstantBuffer<FColor>	color;
 		ConstantBuffer<Matrix>	transform;
 

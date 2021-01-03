@@ -135,6 +135,9 @@
     <ClCompile Include="Engine\GUI\Source\EmptyCameraLock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Drawables\Source\Cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Graphics\Include\DirectX.h">
@@ -302,14 +305,28 @@
     <ClInclude Include="Engine\Utilities\Include\Vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Drawables\Include\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utilities\Include\Random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Graphics\Include\BufferView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Graphics\Include\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Engine\Graphics\Shaders\PositionVS.hlsl" />
     <FxCompile Include="Engine\Graphics\Shaders\ColorPS.hlsl" />
-    <FxCompile Include="Engine\Graphics\Shaders\TransformVS.hlsl" />
     <FxCompile Include="Engine\Graphics\Shaders\TextureVS.hlsl" />
     <FxCompile Include="Engine\Graphics\Shaders\TexturePS.hlsl" />
     <FxCompile Include="Engine\Graphics\Shaders\Perlin.hlsl" />
+    <FxCompile Include="Engine\Graphics\Shaders\PositionVS.hlsl" />
+    <FxCompile Include="Engine\Graphics\Shaders\Transform2VS.hlsl" />
+    <FxCompile Include="Engine\Graphics\Shaders\Transform3VS.hlsl" />
+    <FxCompile Include="Engine\Graphics\Shaders\ColorFacePS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Rave.rc">

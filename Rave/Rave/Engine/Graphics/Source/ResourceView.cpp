@@ -7,3 +7,19 @@ rave::ResourceView& rave::ResourceView::Load(Graphics& gfx, const Resource& reso
 
 	return *this;
 }
+
+void rave::ResourceView::Bind(Graphics& gfx, const ShaderType& shader) const noexcept
+{
+	switch (shader)
+	{
+	case ShaderType::Pixel:
+		GetContext(gfx)->PSSetShaderResources(0u, 1u, pView.GetAddressOf());
+		break;
+	case ShaderType::Vertex:
+		GetContext(gfx)->VSSetShaderResources(0u, 1u, pView.GetAddressOf());
+		break;
+	case ShaderType::Compute:
+		GetContext(gfx)->CSSetShaderResources(0u, 1u, pView.GetAddressOf());
+		break;
+	}
+}

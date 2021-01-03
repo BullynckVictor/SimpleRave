@@ -12,8 +12,3 @@ rave::TextureView& rave::TextureView::Load(Graphics& gfx, const Texture& texture
 
 	return *this;
 }
-
-void rave::TextureView::Bind(Graphics& gfx)
-{
-	GetContext(gfx)->PSSetShaderResources(0u, 1u, pView.GetAddressOf());
-}
