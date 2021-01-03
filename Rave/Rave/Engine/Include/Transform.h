@@ -46,8 +46,18 @@ namespace rave
 
 	struct Camera3
 	{
-		float nearPlane = 0.5f;;
-		float farPlane = 10.0f;
+		Camera3() noexcept;
+		Camera3(const Vector3& pos, const Vector3& rot, const float n = 0.5f, const float f = 10.0f) noexcept;
+
+		Matrix& Concatonate() noexcept;
+
+		Vector3 position;
+		Vector3 rotation;
+
+		float nearPlane;
+		float farPlane;
+
+		Matrix matrix;
 	};
 
 	class Transform3
@@ -57,6 +67,9 @@ namespace rave
 		Transform3(const Vector3& pos, const Vector3& scale, const Vector3& rotation) noexcept;
 
 		Matrix& Concatonate() noexcept;
+
+		void	TransformPoint(Vector3& point) const noexcept;
+		Vector3	GetTransformedPoint(Vector3 point) const noexcept;
 
 		Vector3 position;
 		Vector3 scale;

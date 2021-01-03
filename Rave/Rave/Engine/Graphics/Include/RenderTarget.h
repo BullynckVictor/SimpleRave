@@ -2,6 +2,7 @@
 #include "Engine/Graphics/Include/Graphics.h"
 #include "Engine/Graphics/Include/SwapChain.h"
 #include "Engine/Graphics/Include/Texture.h"
+#include "Engine/Graphics/Include/DepthStencilBuffer.h"
 #include "Engine/Utilities/Include/Vector.h"
 #include "Engine/Include/TargetSize.h"
 
@@ -23,15 +24,17 @@ namespace rave
 		TargetSize GetTargetSize() const noexcept;
 		
 	private:
+		DepthStencilBuffer depth;
+
 		ComPtr<ID3D11RenderTargetView> pTarget;
 		ComPtr<ID2D1RenderTarget>	   pD2DTarget;
 		D3D11_VIEWPORT vp;
 
-		friend class Direct2DObject;
+		friend class RenderTargetFriend;
 	};
 
 
-	class Direct2DObject
+	class RenderTargetFriend
 	{
 	protected:
 		static ComPtr<ID2D1RenderTarget>& GetD2DTarget(RenderTarget& target) noexcept;

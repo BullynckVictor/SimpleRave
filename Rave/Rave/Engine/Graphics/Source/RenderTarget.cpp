@@ -74,6 +74,8 @@ rave::RenderTarget& rave::RenderTarget::Load(Graphics& gfx, SwapChain& swap)
 	vp.TopLeftX = 0.0f;
 	vp.TopLeftY = 0.0f;
 
+	depth.Load(gfx, sd.Width, sd.Height);
+
 	return *this;
 }
 
@@ -84,7 +86,7 @@ void rave::RenderTarget::Bind(Graphics& gfx)
 	GetContext(gfx)->VSSetShaderResources(0u, 1u, &pClearView);
 	GetContext(gfx)->PSSetShaderResources(0u, 1u, &pClearView);
 
-	GetContext(gfx)->OMSetRenderTargets(1u, pTarget.GetAddressOf(), NULL);
+	GetContext(gfx)->OMSetRenderTargets(1u, pTarget.GetAddressOf(), depth.Bind(gfx));
 
 	GetContext(gfx)->RSSetViewports(1u, &vp);
 
@@ -94,6 +96,7 @@ void rave::RenderTarget::Bind(Graphics& gfx)
 void rave::RenderTarget::Clear(Graphics& gfx, const FColor& background) noexcept
 {
 	GetContext(gfx)->ClearRenderTargetView(pTarget.Get(), background.data.data());
+	depth.Clear(gfx);
 	pD2DTarget->BeginDraw();
 }
 
@@ -126,12 +129,12 @@ rave::TargetSize rave::RenderTarget::GetTargetSize() const noexcept
 	return ts;
 }
 
-rave::ComPtr<ID2D1RenderTarget>& rave::Direct2DObject::GetD2DTarget(RenderTarget& target) noexcept
+rave::ComPtr<ID2D1RenderTarget>& rave::RenderTargetFriend::GetD2DTarget(RenderTarget& target) noexcept
 {
 	return target.pD2DTarget;
 }
 
-D3D11_VIEWPORT const& rave::Direct2DObject::GetViewPort(RenderTarget& target) noexcept
+D3D11_VIEWPORT const& rave::RenderTargetFriend::GetViewPort(RenderTarget& target) noexcept
 {
 	return target.vp;
 }

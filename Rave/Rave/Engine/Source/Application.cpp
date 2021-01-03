@@ -4,7 +4,7 @@
 
 rave::Application::Application(const wchar_t* windowName, const int width, const int height, const bool useMouseEvents, const bool useMouseRawDeltas, const wchar_t* className)
 	:
-	wnd(gfx, windowName, width, height, useMouseEvents, useMouseEvents, className)
+	wnd(gfx, windowName, width, height, useMouseEvents, useMouseRawDeltas, className)
 {
 	memory.inputLayoutCodex.Add(  "position2",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex2))}));
 	memory.inputLayoutCodex.Add(  "position3",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/Transform3VS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32B32_FLOAT, sizeof(Vertex3))}));
@@ -71,6 +71,7 @@ rave::Vector2 rave::Application::MousePos() const noexcept
 void rave::Application::ControllCamera(const float dt, const float moveSpeed, const float rotationSpeed, const float scrollSpeed) noexcept
 {
 	Vector2 delta;
+	float rDelta = 0.0f;
 
 	for (size_t c = 0; c < 255; c++)
 	{
@@ -94,14 +95,29 @@ void rave::Application::ControllCamera(const float dt, const float moveSpeed, co
 				delta.view.y -= 1;
 				break;
 			case 'A':
-				camera2.rotation += rotationSpeed * dt;
+				rDelta += rotationSpeed * dt;
 				break;
 			case 'E':
-				camera2.rotation -= rotationSpeed * dt;
+				rDelta -= rotationSpeed * dt;
 			}
 	}
+
+	float sDelta = -(float)wnd.mouse.GetScrollDelta();
+
+	camera2.rotation += rDelta;
 	camera2.position += Transform2(0, 1, -camera2.rotation).GetTransformedPoint(delta.Normalized()) * moveSpeed * dt;
-	camera2.zoom += camera2.zoom * -(float)wnd.mouse.GetScrollDelta() / scrollSpeed;
+	camera2.zoom += camera2.zoom * sDelta / scrollSpeed;
+
+	Vector3 mDelta;
+	while (const auto d = wnd.mouse.GetRawDelta())
+		mDelta = { (float)d->y, (float)d->x };
+
+	camera3.rotation.view.z += rDelta;
+//	camera3.rotation += mDelta * dt;
+	camera3.position += (Transform3(0, 1, Vector3() - camera3.rotation).GetTransformedPoint(Vector3(delta).Normalized()) * moveSpeed * dt);
+	camera3.position.view.z += -sDelta / scrollSpeed;
+
+	camera3.Concatonate();
 }
 
 void rave::Application::LoadTexture(const char* key, const wchar_t* path)

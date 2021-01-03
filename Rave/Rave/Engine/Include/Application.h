@@ -19,7 +19,7 @@ namespace rave
 	class Application
 	{
 	public:
-		Application(const wchar_t* windowName, const int width, const int height, const bool useMouseEvents = false, const bool useMouseRawDeltas = false, const wchar_t* className = L"RaveEngine Direct3D Class");
+		Application(const wchar_t* windowName, const int width, const int height, const bool useMouseEvents = false, const bool useMouseRawDeltas = true, const wchar_t* className = L"RaveEngine Direct3D Class");
 		virtual ~Application() {}
 
 		void Go();

@@ -19,7 +19,7 @@ TestApp::TestApp()
 	LoadTexture("knight", L"Assets/knight walk.gif");
 
 	debugText.string = L"3D POG";
-	debugText.pos = { -.3f, .6f };
+	debugText.pos = { -1, 1 };
 	LoadText(debugText, L"Arial", 1.0f / 10.0f, FColors::White);
 
 	shape = Triangle(gfx, 0, 0, .5f, FColors::White);
@@ -30,6 +30,7 @@ TestApp::TestApp()
 	knight.Load(gfx, memory, "knight", 8, {}, 12, true);
 
 	cube.Load(gfx, { 1, 2, 3 }, Transform3({ 0, 0, 4 }, 1, 0));
+	cube2.Load(gfx, { 3, 2, 1 }, Transform3({ 0, 0, 4 }, 1, 0));
 }
 
 void TestApp::Update(const float dt)
@@ -44,8 +45,14 @@ void TestApp::Update(const float dt)
 	kappa.WriteTransform(gfx, Transform2(0, 1, 0));
 	knight.WriteTransform(gfx, Transform2(0, .75f, 0));
 	cube.transform.Write(gfx, Transform3({ 0,0,4 }, 1, { r / 2.0f, 0, r }).viewMatrix);
+	cube2.transform.Write(gfx, Transform3({ 0,0,4 }, 1, { r / 2.0f, r, 0 }).viewMatrix);
+
+	
+	debugText.string = Widen(ToString(camera3.position.view.z));
+	UpdateText(debugText);
 
 	Render(cursor, flatR);
 	Render(cube, boxR);
+	Render(cube2, boxR);
 	RenderGUI(debugText);
 }

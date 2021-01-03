@@ -18,6 +18,7 @@ private:
 	float r = 0.0f;
 
 	rave::Cube cube;
+	rave::Cube cube2;
 
 	rave::Text debugText;
 };

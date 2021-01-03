@@ -27,6 +27,7 @@
     <ClCompile Include="Engine\Drawables\Source\Shape.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Animation.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Sprite.cpp" />
+    <ClCompile Include="Engine\Graphics\Include\DepthStencilBuffer.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Resource.cpp" />
     <ClCompile Include="Engine\Graphics\Source\Blender.cpp" />
     <ClCompile Include="Engine\Graphics\Source\ComputeShader.cpp" />
@@ -77,6 +78,7 @@
     <ClInclude Include="Engine\Graphics\Include\Blender.h" />
     <ClInclude Include="Engine\Graphics\Include\Buffer.h" />
     <ClInclude Include="Engine\Graphics\Include\ConstantBuffer.h" />
+    <ClInclude Include="Engine\Graphics\Include\DepthStencilBuffer.h" />
     <ClInclude Include="Engine\Graphics\Include\DirectX.h" />
     <ClInclude Include="Engine\Graphics\Include\Graphics.h" />
     <ClInclude Include="Engine\Graphics\Include\ImageDecoder.h" />

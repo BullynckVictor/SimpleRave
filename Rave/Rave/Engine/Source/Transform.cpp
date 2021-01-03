@@ -109,11 +109,72 @@ rave::Transform3::Transform3(const Vector3& pos, const Vector3& scale, const Vec
 rave::Matrix& rave::Transform3::Concatonate() noexcept
 {
 	Vector2 r = targetSize.relative / std::max(targetSize.relative.view.width, targetSize.relative.view.height);
-	viewMatrix = DirectX::XMMatrixTranspose(
+	Matrix twm =
 		  DirectX::XMMatrixScaling(scale.view.x, scale.view.y, scale.view.z)
 		* DirectX::XMMatrixRotationRollPitchYaw(rotation.view.x, rotation.view.y, rotation.view.z)
 		* DirectX::XMMatrixTranslation(position.view.x, position.view.y, position.view.z)
+	;
+	worldMatrix = DirectX::XMMatrixTranspose(twm);
+	viewMatrix = DirectX::XMMatrixTranspose(
+		  twm
+		* pCamera->matrix
 		* DirectX::XMMatrixPerspectiveLH(r.view.width, r.view.height, pCamera->nearPlane, pCamera->farPlane)
 	);
 	return viewMatrix;
+}
+
+void rave::Transform3::TransformPoint(Vector3& point) const noexcept
+{
+	DirectX::XMVECTOR vec = DirectX::XMVectorSet(
+		point.view.x,
+		point.view.y,
+		point.view.z,
+		1.0f
+	);
+	vec = DirectX::XMVector3Transform(vec, worldMatrix);
+	point.view.x = DirectX::XMVectorGetX(vec);
+	point.view.y = DirectX::XMVectorGetY(vec);
+	point.view.z = DirectX::XMVectorGetZ(vec);
+}
+
+rave::Vector3 rave::Transform3::GetTransformedPoint(Vector3 point) const noexcept
+{
+	TransformPoint(point);
+	return point;
+}
+
+rave::Camera3::Camera3() noexcept
+	:
+	position(0),
+	rotation(0),
+	nearPlane(0.5f),
+	farPlane(10.0f),
+	matrix()
+{
+	Concatonate();
+}
+
+rave::Camera3::Camera3(const Vector3& pos, const Vector3& rot, const float n, const float f) noexcept
+	:
+	position(pos),
+	rotation(rot),
+	nearPlane(n),
+	farPlane(f),
+	matrix()
+{
+	Concatonate();
+}
+
+rave::Matrix& rave::Camera3::Concatonate() noexcept
+{
+	const DirectX::XMVECTOR forwardBaseVector = DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+	const auto lookVector = DirectX::XMVector3Transform(forwardBaseVector,
+		DirectX::XMMatrixRotationRollPitchYaw(rotation.view.x, rotation.view.y, rotation.view.z)
+	);
+	const auto camPosition = DirectX::XMVectorSet(position.view.x, position.view.y, position.view.z, 1.0f);
+	const auto camTarget = DirectX::XMVectorAdd( camPosition, lookVector );
+
+	matrix = DirectX::XMMatrixLookAtLH(camPosition, camTarget, DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
+
+	return matrix;
 }

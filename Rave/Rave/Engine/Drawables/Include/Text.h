@@ -5,7 +5,7 @@
 
 namespace rave
 {
-	class Text : public GraphicsFriend, public Direct2DObject
+	class Text : public GraphicsFriend, public RenderTargetFriend
 	{
 	public:
 		Text() = default;
