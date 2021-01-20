@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/Buffer.h"
 
-rave::Buffer& rave::Buffer::Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data)
+rave::Buffer& rave::Buffer::Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data, const bool structured)
 {
 	this->writeAccess = writeAccess;
 
@@ -21,7 +21,7 @@ rave::Buffer& rave::Buffer::Load(Graphics& gfx, const bool writeAccess, const D3
 		bd.Usage = D3D11_USAGE_DEFAULT;
 		bd.CPUAccessFlags = 0u;
 	}
-	bd.MiscFlags = 0u;
+	bd.MiscFlags = (structured ? D3D11_RESOURCE_MISC_BUFFER_STRUCTURED : 0u);
 	bd.ByteWidth = byteWidth;
 	bd.StructureByteStride = stride;
 	D3D11_SUBRESOURCE_DATA sd = {};

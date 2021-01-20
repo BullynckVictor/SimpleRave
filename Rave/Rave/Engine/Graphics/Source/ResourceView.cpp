@@ -4,7 +4,6 @@ rave::ResourceView& rave::ResourceView::Load(Graphics& gfx, const Resource& reso
 {
 	HRESULT hr;
 	rave_check_hr(GetDevice(gfx)->CreateShaderResourceView(resource.GetResource(), &srvDesc, &pView));
-
 	return *this;
 }
 

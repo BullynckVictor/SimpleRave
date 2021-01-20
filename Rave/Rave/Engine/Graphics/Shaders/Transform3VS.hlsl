@@ -1,9 +1,21 @@
 cbuffer CBuf
 {
 	matrix transform;
+	matrix worldTransform;
 };
 
-float4 main(float3 pos : Position) : SV_Position
+struct VSOut
 {
-	return mul(float4(pos,1.0f),transform);
+	float3 worldPos : Position;
+	float3 normal   : Normal;
+	float4 pos		: SV_Position;
+};
+
+VSOut main(float3 pos : Position, float3 normal : Normal)
+{
+	VSOut vso;
+	vso.pos		 = mul(float4(pos, 1.0f), transform);
+	vso.worldPos = mul(float4(pos, 1.0f), worldTransform).xyz;
+	vso.normal	 = mul(normal, (float3x3)worldTransform);
+	return vso;
 }

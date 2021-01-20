@@ -184,7 +184,7 @@ void rave::Window::HideCursor() noexcept
 
 void rave::Window::Close() const noexcept
 {
-    PostMessage(hwnd, WM_QUIT, 0, 0);
+    PostMessage(hwnd, WM_CLOSE, 0, 0);
 }
 
 bool rave::Window::IsOpen() const noexcept

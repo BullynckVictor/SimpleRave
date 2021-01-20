@@ -8,11 +8,11 @@ namespace rave
 	public:
 		virtual ~Buffer() {}
 		template<typename C>
-		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const C& container)
+		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const C& container, const bool structured)
 		{
-			return Load(gfx, writeAccess, bindFlag, sizeof(C::value_type) * container.size(), sizeof(C::value_type), container.data());
+			return Load(gfx, writeAccess, bindFlag, sizeof(typename C::value_type) * container.size(), sizeof(typename C::value_type), container.data(), structured);
 		}
-		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data);
+		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data, const bool structured = false);
 		bool HasWriteAccess() const noexcept;
 
 		template<typename T>
@@ -38,6 +38,13 @@ namespace rave
 			return out;
 		}
 
+
+		template<typename C>
+		void Write(Graphics& gfx, const C& container)
+		{
+			Write(gfx, container.size() * sizeof(typename C::value_type), container.size() * sizeof(typename C::value_type), container.size(), container.data());
+		}
+
 	protected:
 		void Write(Graphics& gfx, const size_t rowPitch, const size_t depthPitch, const size_t size, const void* const data);
 
@@ -47,5 +54,7 @@ namespace rave
 	private:
 		ID3D11Resource* GetResource() const noexcept override;
 		bool writeAccess;
+
+		friend class BufferView;
 	};
 }

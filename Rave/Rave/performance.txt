@@ -2,14 +2,14 @@ Performance
 -----------
 
 
-Duration:	39.2365s
-#Frames:	44646
-Average:	0.000878835s
-FPS:		1137.87
+Duration:	20.2252s
+#Frames:	23492
+Average:	0.000860941s
+FPS:		1161.52
 
-0.0074545s away from 120fps
+0.00747239s away from 120fps
 
-Clear:		6.22842e-06s   ->   0.708713%
-Windows:	8.49188e-06s   ->   0.966266%
-Update:		0.000139069s   ->   15.8243%
-Draw:		0.000716969s   ->   81.5817%
+Clear:		6.6803e-06s   ->   0.775931%
+Windows:	1.64321e-05s   ->   1.90862%
+Update:		0.000231851s   ->   26.93%
+Draw:		0.000597522s   ->   69.4033%

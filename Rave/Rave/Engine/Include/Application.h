@@ -13,6 +13,7 @@
 #include "Engine/GUI/Include/Gui.h"
 #include "Engine/Drawables/Include/FlatRenderer.h"
 #include "Engine/Drawables/Include/Text.h"
+#include "Engine/Drawables/Include/Light.h"
 
 namespace rave
 {
@@ -61,29 +62,9 @@ namespace rave
 
 		FlatRenderer flatR;
 		FlatRenderer textureR;
-		FlatRenderer boxR;
-	};
+		FlatRenderer renderer3D;
+		FlatRenderer flat3D;
 
-	template<typename T>
-	requires std::is_base_of_v<Application, T>
-	void Execute()
-	{
-		try
-		{
-			ComManager com;
-			T{}.Go();
-		}
-		catch (rave::Exception& e)
-		{
-			MessageBox(NULL, e.whide_what(), L"rave::Exception", MB_OK | MB_ICONEXCLAMATION);
-		}
-		catch (std::exception& e)
-		{
-			MessageBox(NULL, Widen(e.what()).c_str(), L"std::exception", MB_OK | MB_ICONEXCLAMATION);
-		}
-		catch (...)
-		{
-			MessageBox(NULL, L"Unknown type caught", L"Unknown exception", MB_OK | MB_ICONEXCLAMATION);
-		}
-	}
+		LightBuffer lights;
+	};
 }

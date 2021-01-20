@@ -7,7 +7,7 @@ namespace rave
 	struct AnimationState : public GraphicsFriend
 	{
 		AnimationState(Graphics& gfx, GraphicsMemory& memory, const char* textureKey, const size_t nFrames);
-		std::vector<VertexBuffer<TVertex>> vertices;
+		std::vector<VertexBuffer<TVertex2>> vertices;
 		TextureView* pTexture;
 	};
 

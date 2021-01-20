@@ -6,22 +6,24 @@ rave::Application::Application(const wchar_t* windowName, const int width, const
 	:
 	wnd(gfx, windowName, width, height, useMouseEvents, useMouseRawDeltas, className)
 {
-	memory.inputLayoutCodex.Add(  "position2",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex2))}));
-	memory.inputLayoutCodex.Add(  "position3",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/Transform3VS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32B32_FLOAT, sizeof(Vertex3))}));
-	memory.inputLayoutCodex.Add(  "texture",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/TextureVS.cso", {InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex2)), InputLayoutElement("TexCoord", DXGI_FORMAT_R32G32_FLOAT, sizeof(Vertex2)) }));
+	memory.inputLayoutCodex.Add(  "position2",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso",	{InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT,	sizeof(Vertex2))}));
+	memory.inputLayoutCodex.Add(  "texture",	InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/TextureVS.cso",	{InputLayoutElement("Position", DXGI_FORMAT_R32G32_FLOAT,	sizeof(Vertex2)), InputLayoutElement("TexCoord", DXGI_FORMAT_R32G32_FLOAT,	  sizeof(Vertex2)) }));
+	memory.inputLayoutCodex.Add(  "light3",		InputLayout().Load( gfx, L"Engine/Graphics/ShaderBins/Transform3VS.cso",{InputLayoutElement("Position", DXGI_FORMAT_R32G32B32_FLOAT,sizeof(Vertex3)), InputLayoutElement("Normal",	 DXGI_FORMAT_R32G32B32_FLOAT, sizeof(Vertex3)) }));
 	memory.vertexShaderCodex.Add( "position",	VertexShader().Load(gfx, L"Engine/Graphics/ShaderBins/PositionVS.cso"));
 	memory.vertexShaderCodex.Add( "transform2",	VertexShader().Load(gfx, L"Engine/Graphics/ShaderBins/Transform2VS.cso"));
 	memory.vertexShaderCodex.Add( "transform3",	VertexShader().Load(gfx, L"Engine/Graphics/ShaderBins/Transform3VS.cso"));
 	memory.vertexShaderCodex.Add( "texture",	VertexShader().Load(gfx, L"Engine/Graphics/ShaderBins/TextureVS.cso"));
 	memory.pixelShaderCodex.Add(  "color",		PixelShader().Load( gfx, L"Engine/Graphics/ShaderBins/ColorPS.cso"));
-	memory.pixelShaderCodex.Add(  "colorface",	PixelShader().Load( gfx, L"Engine/Graphics/ShaderBins/ColorFacePS.cso"));
+	memory.pixelShaderCodex.Add(  "light3",		PixelShader().Load( gfx, L"Engine/Graphics/ShaderBins/Light3PS.cso"));
+	memory.pixelShaderCodex.Add(  "flat3",		PixelShader().Load( gfx, L"Engine/Graphics/ShaderBins/Flat3PS.cso"));
 	memory.pixelShaderCodex.Add(  "texture",	PixelShader().Load( gfx, L"Engine/Graphics/ShaderBins/TexturePS.cso"));
 	memory.samplerCodex.Add(	  "linear",		Sampler().Load(gfx, D3D11_FILTER_MIN_MAG_MIP_LINEAR));
 	memory.samplerCodex.Add(	  "pixel",		Sampler().Load(gfx, D3D11_FILTER_MIN_MAG_MIP_POINT));
 
-	flatR	.Load(gfx, memory, "position2", "color", "transform2");
-	boxR	.Load(gfx, memory, "position3", "colorface", "transform3");
-	textureR.Load(gfx, memory, "texture", "texture", "texture");
+	flatR		.Load(gfx, memory, "position2", "color",	"transform2");
+	renderer3D	.Load(gfx, memory, "light3",	"light3",	"transform3");
+	textureR	.Load(gfx, memory, "texture",	"texture",	"texture");
+	flat3D		.Load(gfx, memory, "light3",	"flat3",	"transform3");
 
 
 	Transform2::pCamera = &camera2;
@@ -71,6 +73,7 @@ rave::Vector2 rave::Application::MousePos() const noexcept
 void rave::Application::ControllCamera(const float dt, const float moveSpeed, const float rotationSpeed, const float scrollSpeed) noexcept
 {
 	Vector2 delta;
+	Vector3 delta3;
 	float rDelta = 0.0f;
 
 	for (size_t c = 0; c < 255; c++)
@@ -81,24 +84,40 @@ void rave::Application::ControllCamera(const float dt, const float moveSpeed, co
 			case 'Q':
 			case VK_LEFT:
 				delta.view.x -= 1;
+				delta3.view.x -= 1;
 				break;
 			case 'D':
 			case VK_RIGHT:
 				delta.view.x += 1;
+				delta3.view.x += 1;
 				break;
 			case 'Z':
 			case VK_UP:
 				delta.view.y += 1;
+				delta3.view.z += 1;
 				break;
 			case 'S':
 			case VK_DOWN:
 				delta.view.y -= 1;
+				delta3.view.z -= 1;
 				break;
+			case VK_SPACE:
+				delta3.view.y += 1;
+				break;
+			case VK_SHIFT:
+				delta3.view.y -= 1;
+				break;
+
 			case 'A':
 				rDelta += rotationSpeed * dt;
 				break;
 			case 'E':
 				rDelta -= rotationSpeed * dt;
+				break;
+
+			case VK_ESCAPE:
+				wnd.Close();
+				break;
 			}
 	}
 
@@ -110,11 +129,11 @@ void rave::Application::ControllCamera(const float dt, const float moveSpeed, co
 
 	Vector3 mDelta;
 	while (const auto d = wnd.mouse.GetRawDelta())
-		mDelta = { (float)d->y, (float)d->x };
+		mDelta += { (float)d->y, (float)d->x, 0 };
 
 	camera3.rotation.view.z += rDelta;
-//	camera3.rotation += mDelta * dt;
-	camera3.position += (Transform3(0, 1, Vector3() - camera3.rotation).GetTransformedPoint(Vector3(delta).Normalized()) * moveSpeed * dt);
+	camera3.rotation += mDelta * dt; //Transform3(0, 1, Vector3() - camera3.rotation).GetTransformedPoint(mDelta.Normalized()) * dt;
+	camera3.position += Transform3(0, 1, Vector3() - camera3.rotation).GetTransformedPoint(delta3.Normalized()) * moveSpeed * dt;
 	camera3.position.view.z += -sDelta / scrollSpeed;
 
 	camera3.Concatonate();

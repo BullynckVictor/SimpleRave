@@ -22,6 +22,7 @@
     <ClCompile Include="Engine\Audio\Source\AudioManager.cpp" />
     <ClCompile Include="Engine\Audio\Source\Sound.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Cube.cpp" />
+    <ClCompile Include="Engine\Drawables\Source\Light.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Text.cpp" />
     <ClCompile Include="Engine\Drawables\Source\FlatRenderer.cpp" />
     <ClCompile Include="Engine\Drawables\Source\Shape.cpp" />
@@ -68,6 +69,8 @@
     <ClInclude Include="Engine\Drawables\Include\Cube.h" />
     <ClInclude Include="Engine\Drawables\Include\Drawable.h" />
     <ClInclude Include="Engine\Drawables\Include\FlatRenderer.h" />
+    <ClInclude Include="Engine\Drawables\Include\Light.h" />
+    <ClInclude Include="Engine\Drawables\Include\Material.h" />
     <ClInclude Include="Engine\Drawables\Include\Shape.h" />
     <ClInclude Include="Engine\Drawables\Include\Animation.h" />
     <ClInclude Include="Engine\Drawables\Include\Sprite.h" />
@@ -125,13 +128,19 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Engine\Graphics\Shaders\ColorFacePS.hlsl">
+    <FxCompile Include="Engine\Graphics\Shaders\ColorPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="Engine\Graphics\Shaders\ColorPS.hlsl">
+    <FxCompile Include="Engine\Graphics\Shaders\Flat3PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Engine\Graphics\Shaders\Light3PS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
@@ -183,6 +192,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Engine\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Graphics\Shaders\Light.hlsli" />
+    <None Include="Engine\Graphics\Shaders\Material.hlsli" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

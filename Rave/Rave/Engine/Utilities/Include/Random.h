@@ -11,8 +11,16 @@ namespace rave
 	{
 		if constexpr (std::is_integral_v<T>)
 		{
-			std::uniform_int_distribution<T> dist(from, to);
-			return dist(rng);
+			if constexpr (sizeof (T) == 1)
+			{
+				std::uniform_int_distribution<short> dist(from, to);
+				return static_cast<T>(dist(rng) & 0xFF);
+			}
+			else
+			{
+				std::uniform_int_distribution<T> dist(from, to);
+				return dist(rng);
+			}
 		}
 		else
 		{
@@ -27,16 +35,16 @@ namespace rave
 		return Random<T>(0, to);
 	}
 
-	template<typename T = char>
-	T RandomChar(const T from, const T to)
+	template<typename C>
+	void Randomise(C& container, const typename C::value_type& from, const typename C::value_type& to)
 	{
-		std::uniform_int_distribution<short> dist(from, to);
-		return static_cast<T>(dist(rng) & 0xFF);
+		for (auto& element : container)
+			element = Random<typename C::value_type>(from, to);
 	}
 
-	template<typename T = char>
-	T RandomChar(const T to = std::numeric_limits<T>::max())
+	template<typename C>
+	void Randomise(C& container, const typename C::value_type& to = std::numeric_limits<typename C::value_type>::max())
 	{
-		return RandomChar<T>(0, to);
+		Randomise(container, 0, to);
 	}
 }

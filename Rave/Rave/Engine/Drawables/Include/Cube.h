@@ -9,11 +9,13 @@ namespace rave
 		Cube& Load(Graphics& gfx, const Vector3& dim, const Transform3& transform);
 		void Bind(Graphics& gfx) const;
 
-		ConstantBuffer<Matrix> transform;
-		
+		void WriteTransform(Graphics& gfx, const Transform3& transform);
+		Material material;
+
 	private:
-		VertexBuffer<Vertex3> vertices;
+		ConstantBuffer<MatrixBuffer> transform;
+		ConstantBuffer<WideMaterial> materialBuffer;
+		VertexBuffer<NVertex3> vertices;
 		IndexBuffer indices;
-		BufferView colors;
 	};
 }

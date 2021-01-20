@@ -10,7 +10,7 @@ namespace rave
 	public:
 		ConstantBuffer& Load(Graphics& gfx, const T& value, const bool writeAccess = false)
 		{
-			if constexpr (sizeof(T) % 16)
+			if constexpr (bool(sizeof(T) % 16))
 			{
 				static constexpr size_t size = (sizeof(T) / 16 + 1) * 16;
 				std::vector<unsigned char> data(size);

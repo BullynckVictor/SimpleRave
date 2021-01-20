@@ -6,15 +6,28 @@
 #include "Engine/Utilities/Include/Vector.h"
 #include "Engine/Include/MemoryManager.h"
 #include "Engine/Include/Transform.h"
+#include "Engine/Drawables/Include/Material.h"
 
 namespace rave
 {
 	typedef D3D11_PRIMITIVE_TOPOLOGY Topology;
 
-	struct TVertex
+	struct TVertex2
 	{
 		Vertex2 pos;
 		Vertex2 tex;
+	};
+
+	struct NVertex3
+	{
+		Vertex3 pos;
+		Vertex3 normal;
+	};
+
+	struct MatrixBuffer
+	{
+		Matrix view;
+		Matrix world;
 	};
 
 	template<typename T>

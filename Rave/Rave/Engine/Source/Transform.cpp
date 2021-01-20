@@ -167,14 +167,15 @@ rave::Camera3::Camera3(const Vector3& pos, const Vector3& rot, const float n, co
 
 rave::Matrix& rave::Camera3::Concatonate() noexcept
 {
-	const DirectX::XMVECTOR forwardBaseVector = DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
-	const auto lookVector = DirectX::XMVector3Transform(forwardBaseVector,
-		DirectX::XMMatrixRotationRollPitchYaw(rotation.view.x, rotation.view.y, rotation.view.z)
-	);
+	Matrix rot = 
+		DirectX::XMMatrixRotationX(rotation.view.x) *
+		DirectX::XMMatrixRotationY(rotation.view.y) *
+		DirectX::XMMatrixRotationZ(rotation.view.z);
+	const auto lookVector = DirectX::XMVector3Transform(DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f), rot);
 	const auto camPosition = DirectX::XMVectorSet(position.view.x, position.view.y, position.view.z, 1.0f);
 	const auto camTarget = DirectX::XMVectorAdd( camPosition, lookVector );
 
-	matrix = DirectX::XMMatrixLookAtLH(camPosition, camTarget, DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
+	matrix = DirectX::XMMatrixLookAtLH(camPosition, camTarget, DirectX::XMVector3Transform(DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), rot));
 
 	return matrix;
 }

@@ -8,6 +8,7 @@ rave::RenderTarget& rave::RenderTarget::Load(Graphics& gfx, Texture& texture)
 	desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
 	desc.Texture2D = D3D11_TEX2D_RTV{ 0 };
+	desc.Texture2D.MipSlice = 0;
 
 	rave_check_hr(GetDevice(gfx)->CreateRenderTargetView(texture.pTexture.Get(), &desc, &pTarget));
 

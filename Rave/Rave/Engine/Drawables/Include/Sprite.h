@@ -15,7 +15,7 @@ namespace rave
 		ConstantBuffer<Matrix>	transform;
 
 	private:
-		VertexBuffer<TVertex> vertices;
+		VertexBuffer<TVertex2> vertices;
 
 		Sampler* pSampler = nullptr;
 		TextureView* pTexture = nullptr;

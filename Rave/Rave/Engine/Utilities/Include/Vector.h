@@ -294,4 +294,10 @@ namespace rave
 		static constexpr FColor RaveBlue	= Make( 0.051f, 0.118f, 0.169f );
 		static constexpr FColor RaveYellow	= Make( 0.949f, 0.835f, 0.255f );
 	}
+
+	template<size_t S>
+	class Padding
+	{
+		unsigned char padding[S];
+	};
 }

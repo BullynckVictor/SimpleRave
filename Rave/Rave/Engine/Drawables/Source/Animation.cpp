@@ -85,7 +85,7 @@ rave::AnimationState::AnimationState(Graphics& gfx, GraphicsMemory& memory, cons
 	vertices.reserve(nFrames);
 	for (size_t i = 0; i < nFrames; i++)
 	{
-		VertexBuffer<TVertex> v;
+		VertexBuffer<TVertex2> v;
 		v.Load(
 			gfx,
 			{
