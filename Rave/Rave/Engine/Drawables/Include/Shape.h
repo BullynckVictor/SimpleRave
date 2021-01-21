@@ -20,7 +20,7 @@ namespace rave
 
 	private:
 		Topology topology;
-		size_t size;
+		uint32_t size;
 	};
 
 	Shape Triangle(Graphics& gfx, const Vector2& pos, const float rotation, const float scale, const FColor color, const bool fill = true, const bool write = true);

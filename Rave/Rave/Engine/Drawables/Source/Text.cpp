@@ -45,7 +45,7 @@ void rave::Text::Update(Graphics& gfx, RenderTarget& target, Vector2 boundingSiz
 
 	rave_check_hr(GetDWFactory(gfx)->CreateTextLayout(
 		string.c_str(),
-		string.size(),
+		(uint32_t)string.size(),
 		pFormat.Get(),
 		boundingSize.view.x,
 		boundingSize.view.y,

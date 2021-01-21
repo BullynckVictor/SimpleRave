@@ -138,10 +138,10 @@
     <ClCompile Include="Engine\Drawables\Source\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Graphics\Include\DepthStencilBuffer.cpp">
+    <ClCompile Include="Engine\Drawables\Source\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Drawables\Source\Light.cpp">
+    <ClCompile Include="Engine\Graphics\Source\DepthStencilBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

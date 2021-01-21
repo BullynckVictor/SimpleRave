@@ -2,6 +2,7 @@
 #include "Engine/Graphics/Include/DirectX.h"
 #include "Engine/Utilities/Include/Vector.h"
 #include "Engine/Include/TargetSize.h"
+#include "Engine/Graphics/Include/ConstantBuffer.h"
 
 namespace rave
 {
@@ -58,6 +59,13 @@ namespace rave
 		float farPlane;
 
 		Matrix matrix;
+
+		void Load (Graphics& gfx);
+		void Write(Graphics& gfx);
+		void Bind (Graphics& gfx);
+
+	private:
+		ConstantBuffer<Vector3> camposbuffer;
 	};
 
 	class Transform3

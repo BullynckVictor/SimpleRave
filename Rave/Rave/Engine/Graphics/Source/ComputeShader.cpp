@@ -23,7 +23,7 @@ void rave::ComputeShader::Run(Graphics& gfx, const std::vector<ResourceView>& vi
 	{
 		rawViews.emplace_back(views[i].pView.Get());
 	}
-	GetContext(gfx)->CSSetShaderResources(0u, views.size(), rawViews.data());
+	GetContext(gfx)->CSSetShaderResources(0u, (uint32_t)views.size(), rawViews.data());
 
 	std::vector<ID3D11UnorderedAccessView*> rawUAVs;
 	rawUAVs.reserve(uavs.size());
@@ -31,7 +31,7 @@ void rave::ComputeShader::Run(Graphics& gfx, const std::vector<ResourceView>& vi
 	{
 		rawUAVs.emplace_back(uavs[i].pUAV.Get());
 	}
-	GetContext(gfx)->CSSetUnorderedAccessViews(0u, uavs.size(), rawUAVs.data(), NULL);
+	GetContext(gfx)->CSSetUnorderedAccessViews(0u, (uint32_t)uavs.size(), rawUAVs.data(), NULL);
 	GetContext(gfx)->Dispatch(x, y, z);
 
 	ID3D11UnorderedAccessView* nullUAV = nullptr;

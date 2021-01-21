@@ -9,8 +9,8 @@ namespace rave
 	class Texture : public Resource
 	{
 	public:
-		Texture& Load(Graphics& gfx, const size_t width, const size_t height, const size_t byteWidth, const DXGI_FORMAT format, const void* pData, const Flag<Resource> flags = bindResourceView);
-		Texture& Load(Graphics& gfx, ImageDecoder& decoder, const size_t byteWidth, const DXGI_FORMAT format, const wchar_t* fileName, size_t* pWidth = nullptr, size_t* pHeight = nullptr, const bool shaderResource = true);
+		Texture& Load(Graphics& gfx, const uint32_t width, const uint32_t height, const uint32_t byteWidth, const DXGI_FORMAT format, const void* pData, const Flag<Resource> flags = bindResourceView);
+		Texture& Load(Graphics& gfx, ImageDecoder& decoder, const uint32_t byteWidth, const DXGI_FORMAT format, const wchar_t* fileName, uint32_t* pWidth = nullptr, uint32_t* pHeight = nullptr, const bool shaderResource = true);
 		DXGI_FORMAT GetFormat() const noexcept;
 
 		void Save(Graphics& gfx, ImageDecoder& decoder, const wchar_t* filename, const size_t byteWidth = 4);

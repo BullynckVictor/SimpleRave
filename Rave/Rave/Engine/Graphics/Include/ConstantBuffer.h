@@ -26,12 +26,12 @@ namespace rave
 
 		void Write(Graphics& gfx, const T& value)
 		{
-			if constexpr (sizeof (T) % 16)
+			if constexpr (bool(sizeof (T) % 16))
 			{
 				static constexpr size_t size = (sizeof(T) / 16 + 1) * 16;
 				std::vector<unsigned char> data(size);
 				memcpy(data.data(), &value, size);
-				Buffer::Write(gfx, 0, 0, size, &data.data());
+				Buffer::Write(gfx, 0, 0, size, data.data());
 			}
 			else
 			{
@@ -39,19 +39,19 @@ namespace rave
 			}
 		}
 
-		void BindToPixelShader(Graphics& gfx) const noexcept
+		void BindToPixelShader(Graphics& gfx, const uint32_t slot = 0) const noexcept
 		{
-			GetContext(gfx)->PSSetConstantBuffers(0u, 1u, pBuffer.GetAddressOf());
+			GetContext(gfx)->PSSetConstantBuffers(slot, 1u, pBuffer.GetAddressOf());
 		}
 
-		void BindToVertexShader(Graphics& gfx) const noexcept
+		void BindToVertexShader(Graphics& gfx, const uint32_t slot = 0) const noexcept
 		{
-			GetContext(gfx)->VSSetConstantBuffers(0u, 1u, pBuffer.GetAddressOf());
+			GetContext(gfx)->VSSetConstantBuffers(slot, 1u, pBuffer.GetAddressOf());
 		}
 
-		void BindToComputeShader(Graphics& gfx) const noexcept
+		void BindToComputeShader(Graphics& gfx, const uint32_t slot = 0) const noexcept
 		{
-			GetContext(gfx)->CSSetConstantBuffers(0u, 1u, pBuffer.GetAddressOf());
+			GetContext(gfx)->CSSetConstantBuffers(slot, 1u, pBuffer.GetAddressOf());
 		}
 	};
 }

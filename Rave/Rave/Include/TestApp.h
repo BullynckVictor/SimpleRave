@@ -16,7 +16,7 @@ private:
 	rave::Sprite mario;
 	rave::Animation knight;
 	float r = 0.0f;
-	size_t f = 0;
+	uint32_t f = 0;
 
 	rave::Cube cube;
 	rave::Cube light;

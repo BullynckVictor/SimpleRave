@@ -223,17 +223,17 @@ namespace rave
 		}
 
 		std::array<T, D> data;
-		VectorView<std::min(4u, D), T> view;
+		VectorView<std::min((size_t)4u, D), T> view;
 	};
 
-	typedef Vector<2, size_t> Size;
-	typedef Vector<2, float>  Vector2;
-	typedef Vector<3, float>  Vector3;
-	typedef Vector<4, float>  Vector4;
-	typedef Vector<2, float>  Vertex2;
-	typedef Vector<3, float>  Vertex3;
-	typedef Vector<4, unsigned char> Color;
-	typedef Vector<4, float>		 FColor;
+	typedef Vector<(size_t)2, uint32_t>  Size;
+	typedef Vector<(size_t)2, float>  Vector2;
+	typedef Vector<(size_t)3, float>  Vector3;
+	typedef Vector<(size_t)4, float>  Vector4;
+	typedef Vector<(size_t)2, float>  Vertex2;
+	typedef Vector<(size_t)3, float>  Vertex3;
+	typedef Vector<(size_t)4, unsigned char> Color;
+	typedef Vector<(size_t)4, float>		 FColor;
 
 	constexpr Color  ConvertColor(const FColor color)
 	{

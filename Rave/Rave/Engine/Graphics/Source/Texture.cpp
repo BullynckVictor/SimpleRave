@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/Texture.h"
 
-rave::Texture& rave::Texture::Load(Graphics& gfx, const size_t width, const size_t height, const size_t byteWidth, const DXGI_FORMAT format, const void* pData, const Flag<Resource> flag)
+rave::Texture& rave::Texture::Load(Graphics& gfx, const uint32_t width, const uint32_t height, const uint32_t byteWidth, const DXGI_FORMAT format, const void* pData, const Flag<Resource> flag)
 {
 	this->format = format;
 
@@ -48,7 +48,7 @@ rave::Texture& rave::Texture::Load(Graphics& gfx, const size_t width, const size
 	return *this;
 }
 
-rave::Texture& rave::Texture::Load(Graphics& gfx, ImageDecoder& decoder, const size_t byteWidth, const DXGI_FORMAT format, const wchar_t* filename, size_t* pWidth, size_t* pHeight, const bool shaderResource)
+rave::Texture& rave::Texture::Load(Graphics& gfx, ImageDecoder& decoder, const uint32_t byteWidth, const DXGI_FORMAT format, const wchar_t* filename, uint32_t* pWidth, uint32_t* pHeight, const bool shaderResource)
 {
 	this->format = format;
 
@@ -95,7 +95,7 @@ void rave::Texture::Save(Graphics& gfx, ImageDecoder& decoder, const wchar_t* fi
 {
 	auto vec = Read<BYTE>(gfx, byteWidth);
 	auto size = GetSize();
-	decoder.SaveImage(filename, size.view.x, size.view.y, vec.size(), byteWidth * size.view.x, GetWICFormat(), vec.data());
+	decoder.SaveImage(filename, size.view.x, size.view.y, (uint32_t)vec.size(), byteWidth * size.view.x, GetWICFormat(), vec.data());
 }
 
 rave::Size rave::Texture::GetSize() const noexcept

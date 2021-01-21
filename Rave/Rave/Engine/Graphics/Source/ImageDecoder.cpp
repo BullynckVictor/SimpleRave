@@ -43,7 +43,7 @@ void rave::ImageDecoder::CopyPixels(void* pData, const UINT size, const UINT str
 	rave_check_hr( pConverter->CopyPixels(NULL, stride, size, (BYTE*)pData) );
 }
 
-void rave::ImageDecoder::SaveImage(std::wstring_view filename, const UINT width, const UINT height, const UINT size, const UINT stride, WICPixelFormatGUID format, void* pData, const size_t nPaletteColors, const bool useAlpha)
+void rave::ImageDecoder::SaveImage(std::wstring_view filename, const UINT width, const UINT height, const UINT size, const UINT stride, WICPixelFormatGUID format, void* pData, const UINT nPaletteColors, const bool useAlpha)
 {
 	HRESULT hr;
 

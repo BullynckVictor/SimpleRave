@@ -179,3 +179,18 @@ rave::Matrix& rave::Camera3::Concatonate() noexcept
 
 	return matrix;
 }
+
+void rave::Camera3::Load(Graphics& gfx)
+{
+	camposbuffer.Load(gfx, position, true);
+}
+
+void rave::Camera3::Write(Graphics& gfx)
+{
+	camposbuffer.Write(gfx, position);
+}
+
+void rave::Camera3::Bind(Graphics& gfx)
+{
+	camposbuffer.BindToPixelShader(gfx, 1);
+}

@@ -5,7 +5,7 @@ rave::Shape& rave::Shape::Load(Graphics& gfx, const std::vector<Vertex2>& vertic
 	vertices.Load(gfx, vertices_, write);
 	color.Load(gfx, color_, write);
 	transform.Load(gfx, transform_.viewMatrix, write);
-	size = vertices_.size();
+	size = (uint32_t)vertices_.size();
 	topology = fill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP;
 
 	return *this;

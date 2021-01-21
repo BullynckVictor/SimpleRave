@@ -34,7 +34,8 @@ TestApp::TestApp()
 	Randomise(dim.data, 1.5, 3);
 	cube.material.diffuse = Colors::Red;
 	cube.material.specular = Colors::White;
-	cube.material.specularPower = 64;
+	cube.material.specularIntensity = 0.5f;
+	cube.material.specularPower = 8;
 	cube.Load(gfx, dim, Transform3({ 0, 0, 4 }, 1, 0));
 
 	Light point;
@@ -49,6 +50,7 @@ TestApp::TestApp()
 	light.Load(gfx, .25f, Transform3(lights.lights[0].position, 1, 0));
 
 	camera3.farPlane = 50.0f;
+	camera3.Load(gfx);
 
 	wnd.DisableCursor();
 }
@@ -57,21 +59,28 @@ void TestApp::Update(const float dt)
 {
 	ControllCamera(dt * 3.0f);
 	if (dt < 1.0f / 60.0f)
-	r += dt;
 	f++;
 	Vector2 mpos = MousePos();
+	if (!wnd.kbd.KeyIsPressed(VK_RETURN))
+		r += dt;
+
 	cursor.WriteTransform(gfx, Transform2(MousePos(), 1, Radian(45)));
 	shape.WriteTransform(gfx, Transform2(0, 1, r));
 	mario.WriteTransform(gfx, {});
 	kappa.WriteTransform(gfx, Transform2(0, 1, 0));
 	knight.WriteTransform(gfx, Transform2(0, .75f, 0));
-	cube.WriteTransform(gfx, Transform3({ 0,0,4 }, 1, { r / 2.0f, 0, r }));
+	cube.WriteTransform(gfx, Transform3({ 0,0,4 }, 1, 0));
+	cube.WriteTransform(gfx, Transform3({ 0,0,4 + r / 5 }, 1, { r / 2.0f, 0, r }));
 	light.WriteTransform(gfx, Transform3(lights.lights[0].position, 1, 0));
+
 
 	debugText.string  = L"x: " + Widen(ToString(camera3.position.view.x)) + L'\n';
 	debugText.string += L"y: " + Widen(ToString(camera3.position.view.y)) + L'\n';
 	debugText.string += L"z: " + Widen(ToString(camera3.position.view.z)) + L'\n';
 	UpdateText(debugText);
+
+	camera3.Write(gfx);
+	camera3.Bind(gfx);
 
 	lights.Bind(gfx);
 	Render(cube, renderer3D);
