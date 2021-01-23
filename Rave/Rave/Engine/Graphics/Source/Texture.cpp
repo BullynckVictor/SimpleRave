@@ -91,7 +91,7 @@ DXGI_FORMAT rave::Texture::GetFormat() const noexcept
 	return format;
 }
 
-void rave::Texture::Save(Graphics& gfx, ImageDecoder& decoder, const wchar_t* filename, const size_t byteWidth)
+void rave::Texture::Save(Graphics& gfx, ImageDecoder& decoder, const wchar_t* filename, const uint32_t byteWidth)
 {
 	auto vec = Read<BYTE>(gfx, byteWidth);
 	auto size = GetSize();

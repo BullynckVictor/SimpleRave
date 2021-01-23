@@ -13,9 +13,9 @@ namespace rave
 		Texture& Load(Graphics& gfx, ImageDecoder& decoder, const uint32_t byteWidth, const DXGI_FORMAT format, const wchar_t* fileName, uint32_t* pWidth = nullptr, uint32_t* pHeight = nullptr, const bool shaderResource = true);
 		DXGI_FORMAT GetFormat() const noexcept;
 
-		void Save(Graphics& gfx, ImageDecoder& decoder, const wchar_t* filename, const size_t byteWidth = 4);
+		void Save(Graphics& gfx, ImageDecoder& decoder, const wchar_t* filename, const uint32_t byteWidth = 4);
 		template<typename T>
-		std::vector<T> Read(Graphics& gfx, const size_t byteWidth = 4)
+		std::vector<T> Read(Graphics& gfx, const uint32_t byteWidth = 4)
 		{
 			HRESULT hr;
 
@@ -32,7 +32,7 @@ namespace rave
 			ComPtr<ID3D11Texture2D> pDest;
 
 			rave_check_hr(GetDevice(gfx)->CreateTexture2D(&desc, nullptr, &pDest));
-			Resource::Read(gfx, pDest.Get(), pTexture.Get(), reinterpret_cast<BYTE*>(out.data()), out.size() * sizeof T, desc.Height);
+			Resource::Read(gfx, pDest.Get(), pTexture.Get(), reinterpret_cast<BYTE*>(out.data()), (uint32_t)out.size() * sizeof T, desc.Height);
 
 			return out;
 		}

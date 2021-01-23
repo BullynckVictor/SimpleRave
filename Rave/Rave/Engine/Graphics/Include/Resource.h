@@ -11,7 +11,7 @@ namespace rave
 		virtual ~Resource() {}
 
 	protected:
-		static void Read(Graphics& gfx, ID3D11Resource* pDestResource, ID3D11Resource* pSourceResource, BYTE* pData, const size_t size, const size_t nRows);
+		static void Read(Graphics& gfx, ID3D11Resource* pDestResource, ID3D11Resource* pSourceResource, BYTE* pData, const uint32_t size, const uint32_t nRows);
 
 		virtual ID3D11Resource* GetResource() const noexcept = 0;
 		friend class ResourceView;

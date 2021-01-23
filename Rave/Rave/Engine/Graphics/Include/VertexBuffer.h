@@ -10,12 +10,12 @@ namespace rave
 	public:
 		VertexBuffer& Load(Graphics& gfx, const std::vector<V>& vertices, const bool writeAccess = false)
 		{
-			Buffer::Load(gfx, writeAccess, D3D11_BIND_VERTEX_BUFFER, sizeof(V) * vertices.size(), sizeof(V), vertices.data());
+			Buffer::Load(gfx, writeAccess, D3D11_BIND_VERTEX_BUFFER, sizeof(V) * (uint32_t)vertices.size(), sizeof(V), vertices.data());
 			return *this;
 		}
 		void Write(Graphics& gfx, const std::vector<V>& vertices)
 		{
-			Buffer::Write(gfx, sizeof(V) * vertices.size(), 0u, sizeof(V) * vertices.size(), vertices.data());
+			Buffer::Write(gfx, sizeof(V) * (uint32_t)vertices.size(), 0u, sizeof(V) * (uint32_t)vertices.size(), vertices.data());
 		}
 
 		void Bind(Graphics& gfx) const noexcept

@@ -66,6 +66,8 @@ StyleCopReport.xml
 *.ilk
 *.meta
 *.obj
+!Rave/Rave/Assets/Models/**/*.obj
+!Rave/Rave/Libraries/Assimp/*
 *.iobj
 *.pch
 *.pdb

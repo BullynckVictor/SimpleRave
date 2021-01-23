@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/Buffer.h"
 
-rave::Buffer& rave::Buffer::Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data, const bool structured)
+rave::Buffer& rave::Buffer::Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const uint32_t byteWidth, const uint32_t stride, const void* const data, const bool structured)
 {
 	this->writeAccess = writeAccess;
 
@@ -31,7 +31,7 @@ rave::Buffer& rave::Buffer::Load(Graphics& gfx, const bool writeAccess, const D3
 	return *this;
 }
 
-void rave::Buffer::Write(Graphics& gfx, const size_t rowPitch, const size_t depthPitch, const size_t size, const void* const data)
+void rave::Buffer::Write(Graphics& gfx, const uint32_t rowPitch, const uint32_t depthPitch, const uint32_t size, const void* const data)
 {
 	rave_assert_info(writeAccess, L"Buffer must have writeAccess in order to write to it.\nThis value can be changed in the constructor");
 	HRESULT hr;

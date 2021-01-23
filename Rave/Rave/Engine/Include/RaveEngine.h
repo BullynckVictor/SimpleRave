@@ -14,6 +14,7 @@
 #include "Engine/Drawables/Include/Sprite.h"
 #include "Engine/Drawables/Include/Animation.h"
 #include "Engine/Drawables/Include/Cube.h"
+#include "Engine/Drawables/Include/Mesh.h"
 
 #include "Engine/GUI/Include/guiWindow.h"
 

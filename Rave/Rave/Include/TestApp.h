@@ -10,16 +10,12 @@ private:
 	void Update(const float dt) override;
 
 private:
-	rave::Shape shape;
-	rave::Shape cursor;
-	rave::Sprite kappa;
-	rave::Sprite mario;
-	rave::Animation knight;
 	float r = 0.0f;
 	uint32_t f = 0;
 
 	rave::Cube cube;
 	rave::Cube light;
+	rave::Mesh sponza;
 
 	rave::Text debugText;
 };

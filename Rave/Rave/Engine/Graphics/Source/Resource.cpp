@@ -1,6 +1,6 @@
 #include "Engine/Graphics/Include/Resource.h"
 
-void rave::Resource::Read(Graphics& gfx, ID3D11Resource* pDestResource, ID3D11Resource* pSourceResource, BYTE* pData, const size_t size, const size_t nRows)
+void rave::Resource::Read(Graphics& gfx, ID3D11Resource* pDestResource, ID3D11Resource* pSourceResource, BYTE* pData, const uint32_t size, const uint32_t nRows)
 {
 	HRESULT hr;
 

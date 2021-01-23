@@ -10,9 +10,9 @@ namespace rave
 		template<typename C>
 		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const C& container, const bool structured)
 		{
-			return Load(gfx, writeAccess, bindFlag, sizeof(typename C::value_type) * container.size(), sizeof(typename C::value_type), container.data(), structured);
+			return Load(gfx, writeAccess, bindFlag, sizeof(typename C::value_type) * (uint32_t)container.size(), sizeof(typename C::value_type), container.data(), structured);
 		}
-		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const size_t byteWidth, const size_t stride, const void* const data, const bool structured = false);
+		Buffer& Load(Graphics& gfx, const bool writeAccess, const D3D11_BIND_FLAG bindFlag, const uint32_t byteWidth, const uint32_t stride, const void* const data, const bool structured = false);
 		bool HasWriteAccess() const noexcept;
 
 		template<typename T>
@@ -42,11 +42,11 @@ namespace rave
 		template<typename C>
 		void Write(Graphics& gfx, const C& container)
 		{
-			Write(gfx, container.size() * sizeof(typename C::value_type), container.size() * sizeof(typename C::value_type), container.size(), container.data());
+			Write(gfx, (uint32_t)container.size() * sizeof(typename C::value_type), (uint32_t)container.size() * sizeof(typename C::value_type), (uint32_t)container.size(), container.data());
 		}
 
 	protected:
-		void Write(Graphics& gfx, const size_t rowPitch, const size_t depthPitch, const size_t size, const void* const data);
+		void Write(Graphics& gfx, const uint32_t rowPitch, const uint32_t depthPitch, const uint32_t size, const void* const data);
 
 	protected:
 		ComPtr<ID3D11Buffer> pBuffer;
